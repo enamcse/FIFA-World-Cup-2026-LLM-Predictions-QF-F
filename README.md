@@ -6,6 +6,10 @@ predicting the scorelines of the last 8 matches of the 2026 World Cup, run on th
 
 **Start here → [docs/RUNBOOK.md](docs/RUNBOOK.md)** for the step-by-step cluster instructions.
 
+**Ground rule:** the login node is only used to edit files and run `sbatch`/`squeue`.
+Everything else — installing Ollama, downloading weights, inference — happens inside
+SLURM jobs on compute nodes (artifacts land on shared `/home`, so downloads happen once).
+
 ## Remaining fixtures
 
 | ID  | Stage        | Match                   | Kickoff (UTC)      | Venue          |
@@ -51,45 +55,48 @@ win/draw/loss, plus MAE on goals. Implemented in [src/score.py](src/score.py).
 ## Model queue (priority order)
 
 Defined in [configs/models.json](configs/models.json); sized for the cluster's GPUs
-(H100 80GB / RTX 8000 48GB / V100 32GB). Summary:
+(H100 80GB / RTX 8000 48GB / V100 32GB). Single-GPU models run first (best backfill
+odds on a busy queue); multi-GPU models follow. Summary:
 
 | # | Model | Why | Fits |
 |---|-------|-----|------|
 | 1 | gpt-oss:20b | fast reasoning model, pipeline shakedown | any GPU |
-| 2 | gemma4:26b | newest Google open model | 48GB+ |
-| 3 | deepseek-r1:32b | reasoning distill | 48GB+ |
-| 4 | llama3.3:70b | Meta flagship at feasible size | 1× H100 |
-| 5 | gpt-oss:120b | within-family scaling comparison | 1× H100 |
-| 6 | glm-4.7-flash | GLM family (GLM-5 itself is too big) | 48GB+ |
-| 7 | mistral-small3.2 | Mistral representative | any GPU |
-| 8 | phi4:14b | strong small model | any GPU |
-| 9–10 | llama3.1:8b, llama3.2:3b | small/tiny baselines | any GPU |
-| 11 | qwen3.6:35b | optional strong extra | 48GB+ |
-| 12 | minimax-m2.7 | stretch: ~230B MoE | 2× H100 |
+| 2 | gemma4:26b | newest Google open model | any GPU |
+| 3 | deepseek-r1:32b | reasoning distill | any GPU |
+| 4 | glm-4.7-flash | GLM family, local-runnable size | any GPU |
+| 5 | mistral-small3.2 | Mistral representative | any GPU |
+| 6 | qwen3.6:35b | strong recent open family | 48GB+ |
+| 7 | phi4:14b | strong small model | any GPU |
+| 8–9 | llama3.1:8b, llama3.2:3b | small/tiny baselines | any GPU |
+| 10 | llama3.3:70b | Meta flagship at feasible size | 2× RTX 8000 or 1× H100 |
+| 11 | gpt-oss:120b | within-family scaling comparison | 2× RTX 8000 or 1× H100 |
+| 12 | minimax-m2.7 | stretch: ~230B MoE | 4× RTX 8000 or 2× H100 |
 
-GLM-5.x, DeepSeek-V4-Pro and Llama-405B don't fit the cluster — see
-`not_feasible` in the config for the arithmetic.
+**GLM-5.2 exists on the Ollama library but only as `glm-5.2:cloud`** — a 756B model
+hosted on Ollama's cloud with no downloadable weights, so it can't run on cluster
+GPUs (and cloud inference is outside this benchmark's scope). DeepSeek-V4-Pro and
+Llama-405B don't fit either — see `not_feasible` in the config for the arithmetic.
 
 ## Repo layout
 
 ```
-configs/models.json      model queue: tags, priorities, per-model SLURM resources
-data/matches.json        fixtures (edit TBD teams as rounds resolve)
-data/actuals.json        fill in real results after each match
-src/predict.py           Ollama client: greedy+sampled generations, full logging
-src/score.py             scoring + leaderboard (md/csv/json)
-slurm/predict.slurm      generic one-model GPU job
-slurm/run_queue.sh       submits the whole queue, chained one-after-one
-scripts/setup_ollama.sh  user-space Ollama install (no root)
-scripts/pull_model.sh    pre-download weights on the login node
-tests/smoke_test.sh      end-to-end test with a mock server, no GPU needed
-results/predictions/     aggregated predictions, one JSONL per model  (committed)
-results/scores/          leaderboard outputs                          (committed)
-logs/raw/                every raw model response                     (committed)
-logs/slurm/              SLURM job + ollama server logs               (committed)
+configs/models.json       model queue: tags, priorities, per-model SLURM resources
+data/matches.json         fixtures (edit TBD teams as rounds resolve)
+data/actuals.json         fill in real results after each match
+src/predict.py            Ollama client: greedy+sampled generations, full logging
+src/score.py              scoring + leaderboard (md/csv/json)
+slurm/predict.slurm       generic one-model GPU job (installs/pulls on the node)
+slurm/prefetch.slurm      CPU-only job to pre-download weights on a compute node
+slurm/run_queue.sh        submits the queue: chained by default, --parallel for deadlines
+scripts/ensure_ollama.sh  pinned user-space Ollama install; called inside jobs only
+tests/smoke_test.sh       end-to-end test with a mock server, no GPU needed
+results/predictions/      aggregated predictions, one JSONL per model  (committed)
+results/scores/           leaderboard outputs                          (committed)
+logs/raw/                 every raw model response                     (committed)
+logs/slurm/               SLURM job + ollama server logs               (committed)
 ```
 
-Everything needed to reproduce a number — model digest, Ollama version, seeds,
+Everything needed to reproduce a number — model digest, pinned Ollama version, seeds,
 prompt hash, git commit, hostname, job ID — is embedded in every JSONL record.
 
 A front-end dashboard reading `results/scores/leaderboard.json` is planned as a

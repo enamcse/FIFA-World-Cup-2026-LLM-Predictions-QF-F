@@ -5,11 +5,14 @@
 # Repo root (works when sourced from anywhere)
 export WC26_ROOT="${WC26_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
 
-# Where the user-space Ollama install lives (no root on the cluster)
+# Where the user-space Ollama install lives (no root on the cluster).
+# Version is PINNED for reproducibility; bump deliberately. Binaries/weights sit
+# on shared /home but are DOWNLOADED by compute-node jobs (ensure_ollama.sh,
+# prefetch.slurm) - the login node only edits files and runs sbatch.
 export WC26_TOOLS="${WC26_TOOLS:-$HOME/wc26-tools}"
-export OLLAMA_BIN="${OLLAMA_BIN:-$WC26_TOOLS/ollama/bin/ollama}"
+export OLLAMA_VERSION="${OLLAMA_VERSION:-v0.31.1}"
+export OLLAMA_BIN="${OLLAMA_BIN:-$WC26_TOOLS/ollama-$OLLAMA_VERSION/bin/ollama}"
 
-# Model weights live on shared /home so login-node pulls are visible to compute nodes.
 # NOTE: per-user quota is ~500GB; prune with '$OLLAMA_BIN rm <tag>' when done.
 export OLLAMA_MODELS="${OLLAMA_MODELS:-$HOME/wc26_ollama_models}"
 

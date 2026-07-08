@@ -2,9 +2,11 @@
 # Generic one-model prediction job. Submit FROM THE REPO ROOT, e.g.:
 #   sbatch --export=ALL,MODEL=gpt-oss:20b slurm/predict.slurm
 # Optional exports: STAGE (default all), SAMPLES (default 10).
-# Resource overrides at submit time, e.g. for a 70B model:
-#   sbatch --nodelist=h100 --mem=96G --export=ALL,MODEL=llama3.3:70b slurm/predict.slurm
+# Resource overrides at submit time, e.g. for a 70B model on two 48GB GPUs:
+#   sbatch --gres=gpu:2 --exclude=tesla1,tesla2,orion --mem=96G \
+#       --export=ALL,MODEL=llama3.3:70b slurm/predict.slurm
 # slurm/run_queue.sh does all of this for you from configs/models.json.
+# Everything (ollama binary, model weights) is downloaded ON the compute node.
 #SBATCH --job-name=wc26
 #SBATCH --partition=defq
 #SBATCH --gres=gpu:1
@@ -20,7 +22,7 @@ STAGE="${STAGE:-all}"
 SAMPLES="${SAMPLES:-10}"
 
 source scripts/env.sh
-[ -x "$OLLAMA_BIN" ] || { echo "FATAL: $OLLAMA_BIN missing - run scripts/setup_ollama.sh"; exit 1; }
+bash scripts/ensure_ollama.sh || { echo "FATAL: could not install ollama"; exit 1; }
 
 # Unique port so concurrent jobs/users on a shared node never collide
 PORT=$(( 20000 + SLURM_JOB_ID % 10000 ))
@@ -47,7 +49,7 @@ echo "--- Ensuring model is present: $MODEL ---"
 PULLED=0
 for attempt in 1 2 3; do
     if "$OLLAMA_BIN" pull "$MODEL"; then PULLED=1; break; fi
-    echo "pull attempt $attempt failed; retrying in 30s (if this node has no internet, pre-pull on the login node with scripts/pull_model.sh)"
+    echo "pull attempt $attempt failed; retrying in 30s (prefetch weights with slurm/prefetch.slurm; check the tag on ollama.com/search)"
     sleep 30
 done
 [ "$PULLED" = 1 ] || { echo "FATAL: could not pull $MODEL"; exit 1; }
