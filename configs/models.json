@@ -1,0 +1,162 @@
+{
+  "_notes": [
+    "Priority queue for the SBU AI cluster (defq): h100 = 4x H100 80GB; quadro1-2 = 8x RTX 8000 48GB; tesla1-2 = 8x V100 32GB; orion = 4x V100 + 1.5TB RAM.",
+    "est_weights_gb is the approximate q4 download/VRAM footprint of the default Ollama quantization; add ~15-25% for KV-cache/overhead when choosing GPUs.",
+    "tag_checked=false means the tag was read off ollama.com/library on 2026-07-08 but not yet pulled here - verify with 'ollama pull' (a wrong tag fails immediately with a 404-style error, nothing is wasted).",
+    "nodelist/gres/mem/time override queue_defaults when run_queue.sh submits the job. mem is deliberately generous because Ollama mmaps weights and Slurm's memory cgroup counts that page cache.",
+    "One job per model, chained one-after-one with --dependency by slurm/run_queue.sh."
+  ],
+  "queue_defaults": {
+    "samples": 10,
+    "temperature": 0.7,
+    "greedy_seed": 42,
+    "sample_seed_base": 1000,
+    "num_ctx": 8192,
+    "gres": "gpu:1",
+    "nodelist": "",
+    "mem": "64G",
+    "time": "06:00:00"
+  },
+  "models": [
+    {
+      "priority": 1,
+      "tag": "gpt-oss:20b",
+      "family": "OpenAI gpt-oss",
+      "est_weights_gb": 14,
+      "gres": "gpu:1",
+      "mem": "48G",
+      "time": "03:00:00",
+      "tag_checked": true,
+      "why": "Fast, reasoning-capable, fits any GPU on the cluster. Ideal first real run to shake down the pipeline."
+    },
+    {
+      "priority": 2,
+      "tag": "gemma4:26b",
+      "family": "Google Gemma 4",
+      "est_weights_gb": 17,
+      "gres": "gpu:1",
+      "mem": "64G",
+      "time": "04:00:00",
+      "tag_checked": false,
+      "why": "Newest Google open model (library lists 12b/26b/31b). 26b is the quality/speed sweet spot; 31b also fits a single RTX 8000 if you want the top size."
+    },
+    {
+      "priority": 3,
+      "tag": "deepseek-r1:32b",
+      "family": "DeepSeek R1 (distill)",
+      "est_weights_gb": 20,
+      "gres": "gpu:1",
+      "mem": "64G",
+      "time": "06:00:00",
+      "tag_checked": true,
+      "why": "Reasoning model - interesting to see if chain-of-thought helps score prediction. Full R1/V4 don't fit the cluster; this distill does."
+    },
+    {
+      "priority": 4,
+      "tag": "llama3.3:70b",
+      "family": "Meta Llama 3.3",
+      "est_weights_gb": 43,
+      "gres": "gpu:1",
+      "nodelist": "h100",
+      "mem": "96G",
+      "time": "08:00:00",
+      "tag_checked": true,
+      "why": "Meta's 70B flagship (3.3 supersedes 3.1-70b at the same size). Needs one H100 80GB, or use --gres=gpu:2 on quadro instead."
+    },
+    {
+      "priority": 5,
+      "tag": "gpt-oss:120b",
+      "family": "OpenAI gpt-oss",
+      "est_weights_gb": 65,
+      "gres": "gpu:1",
+      "nodelist": "h100",
+      "mem": "128G",
+      "time": "08:00:00",
+      "tag_checked": true,
+      "why": "The big gpt-oss - direct 20b vs 120b scaling comparison within one family. One H100 80GB."
+    },
+    {
+      "priority": 6,
+      "tag": "glm-4.7-flash",
+      "family": "Zhipu GLM",
+      "est_weights_gb": 20,
+      "gres": "gpu:1",
+      "mem": "64G",
+      "time": "04:00:00",
+      "tag_checked": false,
+      "why": "GLM family representative that actually fits (30B class). GLM-5/5.1 are 744B MoE - see not_feasible."
+    },
+    {
+      "priority": 7,
+      "tag": "mistral-small3.2",
+      "family": "Mistral",
+      "est_weights_gb": 15,
+      "gres": "gpu:1",
+      "mem": "64G",
+      "time": "04:00:00",
+      "tag_checked": false,
+      "why": "Mistral representative (24B). Mistral Large 3 is a big MoE; check its size on the library before attempting."
+    },
+    {
+      "priority": 8,
+      "tag": "phi4:14b",
+      "family": "Microsoft Phi-4",
+      "est_weights_gb": 9,
+      "gres": "gpu:1",
+      "mem": "48G",
+      "time": "03:00:00",
+      "tag_checked": true,
+      "why": "Strong small model; runs anywhere including V100 nodes."
+    },
+    {
+      "priority": 9,
+      "tag": "llama3.1:8b",
+      "family": "Meta Llama 3.1",
+      "est_weights_gb": 5,
+      "gres": "gpu:1",
+      "mem": "32G",
+      "time": "02:00:00",
+      "tag_checked": true,
+      "why": "Small baseline - anchors the leaderboard's low end and directly answers 'does scale matter here?'"
+    },
+    {
+      "priority": 10,
+      "tag": "llama3.2:3b",
+      "family": "Meta Llama 3.2",
+      "est_weights_gb": 2,
+      "gres": "gpu:1",
+      "mem": "32G",
+      "time": "02:00:00",
+      "tag_checked": true,
+      "why": "Tiny baseline; nearly free to run."
+    },
+    {
+      "priority": 11,
+      "tag": "qwen3.6:35b",
+      "family": "Alibaba Qwen 3.6",
+      "est_weights_gb": 22,
+      "gres": "gpu:1",
+      "mem": "64G",
+      "time": "05:00:00",
+      "tag_checked": false,
+      "why": "Optional extra: strong recent open family, keeps the benchmark honest. Fits RTX 8000/H100 (not V100 32GB)."
+    },
+    {
+      "priority": 12,
+      "tag": "minimax-m2.7",
+      "family": "MiniMax M2.7",
+      "est_weights_gb": 130,
+      "gres": "gpu:2",
+      "nodelist": "h100",
+      "mem": "300G",
+      "time": "12:00:00",
+      "tag_checked": false,
+      "why": "Stretch goal: ~230B-class MoE, needs 2x H100 (or try 4x RTX 8000 with --nodelist=quadro1 --gres=gpu:4). Run last so a failure costs nothing."
+    }
+  ],
+  "not_feasible": [
+    {"tag": "glm-5.1 / glm-5", "reason": "744B-total MoE, ~400GB+ quantized - exceeds any node's total VRAM (max is 384GB on quadro nodes, minus overhead). A CPU-offload experiment on orion (1.5TB RAM) is possible but expect minutes per token; user asked for glm-5.2 which does not appear on ollama.com/library as of 2026-07-08 - latest listed is glm-5.1."},
+    {"tag": "deepseek-v4-pro / deepseek-r1:671b", "reason": "Frontier-size MoE, same VRAM problem as GLM-5."},
+    {"tag": "llama3.1:405b", "reason": "~230GB q4 dense (not MoE) - would be brutally slow even if sharded across 8x RTX 8000."}
+  ]
+}

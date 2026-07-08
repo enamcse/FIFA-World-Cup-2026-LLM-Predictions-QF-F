@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+.DS_Store
+# model weights never belong in git
+wc26_ollama_models/
+ollama_models/

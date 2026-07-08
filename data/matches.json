@@ -1,0 +1,87 @@
+{
+  "tournament": "FIFA World Cup 2026",
+  "prompt_version": "v1",
+  "notes": "Kickoff times are UTC, taken from press sources on 2026-07-08; re-verify before relying on them. After each round, replace TBD team names in the later rounds and re-run predictions for those matches only. Matches with TBD teams are skipped by predict.py.",
+  "matches": [
+    {
+      "match_id": "QF1",
+      "stage": "Quarter-final",
+      "home": "France",
+      "away": "Morocco",
+      "kickoff_utc": "2026-07-09T20:00:00Z",
+      "venue": "Boston Stadium, Boston",
+      "winner_to": "SF1"
+    },
+    {
+      "match_id": "QF2",
+      "stage": "Quarter-final",
+      "home": "Spain",
+      "away": "Belgium",
+      "kickoff_utc": "2026-07-10T16:00:00Z",
+      "venue": "Los Angeles Stadium, Inglewood",
+      "winner_to": "SF1"
+    },
+    {
+      "match_id": "QF3",
+      "stage": "Quarter-final",
+      "home": "Norway",
+      "away": "England",
+      "kickoff_utc": "2026-07-11T21:00:00Z",
+      "venue": "Miami Stadium, Miami Gardens",
+      "winner_to": "SF2"
+    },
+    {
+      "match_id": "QF4",
+      "stage": "Quarter-final",
+      "home": "Argentina",
+      "away": "Switzerland",
+      "kickoff_utc": "2026-07-12T00:00:00Z",
+      "venue": "Kansas City Stadium, Kansas City",
+      "winner_to": "SF2"
+    },
+    {
+      "match_id": "SF1",
+      "stage": "Semi-final",
+      "home": "TBD",
+      "away": "TBD",
+      "home_from": "winner of QF1",
+      "away_from": "winner of QF2",
+      "kickoff_utc": "2026-07-15T00:00:00Z",
+      "venue": "Dallas Stadium, Arlington",
+      "winner_to": "F"
+    },
+    {
+      "match_id": "SF2",
+      "stage": "Semi-final",
+      "home": "TBD",
+      "away": "TBD",
+      "home_from": "winner of QF3",
+      "away_from": "winner of QF4",
+      "kickoff_utc": "2026-07-16T00:00:00Z",
+      "venue": "Atlanta Stadium, Atlanta",
+      "winner_to": "F"
+    },
+    {
+      "match_id": "TPP",
+      "stage": "Third-place play-off",
+      "home": "TBD",
+      "away": "TBD",
+      "home_from": "loser of SF1",
+      "away_from": "loser of SF2",
+      "kickoff_utc": "2026-07-18T19:00:00Z",
+      "venue": "Miami Stadium, Miami Gardens",
+      "winner_to": null
+    },
+    {
+      "match_id": "F",
+      "stage": "Final",
+      "home": "TBD",
+      "away": "TBD",
+      "home_from": "winner of SF1",
+      "away_from": "winner of SF2",
+      "kickoff_utc": "2026-07-20T00:00:00Z",
+      "venue": "New York New Jersey Stadium, East Rutherford",
+      "winner_to": null
+    }
+  ]
+}

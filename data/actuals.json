@@ -1,0 +1,11 @@
+{
+  "_instructions": "Fill in after each match. home_goals_90/away_goals_90 are the score after 90 minutes of regulation ONLY (before extra time). 'advanced' is the team that progressed (or won, for TPP/F), needed for the +1 advance bonus. Leave null until known; score.py skips null matches. Add a source URL in 'source' for the record.",
+  "QF1": {"home_goals_90": null, "away_goals_90": null, "advanced": null, "source": ""},
+  "QF2": {"home_goals_90": null, "away_goals_90": null, "advanced": null, "source": ""},
+  "QF3": {"home_goals_90": null, "away_goals_90": null, "advanced": null, "source": ""},
+  "QF4": {"home_goals_90": null, "away_goals_90": null, "advanced": null, "source": ""},
+  "SF1": {"home_goals_90": null, "away_goals_90": null, "advanced": null, "source": ""},
+  "SF2": {"home_goals_90": null, "away_goals_90": null, "advanced": null, "source": ""},
+  "TPP": {"home_goals_90": null, "away_goals_90": null, "advanced": null, "source": ""},
+  "F":   {"home_goals_90": null, "away_goals_90": null, "advanced": null, "source": ""}
+}
