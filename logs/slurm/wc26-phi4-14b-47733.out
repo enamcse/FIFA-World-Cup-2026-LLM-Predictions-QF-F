@@ -1,0 +1,102 @@
+=== Job 47733 on ai01 at 2026-07-12T06:02:04Z ===
+ollama Warning: could not connect to a running Ollama instance
+Warning: client version is 0.31.1 present
+--- GPU allocation ---
+Failed to initialize NVML: Driver/library version mismatch
+NVML library version: 580.159
+--- Starting ollama serve on 127.0.0.1:27733 (models: /home/ehassan/wc26_ollama_models) ---
+Server ready: {"version":"0.31.1"}
+--- Ensuring model is present: phi4:14b ---
+[?2026h[?25l[1Gpulling manifest ⠋ [K[?25h[?2026l[?2026h[?25l[1Gpulling manifest ⠙ [K[?25h[?2026l[?2026h[?25l[1Gpulling manifest ⠹ [K[?25h[?2026l[?2026h[?25l[1Gpulling manifest [K
+pulling fd7b6731c33c: 100% ▕██████████████████▏ 9.1 GB                         [K
+pulling 32695b892af8: 100% ▕██████████████████▏  275 B                         [K
+pulling fa8235e5b48f: 100% ▕██████████████████▏ 1.1 KB                         [K
+pulling 45a1c652dddc: 100% ▕██████████████████▏   82 B                         [K
+pulling f5d6f49c6477: 100% ▕██████████████████▏  486 B                         [K
+verifying sha256 digest [K
+writing manifest [K
+success [K[?25h[?2026l
+  Model
+    architecture        phi3      
+    parameters          14.7B     
+    context length      16384     
+    embedding length    5120      
+    quantization        Q4_K_M    
+
+  Capabilities
+    completion    
+
+  Parameters
+    stop    "<|im_start|>"    
+    stop    "<|im_end|>"      
+    stop    "<|im_sep|>"      
+
+  License
+    Microsoft.                              
+    Copyright (c) Microsoft Corporation.    
+    ...                                     
+
+--- Running predictions: stage=SF samples=10 ---
+{
+  "run_meta": {
+    "run_ts": "2026-07-12T06:02:09.204172+00:00",
+    "model": "phi4:14b",
+    "ollama_version": "0.31.1",
+    "model_info": {
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "phi3",
+        "families": [
+          "phi3"
+        ],
+        "parameter_size": "14.7B",
+        "quantization_level": "Q4_K_M"
+      },
+      "parameters": "stop                           \"<|im_start|>\"\nstop                           \"<|im_end|>\"\nstop                           \"<|im_sep|>\"",
+      "digest": null
+    },
+    "git_commit": "47a940fcee843480012708500ddefb7ede3a4e58",
+    "prompt_version": "v1",
+    "samples": 10,
+    "temperature": 0.7,
+    "greedy_seed": 42,
+    "sample_seed_base": 1000,
+    "num_ctx": 8192,
+    "hostname": "ai01",
+    "slurm_job_id": "47733"
+  }
+}
+
+=== SF1: France vs Spain ===
+    seed 1001: 1-2 (advances: Spain)
+    seed 1002: 1-2 (advances: Spain)
+    seed 1003: 2-1 (advances: France)
+    seed 1004: 2-1 (advances: France)
+    seed 1005: 1-2 (advances: Spain)
+    seed 1006: 2-1 (advances: France)
+    seed 1007: 2-1 (advances: France)
+    seed 1008: 2-1 (advances: France)
+    seed 1009: 1-2 (advances: Spain)
+    seed 1010: 1-2 (advances: Spain)
+  => aggregated: 2-1 (6/11 votes), advances: France
+
+=== SF2: England vs Argentina ===
+    seed 1001: 2-1 (advances: England)
+    seed 1002: 2-1 (advances: England)
+    seed 1003: 1-2 (advances: Argentina)
+    seed 1004: 1-2 (advances: Argentina)
+    seed 1005: 1-2 (advances: Argentina)
+    seed 1006: 1-2 (advances: Argentina)
+    seed 1007: 1-2 (advances: Argentina)
+    seed 1008: 1-2 (advances: Argentina)
+    seed 1009: 2-1 (advances: England)
+    seed 1010: 2-1 (advances: England)
+  => aggregated: 1-2 (7/11 votes), advances: Argentina
+
+Done. Aggregated predictions appended to results/predictions/phi4_14b.jsonl
+--- GPU state after run ---
+Failed to initialize NVML: Driver/library version mismatch
+NVML library version: 580.159
+=== Finished at 2026-07-12T06:03:19Z with exit code 0 ===
+--- Stopping ollama (pid 1719661) ---

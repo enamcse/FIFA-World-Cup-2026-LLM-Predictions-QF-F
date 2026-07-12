@@ -1,0 +1,109 @@
+=== Job 47731 on ai01 at 2026-07-12T05:49:23Z ===
+ollama Warning: could not connect to a running Ollama instance
+Warning: client version is 0.31.1 present
+--- GPU allocation ---
+Failed to initialize NVML: Driver/library version mismatch
+NVML library version: 580.159
+--- Starting ollama serve on 127.0.0.1:27731 (models: /home/ehassan/wc26_ollama_models) ---
+Server ready: {"version":"0.31.1"}
+--- Ensuring model is present: mistral-small3.2 ---
+[?2026h[?25l[1Gpulling manifest ⠋ [K[?25h[?2026l[?2026h[?25l[1Gpulling manifest ⠙ [K[?25h[?2026l[?2026h[?25l[1Gpulling manifest ⠹ [K[?25h[?2026l[?2026h[?25l[1Gpulling manifest [K
+pulling 41a5b0c36a28: 100% ▕██████████████████▏  15 GB                         [K
+pulling 706c4d1164f7: 100% ▕██████████████████▏  699 B                         [K
+pulling 9c810f69c610: 100% ▕██████████████████▏ 2.3 KB                         [K
+pulling 43070e2d4e53: 100% ▕██████████████████▏  11 KB                         [K
+pulling e0daf17ff83e: 100% ▕██████████████████▏   21 B                         [K
+pulling 7ae301728ba8: 100% ▕██████████████████▏  568 B                         [K
+verifying sha256 digest [K
+writing manifest [K
+success [K[?25h[?2026l
+  Model
+    architecture        mistral3    
+    parameters          24.0B       
+    context length      131072      
+    embedding length    5120        
+    quantization        Q4_K_M      
+
+  Capabilities
+    completion    
+    vision        
+    tools         
+
+  Parameters
+    temperature    0.15    
+
+  System
+    You are Mistral Small 3.2, a Large Language Model (LLM) created by Mistral AI, a French startup         
+      headquartered in Paris.                                                                                 
+    You power an AI assistant called Le Chat.                                                               
+    ...                                                                                                     
+
+  License
+    Apache License               
+    Version 2.0, January 2004    
+    ...                          
+
+--- Running predictions: stage=SF samples=10 ---
+{
+  "run_meta": {
+    "run_ts": "2026-07-12T05:49:29.062562+00:00",
+    "model": "mistral-small3.2",
+    "ollama_version": "0.31.1",
+    "model_info": {
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "mistral3",
+        "families": [
+          "mistral3"
+        ],
+        "parameter_size": "24.0B",
+        "quantization_level": "Q4_K_M"
+      },
+      "parameters": "temperature                    0.15",
+      "digest": null
+    },
+    "git_commit": "47a940fcee843480012708500ddefb7ede3a4e58",
+    "prompt_version": "v1",
+    "samples": 10,
+    "temperature": 0.7,
+    "greedy_seed": 42,
+    "sample_seed_base": 1000,
+    "num_ctx": 8192,
+    "hostname": "ai01",
+    "slurm_job_id": "47731"
+  }
+}
+
+=== SF1: France vs Spain ===
+    seed 1001: 2-1 (advances: France)
+    seed 1002: 2-1 (advances: France)
+    seed 1003: 2-1 (advances: France)
+    seed 1004: 2-1 (advances: France)
+    seed 1005: 2-1 (advances: France)
+    seed 1006: 2-1 (advances: France)
+    seed 1007: 2-1 (advances: France)
+    seed 1008: 2-1 (advances: France)
+    seed 1009: 2-1 (advances: France)
+    seed 1010: 2-1 (advances: France)
+  => aggregated: 2-1 (11/11 votes), advances: France
+
+=== SF2: England vs Argentina ===
+    seed 1001: 2-1 (advances: England)
+    seed 1002: 2-1 (advances: England)
+    seed 1003: 2-1 (advances: England)
+    seed 1004: 2-1 (advances: England)
+    seed 1005: 2-1 (advances: England)
+    seed 1006: 2-1 (advances: England)
+    seed 1007: 2-1 (advances: England)
+    seed 1008: 2-1 (advances: England)
+    seed 1009: 2-1 (advances: England)
+    seed 1010: 1-2 (advances: Argentina)
+  => aggregated: 2-1 (10/11 votes), advances: England
+
+Done. Aggregated predictions appended to results/predictions/mistral-small3.2.jsonl
+--- GPU state after run ---
+Failed to initialize NVML: Driver/library version mismatch
+NVML library version: 580.159
+=== Finished at 2026-07-12T05:51:33Z with exit code 0 ===
+--- Stopping ollama (pid 1719020) ---

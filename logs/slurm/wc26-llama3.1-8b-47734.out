@@ -1,0 +1,103 @@
+=== Job 47734 on ai01 at 2026-07-12T06:03:21Z ===
+ollama Warning: could not connect to a running Ollama instance
+Warning: client version is 0.31.1 present
+--- GPU allocation ---
+Failed to initialize NVML: Driver/library version mismatch
+NVML library version: 580.159
+--- Starting ollama serve on 127.0.0.1:27734 (models: /home/ehassan/wc26_ollama_models) ---
+Server ready: {"version":"0.31.1"}
+--- Ensuring model is present: llama3.1:8b ---
+[?2026h[?25l[1Gpulling manifest ⠋ [K[?25h[?2026l[?2026h[?25l[1Gpulling manifest ⠙ [K[?25h[?2026l[?2026h[?25l[1Gpulling manifest [K
+pulling 667b0c1932bc: 100% ▕██████████████████▏ 4.9 GB                         [K
+pulling 948af2743fc7: 100% ▕██████████████████▏ 1.5 KB                         [K
+pulling 0ba8f0e314b4: 100% ▕██████████████████▏  12 KB                         [K
+pulling 56bb8bd477a5: 100% ▕██████████████████▏   96 B                         [K
+pulling 455f34728c9b: 100% ▕██████████████████▏  487 B                         [K
+verifying sha256 digest [K
+writing manifest [K
+success [K[?25h[?2026l
+  Model
+    architecture        llama     
+    parameters          8.0B      
+    context length      131072    
+    embedding length    4096      
+    quantization        Q4_K_M    
+
+  Capabilities
+    completion    
+    tools         
+
+  Parameters
+    stop    "<|start_header_id|>"    
+    stop    "<|end_header_id|>"      
+    stop    "<|eot_id|>"             
+
+  License
+    LLAMA 3.1 COMMUNITY LICENSE AGREEMENT            
+    Llama 3.1 Version Release Date: July 23, 2024    
+    ...                                              
+
+--- Running predictions: stage=SF samples=10 ---
+{
+  "run_meta": {
+    "run_ts": "2026-07-12T06:03:26.713341+00:00",
+    "model": "llama3.1:8b",
+    "ollama_version": "0.31.1",
+    "model_info": {
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "llama",
+        "families": [
+          "llama"
+        ],
+        "parameter_size": "8.0B",
+        "quantization_level": "Q4_K_M"
+      },
+      "parameters": "stop                           \"<|start_header_id|>\"\nstop                           \"<|end_header_id|>\"\nstop                           \"<|eot_id|>\"",
+      "digest": null
+    },
+    "git_commit": "47a940fcee843480012708500ddefb7ede3a4e58",
+    "prompt_version": "v1",
+    "samples": 10,
+    "temperature": 0.7,
+    "greedy_seed": 42,
+    "sample_seed_base": 1000,
+    "num_ctx": 8192,
+    "hostname": "ai01",
+    "slurm_job_id": "47734"
+  }
+}
+
+=== SF1: France vs Spain ===
+    seed 1001: 2-1 (advances: France)
+    seed 1002: 2-1 (advances: France)
+    seed 1003: 2-1 (advances: France)
+    seed 1004: 2-1 (advances: France)
+    seed 1005: 2-1 (advances: France)
+    seed 1006: 2-1 (advances: France)
+    seed 1007: 2-1 (advances: France)
+    seed 1008: 2-1 (advances: France)
+    seed 1009: 2-1 (advances: France)
+    seed 1010: 2-1 (advances: France)
+  => aggregated: 2-1 (11/11 votes), advances: France
+
+=== SF2: England vs Argentina ===
+    seed 1001: 2-1 (advances: England)
+    seed 1002: 2-0 (advances: England)
+    seed 1003: 2-1 (advances: England)
+    seed 1004: 2-1 (advances: England)
+    seed 1005: 2-1 (advances: England)
+    seed 1006: 2-1 (advances: England)
+    seed 1007: 2-1 (advances: England)
+    seed 1008: 2-1 (advances: England)
+    seed 1009: 2-1 (advances: England)
+    seed 1010: 2-1 (advances: England)
+  => aggregated: 2-1 (10/11 votes), advances: England
+
+Done. Aggregated predictions appended to results/predictions/llama3.1_8b.jsonl
+--- GPU state after run ---
+Failed to initialize NVML: Driver/library version mismatch
+NVML library version: 580.159
+=== Finished at 2026-07-12T06:04:23Z with exit code 0 ===
+--- Stopping ollama (pid 1720015) ---
