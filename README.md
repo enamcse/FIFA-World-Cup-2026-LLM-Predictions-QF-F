@@ -70,12 +70,12 @@ odds on a busy queue); multi-GPU models follow. Summary:
 | 8–9 | llama3.1:8b, llama3.2:3b | small/tiny baselines | any GPU |
 | 10 | llama3.3:70b | Meta flagship at feasible size | 2× RTX 8000 or 1× H100 |
 | 11 | gpt-oss:120b | within-family scaling comparison | 2× RTX 8000 or 1× H100 |
-| 12 | minimax-m2.7 | stretch: ~230B MoE | 4× RTX 8000 or 2× H100 |
 
-**GLM-5.2 exists on the Ollama library but only as `glm-5.2:cloud`** — a 756B model
-hosted on Ollama's cloud with no downloadable weights, so it can't run on cluster
-GPUs (and cloud inference is outside this benchmark's scope). DeepSeek-V4-Pro and
-Llama-405B don't fit either — see `not_feasible` in the config for the arithmetic.
+**GLM-5.2 and MiniMax-M2.7 exist on the Ollama library but only as `:cloud` tags** —
+models hosted on Ollama's cloud with no downloadable weights, so they can't run on
+cluster GPUs (and cloud inference is outside this benchmark's scope; minimax-m2.7's
+bare tag was tried and fails — job 45428). DeepSeek-V4-Pro and Llama-405B don't fit
+locally either — see `not_feasible` in the config for the arithmetic.
 
 ## Repo layout
 

@@ -42,22 +42,22 @@
     {
       "match_id": "SF1",
       "stage": "Semi-final",
-      "home": "TBD",
-      "away": "TBD",
+      "home": "France",
+      "away": "Spain",
       "home_from": "winner of QF1",
       "away_from": "winner of QF2",
-      "kickoff_utc": "2026-07-15T00:00:00Z",
+      "kickoff_utc": "2026-07-14T19:00:00Z",
       "venue": "Dallas Stadium, Arlington",
       "winner_to": "F"
     },
     {
       "match_id": "SF2",
       "stage": "Semi-final",
-      "home": "TBD",
-      "away": "TBD",
+      "home": "England",
+      "away": "Argentina",
       "home_from": "winner of QF3",
       "away_from": "winner of QF4",
-      "kickoff_utc": "2026-07-16T00:00:00Z",
+      "kickoff_utc": "2026-07-15T19:00:00Z",
       "venue": "Atlanta Stadium, Atlanta",
       "winner_to": "F"
     },

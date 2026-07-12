@@ -128,21 +128,10 @@
       "time": "05:00:00",
       "tag_checked": true,
       "why": "The big gpt-oss - direct 20b vs 120b scaling comparison. MoE with ~5B active params, so it's fast once loaded. 2x RTX 8000 or 1x H100."
-    },
-    {
-      "priority": 12,
-      "tag": "minimax-m2.7",
-      "family": "MiniMax M2.7",
-      "est_weights_gb": 130,
-      "gres": "gpu:4",
-      "exclude": "tesla1,tesla2,orion",
-      "mem": "300G",
-      "time": "12:00:00",
-      "tag_checked": false,
-      "why": "Stretch goal: ~230B-class MoE. 4x RTX 8000 (192GB) or 2x H100 when free. Needs half a quadro node - expect a queue wait; run last."
     }
   ],
   "not_feasible": [
+    {"tag": "minimax-m2.7", "reason": "Cloud-only: the library's single tag is minimax-m2.7:cloud (229B). Confirmed empirically - job 45428 failed with 'pull model manifest: file does not exist' for the bare tag on 2026-07-11. No downloadable weights exist."},
     {"tag": "glm-5.2 / glm-5.1 / glm-5", "reason": "glm-5.2 IS on the library (756B, 1M context) but its only tag is glm-5.2:cloud - an Ollama-cloud-hosted model with no downloadable weights, so it cannot run on cluster GPUs. Running it would also mean sending data to Ollama's cloud service, outside this benchmark's local-inference scope. Locally, 7xxB MoE exceeds any node's total VRAM (max 384GB on quadro nodes)."},
     {"tag": "deepseek-v4-pro / deepseek-r1:671b", "reason": "Frontier-size MoE, same VRAM problem as GLM-5.x."},
     {"tag": "llama3.1:405b", "reason": "~230GB q4 dense (not MoE) - would be brutally slow even if sharded across 8x RTX 8000."}

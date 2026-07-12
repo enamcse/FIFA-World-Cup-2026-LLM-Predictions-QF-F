@@ -1,9 +1,9 @@
 {
   "_instructions": "Fill in after each match. home_goals_90/away_goals_90 are the score after 90 minutes of regulation ONLY (before extra time). 'advanced' is the team that progressed (or won, for TPP/F), needed for the +1 advance bonus. Leave null until known; score.py skips null matches. Add a source URL in 'source' for the record.",
-  "QF1": {"home_goals_90": null, "away_goals_90": null, "advanced": null, "source": ""},
-  "QF2": {"home_goals_90": null, "away_goals_90": null, "advanced": null, "source": ""},
-  "QF3": {"home_goals_90": null, "away_goals_90": null, "advanced": null, "source": ""},
-  "QF4": {"home_goals_90": null, "away_goals_90": null, "advanced": null, "source": ""},
+  "QF1": {"home_goals_90": 2, "away_goals_90": 0, "advanced": "France", "source": "https://sports.yahoo.com/soccer/live/world-cup-bracket-schedule-scores-results-live-updates-quarterfinals-203257966.html"},
+  "QF2": {"home_goals_90": 2, "away_goals_90": 1, "advanced": "Spain", "source": "https://sports.yahoo.com/soccer/live/world-cup-bracket-schedule-scores-results-live-updates-quarterfinals-203257966.html"},
+  "QF3": {"home_goals_90": 1, "away_goals_90": 1, "advanced": "England", "source": "England won 2-1 in extra time (Bellingham 2); 1-1 after 90'. https://sports.yahoo.com/soccer/live/world-cup-bracket-schedule-scores-results-live-updates-quarterfinals-203257966.html"},
+  "QF4": {"home_goals_90": 1, "away_goals_90": 1, "advanced": "Argentina", "source": "Argentina won 3-1 in extra time (Alvarez 112', Martinez); 1-1 after 90'. https://sports.yahoo.com/soccer/live/world-cup-bracket-schedule-scores-results-live-updates-quarterfinals-203257966.html"},
   "SF1": {"home_goals_90": null, "away_goals_90": null, "advanced": null, "source": ""},
   "SF2": {"home_goals_90": null, "away_goals_90": null, "advanced": null, "source": ""},
   "TPP": {"home_goals_90": null, "away_goals_90": null, "advanced": null, "source": ""},

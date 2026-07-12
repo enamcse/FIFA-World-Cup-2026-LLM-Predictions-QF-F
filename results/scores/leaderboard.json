@@ -1,0 +1,939 @@
+{
+  "meta": {
+    "generated_at": "2026-07-12T04:42:58.714338+00:00",
+    "matches_scored": [
+      "QF1",
+      "QF2",
+      "QF3",
+      "QF4"
+    ]
+  },
+  "leaderboard": [
+    {
+      "model": "qwen3.6:35b",
+      "matches": 4,
+      "points": 10,
+      "avg_points": 2.5,
+      "exact": 1,
+      "goal_diff": 0,
+      "tendency": 1,
+      "miss": 2,
+      "advance_bonus": 4,
+      "mae_home": 0.25,
+      "mae_away": 0.5,
+      "mae_total_goals": 0.75,
+      "mean_rps": 0.1353,
+      "mean_brier": 0.5785,
+      "missing_matches": "",
+      "rank": 1
+    },
+    {
+      "model": "gpt-oss:20b",
+      "matches": 4,
+      "points": 10,
+      "avg_points": 2.5,
+      "exact": 1,
+      "goal_diff": 0,
+      "tendency": 1,
+      "miss": 2,
+      "advance_bonus": 4,
+      "mae_home": 0.25,
+      "mae_away": 0.5,
+      "mae_total_goals": 0.75,
+      "mean_rps": 0.188,
+      "mean_brier": 0.7893,
+      "missing_matches": "",
+      "rank": 2
+    },
+    {
+      "model": "glm-4.7-flash",
+      "matches": 4,
+      "points": 10,
+      "avg_points": 2.5,
+      "exact": 1,
+      "goal_diff": 0,
+      "tendency": 1,
+      "miss": 2,
+      "advance_bonus": 4,
+      "mae_home": 0.25,
+      "mae_away": 0.5,
+      "mae_total_goals": 0.75,
+      "mean_rps": 0.2304,
+      "mean_brier": 0.9628,
+      "missing_matches": "",
+      "rank": 3
+    },
+    {
+      "model": "gpt-oss:120b",
+      "matches": 4,
+      "points": 10,
+      "avg_points": 2.5,
+      "exact": 1,
+      "goal_diff": 0,
+      "tendency": 1,
+      "miss": 2,
+      "advance_bonus": 4,
+      "mae_home": 0.25,
+      "mae_away": 0.5,
+      "mae_total_goals": 0.75,
+      "mean_rps": 0.25,
+      "mean_brier": 1.0,
+      "missing_matches": "",
+      "rank": 4
+    },
+    {
+      "model": "mistral-small3.2",
+      "matches": 4,
+      "points": 10,
+      "avg_points": 2.5,
+      "exact": 1,
+      "goal_diff": 0,
+      "tendency": 1,
+      "miss": 2,
+      "advance_bonus": 4,
+      "mae_home": 0.25,
+      "mae_away": 0.5,
+      "mae_total_goals": 0.75,
+      "mean_rps": 0.25,
+      "mean_brier": 1.0,
+      "missing_matches": "",
+      "rank": 5
+    },
+    {
+      "model": "llama3.1:8b",
+      "matches": 4,
+      "points": 9,
+      "avg_points": 2.25,
+      "exact": 1,
+      "goal_diff": 0,
+      "tendency": 1,
+      "miss": 2,
+      "advance_bonus": 3,
+      "mae_home": 0.5,
+      "mae_away": 0.5,
+      "mae_total_goals": 0.5,
+      "mean_rps": 0.188,
+      "mean_brier": 0.876,
+      "missing_matches": "",
+      "rank": 6
+    },
+    {
+      "model": "deepseek-r1:32b",
+      "matches": 4,
+      "points": 9,
+      "avg_points": 2.25,
+      "exact": 1,
+      "goal_diff": 0,
+      "tendency": 1,
+      "miss": 2,
+      "advance_bonus": 3,
+      "mae_home": 0.25,
+      "mae_away": 0.5,
+      "mae_total_goals": 0.75,
+      "mean_rps": 0.2283,
+      "mean_brier": 0.9132,
+      "missing_matches": "",
+      "rank": 7
+    },
+    {
+      "model": "gemma4:26b",
+      "matches": 4,
+      "points": 9,
+      "avg_points": 2.25,
+      "exact": 0,
+      "goal_diff": 1,
+      "tendency": 1,
+      "miss": 2,
+      "advance_bonus": 4,
+      "mae_home": 0.75,
+      "mae_away": 0.5,
+      "mae_total_goals": 1.25,
+      "mean_rps": 0.2695,
+      "mean_brier": 0.9453,
+      "missing_matches": "",
+      "rank": 8
+    },
+    {
+      "model": "llama3.2:3b",
+      "matches": 4,
+      "points": 7,
+      "avg_points": 1.75,
+      "exact": 0,
+      "goal_diff": 1,
+      "tendency": 0,
+      "miss": 3,
+      "advance_bonus": 4,
+      "mae_home": 1.5,
+      "mae_away": 0.5,
+      "mae_total_goals": 2.0,
+      "mean_rps": 0.2242,
+      "mean_brier": 0.8306,
+      "missing_matches": "",
+      "rank": 9
+    },
+    {
+      "model": "phi4:14b",
+      "matches": 4,
+      "points": 5,
+      "avg_points": 1.25,
+      "exact": 0,
+      "goal_diff": 0,
+      "tendency": 1,
+      "miss": 3,
+      "advance_bonus": 3,
+      "mae_home": 0.5,
+      "mae_away": 0.75,
+      "mae_total_goals": 0.75,
+      "mean_rps": 0.3595,
+      "mean_brier": 1.219,
+      "missing_matches": "",
+      "rank": 10
+    },
+    {
+      "model": "llama3.3:70b",
+      "matches": 4,
+      "points": 2,
+      "avg_points": 0.5,
+      "exact": 0,
+      "goal_diff": 0,
+      "tendency": 0,
+      "miss": 4,
+      "advance_bonus": 2,
+      "mae_home": 0.75,
+      "mae_away": 1.0,
+      "mae_total_goals": 0.75,
+      "mean_rps": 0.624,
+      "mean_brier": 1.7479,
+      "missing_matches": "",
+      "rank": 11
+    }
+  ],
+  "breakdown": {
+    "deepseek-r1:32b": {
+      "QF1": {
+        "predicted": "2-1",
+        "actual": "2-0",
+        "category": "tendency",
+        "points": 2,
+        "advance_bonus": 1,
+        "predicted_advances": "France",
+        "actually_advanced": "France",
+        "rps": 0.0,
+        "brier": 0.0,
+        "outcome_probs": {
+          "home_win": 1.0,
+          "draw": 0.0,
+          "away_win": 0.0
+        }
+      },
+      "QF2": {
+        "predicted": "2-1",
+        "actual": "2-1",
+        "category": "exact",
+        "points": 4,
+        "advance_bonus": 1,
+        "predicted_advances": "Spain",
+        "actually_advanced": "Spain",
+        "rps": 0.0,
+        "brier": 0.0,
+        "outcome_probs": {
+          "home_win": 1.0,
+          "draw": 0.0,
+          "away_win": 0.0
+        }
+      },
+      "QF3": {
+        "predicted": "1-0",
+        "actual": "1-1",
+        "category": "miss",
+        "points": 0,
+        "advance_bonus": 0,
+        "predicted_advances": "Norway",
+        "actually_advanced": "England",
+        "rps": 0.5,
+        "brier": 2.0,
+        "outcome_probs": {
+          "home_win": 1.0,
+          "draw": 0.0,
+          "away_win": 0.0
+        }
+      },
+      "QF4": {
+        "predicted": "2-1",
+        "actual": "1-1",
+        "category": "miss",
+        "points": 0,
+        "advance_bonus": 1,
+        "predicted_advances": "Argentina",
+        "actually_advanced": "Argentina",
+        "rps": 0.4132,
+        "brier": 1.6529,
+        "outcome_probs": {
+          "home_win": 0.9090909090909091,
+          "draw": 0.09090909090909091,
+          "away_win": 0.0
+        }
+      }
+    },
+    "gemma4:26b": {
+      "QF1": {
+        "predicted": "1-0",
+        "actual": "2-0",
+        "category": "tendency",
+        "points": 2,
+        "advance_bonus": 1,
+        "predicted_advances": "France",
+        "actually_advanced": "France",
+        "rps": 0.0156,
+        "brier": 0.0312,
+        "outcome_probs": {
+          "home_win": 0.875,
+          "draw": 0.0,
+          "away_win": 0.125
+        }
+      },
+      "QF2": {
+        "predicted": "1-1",
+        "actual": "2-1",
+        "category": "miss",
+        "points": 0,
+        "advance_bonus": 1,
+        "predicted_advances": "Spain",
+        "actually_advanced": "Spain",
+        "rps": 0.5312,
+        "brier": 1.625,
+        "outcome_probs": {
+          "home_win": 0.0,
+          "draw": 0.75,
+          "away_win": 0.25
+        }
+      },
+      "QF3": {
+        "predicted": "0-0",
+        "actual": "1-1",
+        "category": "goal_diff",
+        "points": 3,
+        "advance_bonus": 1,
+        "predicted_advances": "England",
+        "actually_advanced": "England",
+        "rps": 0.0312,
+        "brier": 0.125,
+        "outcome_probs": {
+          "home_win": 0.0,
+          "draw": 0.75,
+          "away_win": 0.25
+        }
+      },
+      "QF4": {
+        "predicted": "1-0",
+        "actual": "1-1",
+        "category": "miss",
+        "points": 0,
+        "advance_bonus": 1,
+        "predicted_advances": "Argentina",
+        "actually_advanced": "Argentina",
+        "rps": 0.5,
+        "brier": 2.0,
+        "outcome_probs": {
+          "home_win": 1.0,
+          "draw": 0.0,
+          "away_win": 0.0
+        }
+      }
+    },
+    "glm-4.7-flash": {
+      "QF1": {
+        "predicted": "2-1",
+        "actual": "2-0",
+        "category": "tendency",
+        "points": 2,
+        "advance_bonus": 1,
+        "predicted_advances": "France",
+        "actually_advanced": "France",
+        "rps": 0.0041,
+        "brier": 0.0165,
+        "outcome_probs": {
+          "home_win": 0.9090909090909091,
+          "draw": 0.09090909090909091,
+          "away_win": 0.0
+        }
+      },
+      "QF2": {
+        "predicted": "2-1",
+        "actual": "2-1",
+        "category": "exact",
+        "points": 4,
+        "advance_bonus": 1,
+        "predicted_advances": "Spain",
+        "actually_advanced": "Spain",
+        "rps": 0.0,
+        "brier": 0.0,
+        "outcome_probs": {
+          "home_win": 1.0,
+          "draw": 0.0,
+          "away_win": 0.0
+        }
+      },
+      "QF3": {
+        "predicted": "1-2",
+        "actual": "1-1",
+        "category": "miss",
+        "points": 0,
+        "advance_bonus": 1,
+        "predicted_advances": "England",
+        "actually_advanced": "England",
+        "rps": 0.4174,
+        "brier": 1.8347,
+        "outcome_probs": {
+          "home_win": 0.09090909090909091,
+          "draw": 0.0,
+          "away_win": 0.9090909090909091
+        }
+      },
+      "QF4": {
+        "predicted": "2-1",
+        "actual": "1-1",
+        "category": "miss",
+        "points": 0,
+        "advance_bonus": 1,
+        "predicted_advances": "Argentina",
+        "actually_advanced": "Argentina",
+        "rps": 0.5,
+        "brier": 2.0,
+        "outcome_probs": {
+          "home_win": 1.0,
+          "draw": 0.0,
+          "away_win": 0.0
+        }
+      }
+    },
+    "gpt-oss:120b": {
+      "QF1": {
+        "predicted": "2-1",
+        "actual": "2-0",
+        "category": "tendency",
+        "points": 2,
+        "advance_bonus": 1,
+        "predicted_advances": "France",
+        "actually_advanced": "France",
+        "rps": 0.0,
+        "brier": 0.0,
+        "outcome_probs": {
+          "home_win": 1.0,
+          "draw": 0.0,
+          "away_win": 0.0
+        }
+      },
+      "QF2": {
+        "predicted": "2-1",
+        "actual": "2-1",
+        "category": "exact",
+        "points": 4,
+        "advance_bonus": 1,
+        "predicted_advances": "Spain",
+        "actually_advanced": "Spain",
+        "rps": 0.0,
+        "brier": 0.0,
+        "outcome_probs": {
+          "home_win": 1.0,
+          "draw": 0.0,
+          "away_win": 0.0
+        }
+      },
+      "QF3": {
+        "predicted": "1-2",
+        "actual": "1-1",
+        "category": "miss",
+        "points": 0,
+        "advance_bonus": 1,
+        "predicted_advances": "England",
+        "actually_advanced": "England",
+        "rps": 0.5,
+        "brier": 2.0,
+        "outcome_probs": {
+          "home_win": 0.0,
+          "draw": 0.0,
+          "away_win": 1.0
+        }
+      },
+      "QF4": {
+        "predicted": "2-1",
+        "actual": "1-1",
+        "category": "miss",
+        "points": 0,
+        "advance_bonus": 1,
+        "predicted_advances": "Argentina",
+        "actually_advanced": "Argentina",
+        "rps": 0.5,
+        "brier": 2.0,
+        "outcome_probs": {
+          "home_win": 1.0,
+          "draw": 0.0,
+          "away_win": 0.0
+        }
+      }
+    },
+    "gpt-oss:20b": {
+      "QF1": {
+        "predicted": "2-1",
+        "actual": "2-0",
+        "category": "tendency",
+        "points": 2,
+        "advance_bonus": 1,
+        "predicted_advances": "France",
+        "actually_advanced": "France",
+        "rps": 0.0,
+        "brier": 0.0,
+        "outcome_probs": {
+          "home_win": 1.0,
+          "draw": 0.0,
+          "away_win": 0.0
+        }
+      },
+      "QF2": {
+        "predicted": "2-1",
+        "actual": "2-1",
+        "category": "exact",
+        "points": 4,
+        "advance_bonus": 1,
+        "predicted_advances": "Spain",
+        "actually_advanced": "Spain",
+        "rps": 0.0,
+        "brier": 0.0,
+        "outcome_probs": {
+          "home_win": 1.0,
+          "draw": 0.0,
+          "away_win": 0.0
+        }
+      },
+      "QF3": {
+        "predicted": "1-2",
+        "actual": "1-1",
+        "category": "miss",
+        "points": 0,
+        "advance_bonus": 1,
+        "predicted_advances": "England",
+        "actually_advanced": "England",
+        "rps": 0.3388,
+        "brier": 1.5041,
+        "outcome_probs": {
+          "home_win": 0.09090909090909091,
+          "draw": 0.09090909090909091,
+          "away_win": 0.8181818181818182
+        }
+      },
+      "QF4": {
+        "predicted": "2-1",
+        "actual": "1-1",
+        "category": "miss",
+        "points": 0,
+        "advance_bonus": 1,
+        "predicted_advances": "Argentina",
+        "actually_advanced": "Argentina",
+        "rps": 0.4132,
+        "brier": 1.6529,
+        "outcome_probs": {
+          "home_win": 0.9090909090909091,
+          "draw": 0.09090909090909091,
+          "away_win": 0.0
+        }
+      }
+    },
+    "llama3.1:8b": {
+      "QF1": {
+        "predicted": "2-1",
+        "actual": "2-0",
+        "category": "tendency",
+        "points": 2,
+        "advance_bonus": 1,
+        "predicted_advances": "France",
+        "actually_advanced": "France",
+        "rps": 0.0,
+        "brier": 0.0,
+        "outcome_probs": {
+          "home_win": 1.0,
+          "draw": 0.0,
+          "away_win": 0.0
+        }
+      },
+      "QF2": {
+        "predicted": "2-1",
+        "actual": "2-1",
+        "category": "exact",
+        "points": 4,
+        "advance_bonus": 1,
+        "predicted_advances": "Spain",
+        "actually_advanced": "Spain",
+        "rps": 0.0,
+        "brier": 0.0,
+        "outcome_probs": {
+          "home_win": 1.0,
+          "draw": 0.0,
+          "away_win": 0.0
+        }
+      },
+      "QF3": {
+        "predicted": "2-1",
+        "actual": "1-1",
+        "category": "miss",
+        "points": 0,
+        "advance_bonus": 0,
+        "predicted_advances": "Norway",
+        "actually_advanced": "England",
+        "rps": 0.2521,
+        "brier": 1.5041,
+        "outcome_probs": {
+          "home_win": 0.5454545454545454,
+          "draw": 0.0,
+          "away_win": 0.45454545454545453
+        }
+      },
+      "QF4": {
+        "predicted": "2-0",
+        "actual": "1-1",
+        "category": "miss",
+        "points": 0,
+        "advance_bonus": 1,
+        "predicted_advances": "Argentina",
+        "actually_advanced": "Argentina",
+        "rps": 0.5,
+        "brier": 2.0,
+        "outcome_probs": {
+          "home_win": 1.0,
+          "draw": 0.0,
+          "away_win": 0.0
+        }
+      }
+    },
+    "llama3.2:3b": {
+      "QF1": {
+        "predicted": "0-0",
+        "actual": "2-0",
+        "category": "miss",
+        "points": 0,
+        "advance_bonus": 1,
+        "predicted_advances": "France",
+        "actually_advanced": "France",
+        "rps": 0.2066,
+        "brier": 0.7107,
+        "outcome_probs": {
+          "home_win": 0.36363636363636365,
+          "draw": 0.5454545454545454,
+          "away_win": 0.09090909090909091
+        }
+      },
+      "QF2": {
+        "predicted": "0-0",
+        "actual": "2-1",
+        "category": "miss",
+        "points": 0,
+        "advance_bonus": 1,
+        "predicted_advances": "Spain",
+        "actually_advanced": "Spain",
+        "rps": 0.3512,
+        "brier": 1.1074,
+        "outcome_probs": {
+          "home_win": 0.18181818181818182,
+          "draw": 0.6363636363636364,
+          "away_win": 0.18181818181818182
+        }
+      },
+      "QF3": {
+        "predicted": "0-1",
+        "actual": "1-1",
+        "category": "miss",
+        "points": 0,
+        "advance_bonus": 1,
+        "predicted_advances": "England",
+        "actually_advanced": "England",
+        "rps": 0.2645,
+        "brier": 1.0579,
+        "outcome_probs": {
+          "home_win": 0.0,
+          "draw": 0.2727272727272727,
+          "away_win": 0.7272727272727273
+        }
+      },
+      "QF4": {
+        "predicted": "0-0",
+        "actual": "1-1",
+        "category": "goal_diff",
+        "points": 3,
+        "advance_bonus": 1,
+        "predicted_advances": "Argentina",
+        "actually_advanced": "Argentina",
+        "rps": 0.0744,
+        "brier": 0.4463,
+        "outcome_probs": {
+          "home_win": 0.2727272727272727,
+          "draw": 0.45454545454545453,
+          "away_win": 0.2727272727272727
+        }
+      }
+    },
+    "llama3.3:70b": {
+      "QF1": {
+        "predicted": "1-2",
+        "actual": "2-0",
+        "category": "miss",
+        "points": 0,
+        "advance_bonus": 0,
+        "predicted_advances": "Morocco",
+        "actually_advanced": "France",
+        "rps": 0.6694,
+        "brier": 1.3388,
+        "outcome_probs": {
+          "home_win": 0.18181818181818182,
+          "draw": 0.0,
+          "away_win": 0.8181818181818182
+        }
+      },
+      "QF2": {
+        "predicted": "1-2",
+        "actual": "2-1",
+        "category": "miss",
+        "points": 0,
+        "advance_bonus": 0,
+        "predicted_advances": "Belgium",
+        "actually_advanced": "Spain",
+        "rps": 0.8264,
+        "brier": 1.6529,
+        "outcome_probs": {
+          "home_win": 0.09090909090909091,
+          "draw": 0.0,
+          "away_win": 0.9090909090909091
+        }
+      },
+      "QF3": {
+        "predicted": "1-2",
+        "actual": "1-1",
+        "category": "miss",
+        "points": 0,
+        "advance_bonus": 1,
+        "predicted_advances": "England",
+        "actually_advanced": "England",
+        "rps": 0.5,
+        "brier": 2.0,
+        "outcome_probs": {
+          "home_win": 0.0,
+          "draw": 0.0,
+          "away_win": 1.0
+        }
+      },
+      "QF4": {
+        "predicted": "2-1",
+        "actual": "1-1",
+        "category": "miss",
+        "points": 0,
+        "advance_bonus": 1,
+        "predicted_advances": "Argentina",
+        "actually_advanced": "Argentina",
+        "rps": 0.5,
+        "brier": 2.0,
+        "outcome_probs": {
+          "home_win": 1.0,
+          "draw": 0.0,
+          "away_win": 0.0
+        }
+      }
+    },
+    "mistral-small3.2": {
+      "QF1": {
+        "predicted": "2-1",
+        "actual": "2-0",
+        "category": "tendency",
+        "points": 2,
+        "advance_bonus": 1,
+        "predicted_advances": "France",
+        "actually_advanced": "France",
+        "rps": 0.0,
+        "brier": 0.0,
+        "outcome_probs": {
+          "home_win": 1.0,
+          "draw": 0.0,
+          "away_win": 0.0
+        }
+      },
+      "QF2": {
+        "predicted": "2-1",
+        "actual": "2-1",
+        "category": "exact",
+        "points": 4,
+        "advance_bonus": 1,
+        "predicted_advances": "Spain",
+        "actually_advanced": "Spain",
+        "rps": 0.0,
+        "brier": 0.0,
+        "outcome_probs": {
+          "home_win": 1.0,
+          "draw": 0.0,
+          "away_win": 0.0
+        }
+      },
+      "QF3": {
+        "predicted": "1-2",
+        "actual": "1-1",
+        "category": "miss",
+        "points": 0,
+        "advance_bonus": 1,
+        "predicted_advances": "England",
+        "actually_advanced": "England",
+        "rps": 0.5,
+        "brier": 2.0,
+        "outcome_probs": {
+          "home_win": 0.0,
+          "draw": 0.0,
+          "away_win": 1.0
+        }
+      },
+      "QF4": {
+        "predicted": "2-1",
+        "actual": "1-1",
+        "category": "miss",
+        "points": 0,
+        "advance_bonus": 1,
+        "predicted_advances": "Argentina",
+        "actually_advanced": "Argentina",
+        "rps": 0.5,
+        "brier": 2.0,
+        "outcome_probs": {
+          "home_win": 1.0,
+          "draw": 0.0,
+          "away_win": 0.0
+        }
+      }
+    },
+    "phi4:14b": {
+      "QF1": {
+        "predicted": "2-1",
+        "actual": "2-0",
+        "category": "tendency",
+        "points": 2,
+        "advance_bonus": 1,
+        "predicted_advances": "France",
+        "actually_advanced": "France",
+        "rps": 0.0331,
+        "brier": 0.0661,
+        "outcome_probs": {
+          "home_win": 0.8181818181818182,
+          "draw": 0.0,
+          "away_win": 0.18181818181818182
+        }
+      },
+      "QF2": {
+        "predicted": "1-2",
+        "actual": "2-1",
+        "category": "miss",
+        "points": 0,
+        "advance_bonus": 0,
+        "predicted_advances": "Belgium",
+        "actually_advanced": "Spain",
+        "rps": 0.405,
+        "brier": 0.8099,
+        "outcome_probs": {
+          "home_win": 0.36363636363636365,
+          "draw": 0.0,
+          "away_win": 0.6363636363636364
+        }
+      },
+      "QF3": {
+        "predicted": "1-2",
+        "actual": "1-1",
+        "category": "miss",
+        "points": 0,
+        "advance_bonus": 1,
+        "predicted_advances": "England",
+        "actually_advanced": "England",
+        "rps": 0.5,
+        "brier": 2.0,
+        "outcome_probs": {
+          "home_win": 0.0,
+          "draw": 0.0,
+          "away_win": 1.0
+        }
+      },
+      "QF4": {
+        "predicted": "2-1",
+        "actual": "1-1",
+        "category": "miss",
+        "points": 0,
+        "advance_bonus": 1,
+        "predicted_advances": "Argentina",
+        "actually_advanced": "Argentina",
+        "rps": 0.5,
+        "brier": 2.0,
+        "outcome_probs": {
+          "home_win": 1.0,
+          "draw": 0.0,
+          "away_win": 0.0
+        }
+      }
+    },
+    "qwen3.6:35b": {
+      "QF1": {
+        "predicted": "2-1",
+        "actual": "2-0",
+        "category": "tendency",
+        "points": 2,
+        "advance_bonus": 1,
+        "predicted_advances": "France",
+        "actually_advanced": "France",
+        "rps": 0.0,
+        "brier": 0.0,
+        "outcome_probs": {
+          "home_win": 1.0,
+          "draw": 0.0,
+          "away_win": 0.0
+        }
+      },
+      "QF2": {
+        "predicted": "2-1",
+        "actual": "2-1",
+        "category": "exact",
+        "points": 4,
+        "advance_bonus": 1,
+        "predicted_advances": "Spain",
+        "actually_advanced": "Spain",
+        "rps": 0.0,
+        "brier": 0.0,
+        "outcome_probs": {
+          "home_win": 1.0,
+          "draw": 0.0,
+          "away_win": 0.0
+        }
+      },
+      "QF3": {
+        "predicted": "1-2",
+        "actual": "1-1",
+        "category": "miss",
+        "points": 0,
+        "advance_bonus": 1,
+        "predicted_advances": "England",
+        "actually_advanced": "England",
+        "rps": 0.3388,
+        "brier": 1.5041,
+        "outcome_probs": {
+          "home_win": 0.09090909090909091,
+          "draw": 0.09090909090909091,
+          "away_win": 0.8181818181818182
+        }
+      },
+      "QF4": {
+        "predicted": "2-1",
+        "actual": "1-1",
+        "category": "miss",
+        "points": 0,
+        "advance_bonus": 1,
+        "predicted_advances": "Argentina",
+        "actually_advanced": "Argentina",
+        "rps": 0.2025,
+        "brier": 0.8099,
+        "outcome_probs": {
+          "home_win": 0.6363636363636364,
+          "draw": 0.36363636363636365,
+          "away_win": 0.0
+        }
+      }
+    }
+  }
+}

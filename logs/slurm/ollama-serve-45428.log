@@ -1,0 +1,25 @@
+time=2026-07-11T22:21:55.148Z level=INFO source=routes.go:1961 msg="server config" env="map[CUDA_VISIBLE_DEVICES:0,1,2,3 GGML_VK_VISIBLE_DEVICES: GPU_DEVICE_ORDINAL:0,1,2,3 HIP_VISIBLE_DEVICES: HSA_OVERRIDE_GFX_VERSION: HTTPS_PROXY: HTTP_PROXY: LLAMA_ARG_FIT: LLAMA_ARG_FIT_TARGET: NO_PROXY: OLLAMA_CONTEXT_LENGTH:0 OLLAMA_DEBUG:INFO OLLAMA_DEBUG_LOG_REQUESTS:false OLLAMA_EDITOR: OLLAMA_FLASH_ATTENTION:false OLLAMA_GO_TEMPLATE:true OLLAMA_GPU_OVERHEAD:0 OLLAMA_HOST:http://127.0.0.1:25428 OLLAMA_IGPU_ENABLE: OLLAMA_KEEP_ALIVE:2562047h47m16.854775807s OLLAMA_KV_CACHE_TYPE: OLLAMA_LLM_LIBRARY: OLLAMA_LOAD_TIMEOUT:5m0s OLLAMA_MAX_LOADED_MODELS:1 OLLAMA_MAX_QUEUE:512 OLLAMA_MAX_TRANSFER_STREAMS:4 OLLAMA_MODELS:/home/ehassan/wc26_ollama_models OLLAMA_NOHISTORY:false OLLAMA_NOPRUNE:false OLLAMA_NO_CLOUD:false OLLAMA_NUM_PARALLEL:1 OLLAMA_ORIGINS:[http://localhost https://localhost http://localhost:* https://localhost:* http://127.0.0.1 https://127.0.0.1 http://127.0.0.1:* https://127.0.0.1:* http://0.0.0.0 https://0.0.0.0 http://0.0.0.0:* https://0.0.0.0:* app://* file://* tauri://* vscode-webview://* vscode-file://*] OLLAMA_REMOTES:[ollama.com] OLLAMA_SCHED_SPREAD:false OLLAMA_VULKAN:true ROCR_VISIBLE_DEVICES:0,1,2,3 http_proxy: https_proxy: no_proxy:]"
+time=2026-07-11T22:21:55.148Z level=INFO source=routes.go:1963 msg="Ollama cloud disabled: false"
+time=2026-07-11T22:21:55.176Z level=INFO source=images.go:883 msg="total blobs: 49"
+time=2026-07-11T22:21:55.184Z level=INFO source=images.go:890 msg="total unused blobs removed: 0"
+time=2026-07-11T22:21:55.192Z level=INFO source=routes.go:2023 msg="Listening on 127.0.0.1:25428 (version 0.31.1)"
+time=2026-07-11T22:21:55.203Z level=INFO source=runner.go:60 msg="discovering available GPUs..."
+time=2026-07-11T22:21:55.203Z level=WARN source=runner.go:713 msg="user overrode visible devices" CUDA_VISIBLE_DEVICES=0,1,2,3
+time=2026-07-11T22:21:55.203Z level=WARN source=runner.go:713 msg="user overrode visible devices" ROCR_VISIBLE_DEVICES=0,1,2,3
+time=2026-07-11T22:21:55.203Z level=WARN source=runner.go:713 msg="user overrode visible devices" GPU_DEVICE_ORDINAL=0,1,2,3
+time=2026-07-11T22:21:55.203Z level=WARN source=runner.go:717 msg="if GPUs are not correctly discovered, unset and try again"
+time=2026-07-11T22:21:55.274Z level=INFO source=model_list_cache.go:111 msg="model list cache hydration complete" models=11 failures=0 elapsed=81.393345ms
+time=2026-07-11T22:21:55.310Z level=INFO source=model_recommendations.go:177 msg="model recommendations cache sleep scheduled" wait=4h8m23.662058184s consecutive_failures=0
+time=2026-07-11T22:22:04.744Z level=INFO source=types.go:32 msg="inference compute" id=0 filter_id=0 library=CUDA compute=7.5 name=CUDA0 description="Quadro RTX 8000" libdirs=ollama,cuda_v12 driver=12.8 pci_id=0000:1a:00.0 type=discrete total="47.3 GiB" available="47.1 GiB"
+time=2026-07-11T22:22:04.744Z level=INFO source=types.go:32 msg="inference compute" id=1 filter_id=1 library=CUDA compute=7.5 name=CUDA1 description="Quadro RTX 8000" libdirs=ollama,cuda_v12 driver=12.8 pci_id=0000:1c:00.0 type=discrete total="47.3 GiB" available="47.1 GiB"
+time=2026-07-11T22:22:04.744Z level=INFO source=types.go:32 msg="inference compute" id=2 filter_id=2 library=CUDA compute=7.5 name=CUDA2 description="Quadro RTX 8000" libdirs=ollama,cuda_v12 driver=12.8 pci_id=0000:1d:00.0 type=discrete total="47.3 GiB" available="47.1 GiB"
+time=2026-07-11T22:22:04.744Z level=INFO source=types.go:32 msg="inference compute" id=3 filter_id=3 library=CUDA compute=7.5 name=CUDA3 description="Quadro RTX 8000" libdirs=ollama,cuda_v12 driver=12.8 pci_id=0000:1e:00.0 type=discrete total="47.3 GiB" available="47.1 GiB"
+time=2026-07-11T22:22:04.744Z level=INFO source=routes.go:2073 msg="vram-based default context" total_vram="189.1 GiB" default_num_ctx=262144
+[GIN] 2026/07/11 - 22:22:04 | 200 |     183.418µs |       127.0.0.1 | GET      "/api/version"
+[GIN] 2026/07/11 - 22:22:04 | 200 |     131.351µs |       127.0.0.1 | GET      "/api/version"
+[GIN] 2026/07/11 - 22:22:04 | 200 |       35.52µs |       127.0.0.1 | HEAD     "/"
+[GIN] 2026/07/11 - 22:22:05 | 200 |  269.051666ms |       127.0.0.1 | POST     "/api/pull"
+[GIN] 2026/07/11 - 22:22:35 | 200 |      32.224µs |       127.0.0.1 | HEAD     "/"
+[GIN] 2026/07/11 - 22:22:35 | 200 |  193.451026ms |       127.0.0.1 | POST     "/api/pull"
+[GIN] 2026/07/11 - 22:23:05 | 200 |      31.344µs |       127.0.0.1 | HEAD     "/"
+[GIN] 2026/07/11 - 22:23:05 | 200 |   233.11529ms |       127.0.0.1 | POST     "/api/pull"

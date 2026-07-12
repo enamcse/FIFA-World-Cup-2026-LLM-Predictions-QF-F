@@ -1,0 +1,131 @@
+=== Job 45419 on ai01 at 2026-07-09T19:21:44Z ===
+ollama Warning: could not connect to a running Ollama instance
+Warning: client version is 0.31.1 present
+--- GPU allocation ---
+Failed to initialize NVML: Driver/library version mismatch
+NVML library version: 580.159
+--- Starting ollama serve on 127.0.0.1:25419 (models: /home/ehassan/wc26_ollama_models) ---
+Server ready: {"version":"0.31.1"}
+--- Ensuring model is present: deepseek-r1:32b ---
+[?2026h[?25l[1Gpulling manifest ⠋ [K[?25h[?2026l[?2026h[?25l[1Gpulling manifest ⠙ [K[?25h[?2026l[?2026h[?25l[1Gpulling manifest ⠹ [K[?25h[?2026l[?2026h[?25l[1Gpulling manifest [K
+pulling 6150cb382311: 100% ▕██████████████████▏  19 GB                         [K
+pulling c5ad996bda6e: 100% ▕██████████████████▏  556 B                         [K
+pulling 6e4c38e1172f: 100% ▕██████████████████▏ 1.1 KB                         [K
+pulling f4d24e9138dd: 100% ▕██████████████████▏  148 B                         [K
+pulling c7f3ea903b50: 100% ▕██████████████████▏  488 B                         [K
+verifying sha256 digest [K
+writing manifest [K
+success [K[?25h[?2026l
+  Model
+    architecture        qwen2     
+    parameters          32.8B     
+    context length      131072    
+    embedding length    5120      
+    quantization        Q4_K_M    
+
+  Capabilities
+    tools         
+    thinking      
+    completion    
+
+  Parameters
+    stop    "<｜begin▁of▁sentence｜>"    
+    stop    "<｜end▁of▁sentence｜>"      
+    stop    "<｜User｜>"                 
+    stop    "<｜Assistant｜>"            
+
+  License
+    MIT License                    
+    Copyright (c) 2023 DeepSeek    
+    ...                            
+
+--- Running predictions: stage=QF samples=10 ---
+{
+  "run_meta": {
+    "run_ts": "2026-07-09T19:21:56.573942+00:00",
+    "model": "deepseek-r1:32b",
+    "ollama_version": "0.31.1",
+    "model_info": {
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "qwen2",
+        "families": [
+          "qwen2"
+        ],
+        "parameter_size": "32.8B",
+        "quantization_level": "Q4_K_M"
+      },
+      "parameters": "stop                           \"<\uff5cbegin\u2581of\u2581sentence\uff5c>\"\nstop                           \"<\uff5cend\u2581of\u2581sentence\uff5c>\"\nstop                           \"<\uff5cUser\uff5c>\"\nstop                           \"<\uff5cAssistant\uff5c>\"",
+      "digest": null
+    },
+    "git_commit": "79c30e37ef146b8d87e3a677434f88c476f1b704",
+    "prompt_version": "v1",
+    "samples": 10,
+    "temperature": 0.7,
+    "greedy_seed": 42,
+    "sample_seed_base": 1000,
+    "num_ctx": 8192,
+    "hostname": "ai01",
+    "slurm_job_id": "45419"
+  }
+}
+
+=== QF1: France vs Morocco ===
+    seed 1001: 2-1 (advances: France)
+    seed 1002: 2-1 (advances: France)
+    seed 1003: 2-1 (advances: France)
+    seed 1004: 2-1 (advances: France)
+    seed 1005: 2-1 (advances: France)
+    seed 1006: 2-1 (advances: France)
+    seed 1007: 2-1 (advances: France)
+    seed 1008: 2-1 (advances: France)
+    seed 1009: 2-1 (advances: France)
+    seed 1010: 1-0 (advances: France)
+  => aggregated: 2-1 (10/11 votes), advances: France
+
+=== QF2: Spain vs Belgium ===
+    seed 1001: 2-1 (advances: Spain)
+    seed 1002: 2-1 (advances: Spain)
+    seed 1003: 2-1 (advances: Spain)
+    seed 1004: 2-1 (advances: Spain)
+    seed 1005: 2-1 (advances: Spain)
+    seed 1006: 2-1 (advances: Spain)
+    seed 1007: 2-1 (advances: Spain)
+    seed 1008: 1-0 (advances: Spain)
+    seed 1009: 2-0 (advances: Spain)
+    seed 1010: 2-1 (advances: Spain)
+  => aggregated: 2-1 (9/11 votes), advances: Spain
+
+=== QF3: Norway vs England ===
+    seed 1001: 1-0 (advances: England)
+    seed 1002: 2-1 (advances: England)
+    seed 1003: 2-1 (advances: England)
+    seed 1004: 1-0 (advances: England)
+    seed 1005: 1-0 (advances: Norway)
+    seed 1006: 2-1 (advances: England)
+    seed 1007: 2-1 (advances: England)
+    seed 1008: 1-0 (advances: England)
+    seed 1009: 1-0 (advances: England)
+    seed 1010: 1-0 (advances: England)
+  => aggregated: 1-0 (6/11 votes), advances: Norway
+
+=== QF4: Argentina vs Switzerland ===
+    seed 1001: 1-1 (advances: Argentina)
+    seed 1002: 2-0 (advances: Argentina)
+    seed 1003: 2-1 (advances: Argentina)
+    seed 1004: 2-1 (advances: Argentina)
+    seed 1005: 2-0 (advances: Argentina)
+    seed 1006: 2-1 (advances: Argentina)
+    seed 1007: 2-0 (advances: Argentina)
+    seed 1008: 2-1 (advances: Argentina)
+    seed 1009: 2-1 (advances: Argentina)
+    seed 1010: 2-1 (advances: Argentina)
+  => aggregated: 2-1 (7/11 votes), advances: Argentina
+
+Done. Aggregated predictions appended to results/predictions/deepseek-r1_32b.jsonl
+--- GPU state after run ---
+Failed to initialize NVML: Driver/library version mismatch
+NVML library version: 580.159
+=== Finished at 2026-07-09T19:37:19Z with exit code 0 ===
+--- Stopping ollama (pid 1448587) ---

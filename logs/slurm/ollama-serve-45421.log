@@ -1,0 +1,1259 @@
+time=2026-07-09T19:47:30.527Z level=INFO source=routes.go:1961 msg="server config" env="map[CUDA_VISIBLE_DEVICES:0 GGML_VK_VISIBLE_DEVICES: GPU_DEVICE_ORDINAL:0 HIP_VISIBLE_DEVICES: HSA_OVERRIDE_GFX_VERSION: HTTPS_PROXY: HTTP_PROXY: LLAMA_ARG_FIT: LLAMA_ARG_FIT_TARGET: NO_PROXY: OLLAMA_CONTEXT_LENGTH:0 OLLAMA_DEBUG:INFO OLLAMA_DEBUG_LOG_REQUESTS:false OLLAMA_EDITOR: OLLAMA_FLASH_ATTENTION:false OLLAMA_GO_TEMPLATE:true OLLAMA_GPU_OVERHEAD:0 OLLAMA_HOST:http://127.0.0.1:25421 OLLAMA_IGPU_ENABLE: OLLAMA_KEEP_ALIVE:2562047h47m16.854775807s OLLAMA_KV_CACHE_TYPE: OLLAMA_LLM_LIBRARY: OLLAMA_LOAD_TIMEOUT:5m0s OLLAMA_MAX_LOADED_MODELS:1 OLLAMA_MAX_QUEUE:512 OLLAMA_MAX_TRANSFER_STREAMS:4 OLLAMA_MODELS:/home/ehassan/wc26_ollama_models OLLAMA_NOHISTORY:false OLLAMA_NOPRUNE:false OLLAMA_NO_CLOUD:false OLLAMA_NUM_PARALLEL:1 OLLAMA_ORIGINS:[http://localhost https://localhost http://localhost:* https://localhost:* http://127.0.0.1 https://127.0.0.1 http://127.0.0.1:* https://127.0.0.1:* http://0.0.0.0 https://0.0.0.0 http://0.0.0.0:* https://0.0.0.0:* app://* file://* tauri://* vscode-webview://* vscode-file://*] OLLAMA_REMOTES:[ollama.com] OLLAMA_SCHED_SPREAD:false OLLAMA_VULKAN:true ROCR_VISIBLE_DEVICES:0 http_proxy: https_proxy: no_proxy:]"
+time=2026-07-09T19:47:30.528Z level=INFO source=routes.go:1963 msg="Ollama cloud disabled: false"
+time=2026-07-09T19:47:30.567Z level=INFO source=images.go:883 msg="total blobs: 43"
+time=2026-07-09T19:47:30.573Z level=INFO source=images.go:890 msg="total unused blobs removed: 0"
+time=2026-07-09T19:47:30.579Z level=INFO source=routes.go:2023 msg="Listening on 127.0.0.1:25421 (version 0.31.1)"
+time=2026-07-09T19:47:30.589Z level=INFO source=runner.go:60 msg="discovering available GPUs..."
+time=2026-07-09T19:47:30.589Z level=WARN source=runner.go:713 msg="user overrode visible devices" CUDA_VISIBLE_DEVICES=0
+time=2026-07-09T19:47:30.589Z level=WARN source=runner.go:713 msg="user overrode visible devices" ROCR_VISIBLE_DEVICES=0
+time=2026-07-09T19:47:30.589Z level=WARN source=runner.go:713 msg="user overrode visible devices" GPU_DEVICE_ORDINAL=0
+time=2026-07-09T19:47:30.589Z level=WARN source=runner.go:717 msg="if GPUs are not correctly discovered, unset and try again"
+time=2026-07-09T19:47:30.633Z level=INFO source=model_list_cache.go:111 msg="model list cache hydration complete" models=9 failures=0 elapsed=54.271834ms
+time=2026-07-09T19:47:30.662Z level=INFO source=model_recommendations.go:177 msg="model recommendations cache sleep scheduled" wait=3h53m26.879477993s consecutive_failures=0
+time=2026-07-09T19:47:34.301Z level=INFO source=types.go:32 msg="inference compute" id=0 filter_id=0 library=CUDA compute=7.5 name=CUDA0 description="Quadro RTX 8000" libdirs=ollama,cuda_v12 driver=12.8 pci_id=0000:3d:00.0 type=discrete total="47.3 GiB" available="47.1 GiB"
+time=2026-07-09T19:47:34.301Z level=INFO source=routes.go:2073 msg="vram-based default context" total_vram="47.3 GiB" default_num_ctx=262144
+[GIN] 2026/07/09 - 19:47:34 | 200 |     159.483µs |       127.0.0.1 | GET      "/api/version"
+[GIN] 2026/07/09 - 19:47:34 | 200 |      42.852µs |       127.0.0.1 | GET      "/api/version"
+[GIN] 2026/07/09 - 19:47:34 | 200 |      32.829µs |       127.0.0.1 | HEAD     "/"
+[GIN] 2026/07/09 - 19:47:34 | 200 |  356.042928ms |       127.0.0.1 | POST     "/api/pull"
+[GIN] 2026/07/09 - 19:47:34 | 200 |       26.85µs |       127.0.0.1 | HEAD     "/"
+[GIN] 2026/07/09 - 19:47:35 | 200 |  662.219493ms |       127.0.0.1 | POST     "/api/show"
+[GIN] 2026/07/09 - 19:47:35 | 200 |      52.184µs |       127.0.0.1 | GET      "/api/version"
+[GIN] 2026/07/09 - 19:47:35 | 200 |   12.150649ms |       127.0.0.1 | POST     "/api/show"
+time=2026-07-09T19:47:38.088Z level=INFO source=server.go:109 msg="using llama-server for model" model=/home/ehassan/wc26_ollama_models/blobs/sha256-41a5b0c36a28a3a0480ce2e4007d3a21e3298be70e2b9a103960581412997dca
+time=2026-07-09T19:47:38.090Z level=INFO source=llama_server.go:425 msg="starting llama-server" cmd="/home/ehassan/wc26-tools/ollama-v0.31.1/lib/ollama/llama-server --model /home/ehassan/wc26_ollama_models/blobs/sha256-41a5b0c36a28a3a0480ce2e4007d3a21e3298be70e2b9a103960581412997dca --port 40233 --host 127.0.0.1 --no-webui --offline -c 8192 -np 1 --log-verbosity 4 --no-log-prefix --no-log-timestamps --no-jinja --chat-template chatml --mmproj /home/ehassan/wc26_ollama_models/blobs/sha256-41a5b0c36a28a3a0480ce2e4007d3a21e3298be70e2b9a103960581412997dca --flash-attn auto -b 1024 -ub 1024 --context-shift --keep 4"
+time=2026-07-09T19:47:38.093Z level=INFO source=sched.go:623 msg="system memory" total="376.5 GiB" free="318.1 GiB" free_swap="8.0 GiB"
+time=2026-07-09T19:47:38.093Z level=INFO source=sched.go:630 msg="gpu memory" id=0 library=CUDA available="46.7 GiB" free="47.1 GiB" minimum="457.0 MiB" overhead="0 B"
+time=2026-07-09T19:47:38.093Z level=INFO source=llama_server.go:960 msg="loading model via llama-server" model=/home/ehassan/wc26_ollama_models/blobs/sha256-41a5b0c36a28a3a0480ce2e4007d3a21e3298be70e2b9a103960581412997dca
+time=2026-07-09T19:47:38.093Z level=INFO source=llama_server.go:1207 msg="waiting for llama-server to start responding"
+time=2026-07-09T19:47:38.093Z level=INFO source=llama_server.go:1262 msg="waiting for llama-server to become available" status="llm server not responding"
+cmn  common_param: common_params_print_info: build 1 (8c146a836) with GNU 11.2.1 for Linux x86_64
+cmn  common_param: common_params_print_info: verbosity = 4 (adjust with the `-lv N` CLI arg)
+cmn  common_param: device_info:
+cmn  common_param:   - CPU     : Intel(R) Xeon(R) Silver 4216 CPU @ 2.10GHz (385574 MiB, 385574 MiB free)
+cmn  common_param:   - CUDA0   : Quadro RTX 8000 (48403 MiB, 48237 MiB free)
+cmn  common_param: system_info: n_threads = 32 (n_threads_batch = 32) / 64 | CPU : SSE3 = 1 | SSSE3 = 1 | AVX = 1 | AVX2 = 1 | F16C = 1 | FMA = 1 | BMI2 = 1 | AVX512 = 1 | AVX512_VNNI = 1 | LLAMAFILE = 1 | REPACK = 1 | CUDA : ARCHS = 500,520,600,610,700,750,800,860,890,900,1200 | USE_GRAPHS = 1 | PEER_MAX_BATCH_SIZE = 128 | 
+srv          init: using 63 threads for HTTP server
+srv          init: The UI is disabled
+srv          init: Use --ui/--no-ui (or deprecated --webui/--no-webui) to enable/disable
+srv         start: binding port with default address family
+srv    load_model: loading model '/home/ehassan/wc26_ollama_models/blobs/sha256-41a5b0c36a28a3a0480ce2e4007d3a21e3298be70e2b9a103960581412997dca'
+srv    load_model: local path '/home/ehassan/wc26_ollama_models/blobs/sha256-41a5b0c36a28a3a0480ce2e4007d3a21e3298be70e2b9a103960581412997dca'
+handle_mistral3_clip: detected Ollama-format mistral3 GGUF used as mmproj; translating
+srv    load_model: [mtmd] estimated worst-case memory usage of mmproj is 872.54 MiB (took 94.97 ms)
+cmn  common_init_: fitting params to device memory ...
+cmn  common_init_: (for bugs during this step try to reproduce them with -fit off, or provide --verbose logs if the bug only occurs with -fit on)
+common_params_fit_impl: getting device memory data for initial parameters:
+handle_mistral3: detected Ollama-format mistral3 GGUF; applying compatibility fixes
+time=2026-07-09T19:47:38.596Z level=INFO source=llama_server.go:1262 msg="waiting for llama-server to become available" status="llm server loading model"
+common_memory_breakdown_print: | memory breakdown [MiB]      | total    free     self   model   context   compute    unaccounted |
+common_memory_breakdown_print: |   - CUDA0 (Quadro RTX 8000) | 48403 = 48237 + (15035 = 13299 +    1280 +     456) +      -14869 |
+common_memory_breakdown_print: |   - Host                    |                    416 =   360 +       0 +      56                |
+common_params_fit_impl: projected to use 15035 MiB of device memory vs. 48237 MiB of free device memory
+common_params_fit_impl: will leave 33201 >= 1026 MiB of free device memory, no changes needed
+common_fit_params: successfully fit params to free device memory
+common_fit_params: fitting params to free memory took 0.63 seconds
+handle_mistral3: detected Ollama-format mistral3 GGUF; applying compatibility fixes
+llama_model_loader: loaded meta data with 43 key-value pairs and 363 tensors from /home/ehassan/wc26_ollama_models/blobs/sha256-41a5b0c36a28a3a0480ce2e4007d3a21e3298be70e2b9a103960581412997dca (version GGUF V3 (latest))
+llama_model_loader: Dumping metadata keys/values. Note: KV overrides do not apply in this output.
+llama_model_loader: - kv   0:                       general.architecture str              = mistral3
+llama_model_loader: - kv   1:                          general.file_type u32              = 15
+llama_model_loader: - kv   2:                    general.parameter_count u64              = 24011361280
+llama_model_loader: - kv   3:               general.quantization_version u32              = 2
+llama_model_loader: - kv   4:              mistral3.attention.head_count u32              = 32
+llama_model_loader: - kv   5:           mistral3.attention.head_count_kv u32              = 8
+llama_model_loader: - kv   6:              mistral3.attention.key_length u32              = 128
+llama_model_loader: - kv   7:  mistral3.attention.layer_norm_rms_epsilon f32              = 0.000010
+llama_model_loader: - kv   8:            mistral3.attention.value_length u32              = 128
+llama_model_loader: - kv   9:                       mistral3.block_count u32              = 40
+llama_model_loader: - kv  10:                    mistral3.context_length u32              = 131072
+llama_model_loader: - kv  11:                  mistral3.embedding_length u32              = 5120
+llama_model_loader: - kv  12:               mistral3.feed_forward_length u32              = 32768
+llama_model_loader: - kv  13:                 mistral3.image_token_index u32              = 10
+llama_model_loader: - kv  14:                 mistral3.mm.projector_bias bool             = false
+llama_model_loader: - kv  15:           mistral3.mm.projector_hidden_act str              = gelu
+llama_model_loader: - kv  16:              mistral3.rope.dimension_count u32              = 128
+llama_model_loader: - kv  17:                    mistral3.rope.freq_base f32              = 1000000000.000000
+llama_model_loader: - kv  18:                mistral3.spatial_merge_size u32              = 2
+llama_model_loader: - kv  19:       mistral3.vision.attention.head_count u32              = 16
+llama_model_loader: - kv  20:       mistral3.vision.attention.key_length u32              = 64
+llama_model_loader: - kv  21:                mistral3.vision.block_count u32              = 24
+llama_model_loader: - kv  22:           mistral3.vision.embedding_length u32              = 1024
+llama_model_loader: - kv  23:        mistral3.vision.feed_forward_length u32              = 4096
+llama_model_loader: - kv  24:                 mistral3.vision.image_size u32              = 1540
+llama_model_loader: - kv  25:               mistral3.vision.num_channels u32              = 3
+llama_model_loader: - kv  26:                 mistral3.vision.patch_size u32              = 14
+llama_model_loader: - kv  27:             mistral3.vision.rope.freq_base f32              = 10000.000000
+llama_model_loader: - kv  28:                        mistral3.vocab_size u32              = 131072
+llama_model_loader: - kv  29:               tokenizer.ggml.add_bos_token bool             = true
+llama_model_loader: - kv  30:               tokenizer.ggml.add_eos_token bool             = false
+llama_model_loader: - kv  31:           tokenizer.ggml.add_padding_token bool             = false
+llama_model_loader: - kv  32:           tokenizer.ggml.add_unknown_token bool             = false
+llama_model_loader: - kv  33:                tokenizer.ggml.bos_token_id u32              = 1
+llama_model_loader: - kv  34:                tokenizer.ggml.eos_token_id u32              = 2
+llama_model_loader: - kv  35:                      tokenizer.ggml.merges arr[str,269443]  = ["Ġ Ġ", "Ġ t", "e r", "i n", "Ġ �...
+llama_model_loader: - kv  36:                       tokenizer.ggml.model str              = gpt2
+llama_model_loader: - kv  37:            tokenizer.ggml.padding_token_id u32              = 11
+llama_model_loader: - kv  38:                         tokenizer.ggml.pre str              = llama-bpe
+llama_model_loader: - kv  39:                      tokenizer.ggml.scores arr[f32,131072]  = [0.000000, 1.000000, 2.000000, 3.0000...
+llama_model_loader: - kv  40:                  tokenizer.ggml.token_type arr[i32,131072]  = [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, ...
+llama_model_loader: - kv  41:                      tokenizer.ggml.tokens arr[str,131072]  = ["<unk>", "<s>", "</s>", "[INST]", "[...
+llama_model_loader: - kv  42:            tokenizer.ggml.unknown_token_id u32              = 0
+llama_model_loader: - type  f32:   81 tensors
+llama_model_loader: - type q4_K:  243 tensors
+llama_model_loader: - type q6_K:   39 tensors
+print_info: file format = GGUF V3 (latest)
+print_info: file type   = Q4_K - Medium
+print_info: file size   = 13.34 GiB (4.86 BPW) 
+llama_prepare_model_devices: using device CUDA0 (Quadro RTX 8000) (0000:3d:00.0) - 48237 MiB free
+load: 0 unused tokens
+load: printing all EOG tokens:
+load:   - 2 ('</s>')
+load: special tokens cache size = 1000
+load: token to piece cache size = 0.8498 MB
+print_info: arch                  = mistral3
+print_info: vocab_only            = 0
+print_info: no_alloc              = 0
+print_info: n_ctx_train           = 131072
+print_info: n_embd_inp            = 5120
+print_info: n_embd                = 5120
+print_info: n_embd_out            = 5120
+print_info: n_layer               = 40
+print_info: n_layer_all           = 40
+print_info: n_head                = 32
+print_info: n_head_kv             = 8
+print_info: n_rot                 = 128
+print_info: n_swa                 = 0
+print_info: is_swa_any            = 0
+print_info: n_embd_head_k         = 128
+print_info: n_embd_head_v         = 128
+print_info: n_gqa                 = 4
+print_info: n_embd_k_gqa          = 1024
+print_info: n_embd_v_gqa          = 1024
+print_info: f_norm_eps            = 0.0e+00
+print_info: f_norm_rms_eps        = 1.0e-05
+print_info: f_clamp_kqv           = 0.0e+00
+print_info: f_max_alibi_bias      = 0.0e+00
+print_info: f_logit_scale         = 0.0e+00
+print_info: f_attn_scale          = 0.0e+00
+print_info: f_attn_value_scale    = 0.0000
+print_info: n_ff                  = 32768
+print_info: n_expert              = 0
+print_info: n_expert_used         = 0
+print_info: n_expert_groups       = 0
+print_info: n_group_used          = 0
+print_info: causal attn           = 1
+print_info: pooling type          = -1
+print_info: rope type             = 0
+print_info: rope scaling          = linear
+print_info: freq_base_train       = 1000000000.0
+print_info: freq_scale_train      = 1
+print_info: n_ctx_orig_yarn       = 131072
+print_info: rope_yarn_log_mul     = 0.0000
+print_info: rope_finetuned        = unknown
+print_info: model type            = 14B
+print_info: model params          = 23.57 B
+print_info: general.name          = n/a
+print_info: vocab type            = BPE
+print_info: n_vocab               = 131072
+print_info: n_merges              = 269443
+print_info: BOS token             = 1 '<s>'
+print_info: EOS token             = 2 '</s>'
+print_info: UNK token             = 0 '<unk>'
+print_info: PAD token             = 11 '<pad>'
+print_info: LF token              = 1010 'Ċ'
+print_info: EOG token             = 2 '</s>'
+print_info: max token length      = 150
+load_tensors: loading model tensors, this can take a while... (mmap = true, direct_io = false)
+load_tensors: offloading output layer to GPU
+load_tensors: offloading 39 repeating layers to GPU
+load_tensors: offloaded 41/41 layers to GPU
+load_tensors:   CPU_Mapped model buffer size =   360.00 MiB
+load_tensors:        CUDA0 model buffer size = 13299.79 MiB
+cmn  common_init_: added </s> logit bias = -inf
+llama_context: constructing llama_context
+llama_context: n_seq_max     = 1
+llama_context: n_ctx         = 8192
+llama_context: n_ctx_seq     = 8192
+llama_context: n_batch       = 1024
+llama_context: n_ubatch      = 1024
+llama_context: causal_attn   = 1
+llama_context: flash_attn    = auto
+llama_context: kv_unified    = false
+llama_context: freq_base     = 1000000000.0
+llama_context: freq_scale    = 1
+llama_context: n_rs_seq      = 0
+llama_context: n_outputs_max = 1
+llama_context: n_ctx_seq (8192) < n_ctx_train (131072) -- the full capacity of the model will not be utilized
+llama_context:  CUDA_Host  output buffer size =     0.50 MiB
+llama_kv_cache:      CUDA0 KV buffer size =  1280.00 MiB
+llama_kv_cache: size = 1280.00 MiB (  8192 cells,  40 layers,  1/1 seqs), K (f16):  640.00 MiB, V (f16):  640.00 MiB
+llama_kv_cache: attn_rot_k = 0, n_embd_head_k_all = 128
+llama_kv_cache: attn_rot_v = 0, n_embd_head_k_all = 128
+sched_reserve: reserving ...
+sched_reserve: Flash Attention was auto, set to enabled
+sched_reserve: resolving fused Gated Delta Net support:
+sched_reserve: fused Gated Delta Net (autoregressive) enabled
+sched_reserve: fused Gated Delta Net (chunked) enabled
+sched_reserve:      CUDA0 compute buffer size =   456.02 MiB
+sched_reserve:  CUDA_Host compute buffer size =    56.02 MiB
+sched_reserve: graph nodes  = 1246
+sched_reserve: graph splits = 2
+sched_reserve: reserve took 36.83 ms, sched copies = 1
+cmn  common_init_: warming up the model with an empty run - please wait ... (--no-warmup to disable)
+handle_mistral3_clip: detected Ollama-format mistral3 GGUF used as mmproj; translating
+clip_model_loader: model name:   
+clip_model_loader: description:  
+clip_model_loader: GGUF version: 3
+clip_model_loader: alignment:    32
+clip_model_loader: n_tensors:    585
+clip_model_loader: n_kv:         59
+
+clip_model_loader: has vision encoder
+clip_ctx: CLIP using CUDA0 backend
+load_hparams: projector:          pixtral
+load_hparams: n_embd:             1024
+load_hparams: n_head:             16
+load_hparams: n_ff:               4096
+load_hparams: n_layer:            24
+load_hparams: ffn_op:             silu
+load_hparams: projection_dim:     5120
+
+--- vision hparams ---
+load_hparams: image_size:         1540
+load_hparams: patch_size:         14
+load_hparams: has_llava_proj:     0
+load_hparams: minicpmv_version:   0
+load_hparams: n_merge:            2
+load_hparams: n_wa_pattern: 0
+load_hparams: image_min_pixels:   6272
+load_hparams: image_max_pixels:   802816
+
+load_hparams: model size:         14467.39 MiB
+load_hparams: metadata size:      0.21 MiB
+compat tensor transform: op=F16->F32 promote tensor=v.patch_embd.weight bytes=2408448 duration_ms=5.874 total_ops=1 total_bytes=2408448 total_ms=5.874
+compat tensor transform: op=vision Q/K LLaMA permute tensor=v.blk.0.attn_k.weight bytes=2097152 duration_ms=1.987 total_ops=2 total_bytes=4505600 total_ms=7.861
+compat tensor transform: op=vision Q/K LLaMA permute tensor=v.blk.0.attn_q.weight bytes=2097152 duration_ms=1.538 total_ops=3 total_bytes=6602752 total_ms=9.399
+compat tensor transform: op=vision Q/K LLaMA permute tensor=v.blk.1.attn_k.weight bytes=2097152 duration_ms=4.001 total_ops=4 total_bytes=8699904 total_ms=13.400
+compat tensor transform: op=vision Q/K LLaMA permute tensor=v.blk.1.attn_q.weight bytes=2097152 duration_ms=1.604 total_ops=5 total_bytes=10797056 total_ms=15.004
+compat tensor transform: op=vision Q/K LLaMA permute tensor=v.blk.2.attn_k.weight bytes=2097152 duration_ms=2.539 total_ops=6 total_bytes=12894208 total_ms=17.543
+compat tensor transform: op=vision Q/K LLaMA permute tensor=v.blk.2.attn_q.weight bytes=2097152 duration_ms=1.588 total_ops=7 total_bytes=14991360 total_ms=19.131
+compat tensor transform: op=vision Q/K LLaMA permute tensor=v.blk.3.attn_k.weight bytes=2097152 duration_ms=2.395 total_ops=8 total_bytes=17088512 total_ms=21.526
+compat tensor transform: op=vision Q/K LLaMA permute tensor=v.blk.3.attn_q.weight bytes=2097152 duration_ms=1.610 total_ops=9 total_bytes=19185664 total_ms=23.136
+compat tensor transform: op=vision Q/K LLaMA permute tensor=v.blk.4.attn_k.weight bytes=2097152 duration_ms=2.569 total_ops=10 total_bytes=21282816 total_ms=25.704
+compat tensor transform: op=vision Q/K LLaMA permute tensor=v.blk.4.attn_q.weight bytes=2097152 duration_ms=1.704 total_ops=11 total_bytes=23379968 total_ms=27.408
+compat tensor transform: op=vision Q/K LLaMA permute tensor=v.blk.5.attn_k.weight bytes=2097152 duration_ms=2.383 total_ops=12 total_bytes=25477120 total_ms=29.791
+compat tensor transform: op=vision Q/K LLaMA permute tensor=v.blk.5.attn_q.weight bytes=2097152 duration_ms=1.456 total_ops=13 total_bytes=27574272 total_ms=31.247
+compat tensor transform: op=vision Q/K LLaMA permute tensor=v.blk.6.attn_k.weight bytes=2097152 duration_ms=2.375 total_ops=14 total_bytes=29671424 total_ms=33.621
+compat tensor transform: op=vision Q/K LLaMA permute tensor=v.blk.6.attn_q.weight bytes=2097152 duration_ms=1.635 total_ops=15 total_bytes=31768576 total_ms=35.256
+compat tensor transform: op=vision Q/K LLaMA permute tensor=v.blk.7.attn_k.weight bytes=2097152 duration_ms=2.461 total_ops=16 total_bytes=33865728 total_ms=37.718
+compat tensor transform: op=vision Q/K LLaMA permute tensor=v.blk.7.attn_q.weight bytes=2097152 duration_ms=1.489 total_ops=17 total_bytes=35962880 total_ms=39.207
+compat tensor transform: op=vision Q/K LLaMA permute tensor=v.blk.8.attn_k.weight bytes=2097152 duration_ms=2.428 total_ops=18 total_bytes=38060032 total_ms=41.636
+compat tensor transform: op=vision Q/K LLaMA permute tensor=v.blk.8.attn_q.weight bytes=2097152 duration_ms=1.577 total_ops=19 total_bytes=40157184 total_ms=43.212
+compat tensor transform: op=vision Q/K LLaMA permute tensor=v.blk.9.attn_k.weight bytes=2097152 duration_ms=2.587 total_ops=20 total_bytes=42254336 total_ms=45.800
+compat tensor transform: op=vision Q/K LLaMA permute tensor=v.blk.9.attn_q.weight bytes=2097152 duration_ms=1.626 total_ops=21 total_bytes=44351488 total_ms=47.425
+compat tensor transform: op=vision Q/K LLaMA permute tensor=v.blk.10.attn_k.weight bytes=2097152 duration_ms=2.666 total_ops=22 total_bytes=46448640 total_ms=50.091
+compat tensor transform: op=vision Q/K LLaMA permute tensor=v.blk.10.attn_q.weight bytes=2097152 duration_ms=1.630 total_ops=23 total_bytes=48545792 total_ms=51.722
+compat tensor transform: op=vision Q/K LLaMA permute tensor=v.blk.11.attn_k.weight bytes=2097152 duration_ms=2.643 total_ops=24 total_bytes=50642944 total_ms=54.365
+compat tensor transform: op=vision Q/K LLaMA permute tensor=v.blk.11.attn_q.weight bytes=2097152 duration_ms=1.582 total_ops=25 total_bytes=52740096 total_ms=55.947
+compat tensor transform: op=vision Q/K LLaMA permute tensor=v.blk.12.attn_k.weight bytes=2097152 duration_ms=2.579 total_ops=26 total_bytes=54837248 total_ms=58.526
+compat tensor transform: op=vision Q/K LLaMA permute tensor=v.blk.12.attn_q.weight bytes=2097152 duration_ms=1.627 total_ops=27 total_bytes=56934400 total_ms=60.153
+compat tensor transform: op=vision Q/K LLaMA permute tensor=v.blk.13.attn_k.weight bytes=2097152 duration_ms=2.560 total_ops=28 total_bytes=59031552 total_ms=62.713
+compat tensor transform: op=vision Q/K LLaMA permute tensor=v.blk.13.attn_q.weight bytes=2097152 duration_ms=1.614 total_ops=29 total_bytes=61128704 total_ms=64.327
+compat tensor transform: op=vision Q/K LLaMA permute tensor=v.blk.14.attn_k.weight bytes=2097152 duration_ms=2.499 total_ops=30 total_bytes=63225856 total_ms=66.826
+compat tensor transform: op=vision Q/K LLaMA permute tensor=v.blk.14.attn_q.weight bytes=2097152 duration_ms=1.643 total_ops=31 total_bytes=65323008 total_ms=68.469
+compat tensor transform: op=vision Q/K LLaMA permute tensor=v.blk.15.attn_k.weight bytes=2097152 duration_ms=2.497 total_ops=32 total_bytes=67420160 total_ms=70.966
+compat tensor transform: op=vision Q/K LLaMA permute tensor=v.blk.15.attn_q.weight bytes=2097152 duration_ms=1.570 total_ops=33 total_bytes=69517312 total_ms=72.536
+compat tensor transform: op=vision Q/K LLaMA permute tensor=v.blk.16.attn_k.weight bytes=2097152 duration_ms=2.550 total_ops=34 total_bytes=71614464 total_ms=75.086
+compat tensor transform: op=vision Q/K LLaMA permute tensor=v.blk.16.attn_q.weight bytes=2097152 duration_ms=1.524 total_ops=35 total_bytes=73711616 total_ms=76.611
+compat tensor transform: op=vision Q/K LLaMA permute tensor=v.blk.17.attn_k.weight bytes=2097152 duration_ms=2.568 total_ops=36 total_bytes=75808768 total_ms=79.178
+compat tensor transform: op=vision Q/K LLaMA permute tensor=v.blk.17.attn_q.weight bytes=2097152 duration_ms=1.473 total_ops=37 total_bytes=77905920 total_ms=80.651
+compat tensor transform: op=vision Q/K LLaMA permute tensor=v.blk.18.attn_k.weight bytes=2097152 duration_ms=3.155 total_ops=38 total_bytes=80003072 total_ms=83.806
+compat tensor transform: op=vision Q/K LLaMA permute tensor=v.blk.18.attn_q.weight bytes=2097152 duration_ms=2.038 total_ops=39 total_bytes=82100224 total_ms=85.844
+compat tensor transform: op=vision Q/K LLaMA permute tensor=v.blk.19.attn_k.weight bytes=2097152 duration_ms=2.515 total_ops=40 total_bytes=84197376 total_ms=88.359
+compat tensor transform: op=vision Q/K LLaMA permute tensor=v.blk.19.attn_q.weight bytes=2097152 duration_ms=1.619 total_ops=41 total_bytes=86294528 total_ms=89.978
+compat tensor transform: op=vision Q/K LLaMA permute tensor=v.blk.20.attn_k.weight bytes=2097152 duration_ms=2.465 total_ops=42 total_bytes=88391680 total_ms=92.442
+compat tensor transform: op=vision Q/K LLaMA permute tensor=v.blk.20.attn_q.weight bytes=2097152 duration_ms=2.148 total_ops=43 total_bytes=90488832 total_ms=94.591
+compat tensor transform: op=vision Q/K LLaMA permute tensor=v.blk.21.attn_k.weight bytes=2097152 duration_ms=2.508 total_ops=44 total_bytes=92585984 total_ms=97.098
+compat tensor transform: op=vision Q/K LLaMA permute tensor=v.blk.21.attn_q.weight bytes=2097152 duration_ms=1.566 total_ops=45 total_bytes=94683136 total_ms=98.664
+compat tensor transform: op=vision Q/K LLaMA permute tensor=v.blk.22.attn_k.weight bytes=2097152 duration_ms=2.407 total_ops=46 total_bytes=96780288 total_ms=101.071
+compat tensor transform: op=vision Q/K LLaMA permute tensor=v.blk.22.attn_q.weight bytes=2097152 duration_ms=1.476 total_ops=47 total_bytes=98877440 total_ms=102.547
+compat tensor transform: op=vision Q/K LLaMA permute tensor=v.blk.23.attn_k.weight bytes=2097152 duration_ms=2.429 total_ops=48 total_bytes=100974592 total_ms=104.976
+compat tensor transform: op=vision Q/K LLaMA permute tensor=v.blk.23.attn_q.weight bytes=2097152 duration_ms=1.575 total_ops=49 total_bytes=103071744 total_ms=106.550
+compat tensor transform: op=img_break zero-fill tensor=v.token_embd.img_break bytes=20480 duration_ms=0.028 total_ops=50 total_bytes=103092224 total_ms=106.578
+get_dummy_batch: warmup with image size = 448 x 448
+get_dummy_batch: warmup with image size = 448 x 448
+reserve_compute_meta:      CUDA0 compute buffer size =    62.62 MiB
+reserve_compute_meta:        CPU compute buffer size =     2.30 MiB
+reserve_compute_meta: graph splits = 1, nodes = 847
+warmup: flash attention is enabled
+srv    load_model: loaded multimodal model, '/home/ehassan/wc26_ollama_models/blobs/sha256-41a5b0c36a28a3a0480ce2e4007d3a21e3298be70e2b9a103960581412997dca'
+srv    load_model: ctx_shift is not supported by multimodal, it will be disabled
+srv    load_model: initializing, n_slots = 1, n_ctx_slot = 8192, kv_unified = 'false'
+spec common_specu: no implementations specified for speculative decoding
+slot   load_model: id  0 | task -1 | new slot, n_ctx = 8192
+srv    load_model: prompt cache is enabled, size limit: 8192 MiB
+srv    load_model: use `--cache-ram 0` to disable the prompt cache
+srv    load_model: for more info see https://github.com/ggml-org/llama.cpp/pull/16391
+srv    load_model: context checkpoints enabled, max = 32, min spacing = 8192
+srv          init: idle slots will be saved to prompt cache upon starting a new task
+srv          init: init: chat template, example_format: '<|im_start|>system
+You are a helpful assistant<|im_end|>
+<|im_start|>user
+Hello<|im_end|>
+<|im_start|>assistant
+Hi there<|im_end|>
+<|im_start|>user
+How are you?<|im_end|>
+<|im_start|>assistant
+'
+srv          init: init: chat template, thinking = 0
+srv  llama_server: model loaded
+srv  llama_server: listening on http://127.0.0.1:40233
+srv  update_slots: all slots are idle
+time=2026-07-09T19:48:46.025Z level=INFO source=llama_server.go:1274 msg="llama-server started in 67.93 seconds"
+time=2026-07-09T19:48:46.184Z level=INFO source=images.go:373 msg="template selection" model=registry.ollama.ai/library/mistral-small3.2:latest selected=go_template renderer="" parser="" go_template="[completion vision tools]" chat_template=null harmony=null renderer_parser=null
+time=2026-07-09T19:48:46.184Z level=INFO source=sched.go:739 msg="loaded runners" count=1
+time=2026-07-09T19:48:46.184Z level=INFO source=llama_server.go:1207 msg="waiting for llama-server to start responding"
+time=2026-07-09T19:48:46.185Z level=INFO source=llama_server.go:1274 msg="llama-server started in 68.09 seconds"
+slot get_availabl: id  0 | task -1 | selected slot by LRU, t_last = -1
+srv  get_availabl: updating prompt cache
+srv          load:  - looking for better prompt, base f_keep = -1.000, sim = 0.000
+srv        update:  - cache state: 0 prompts, 0.000 MiB (limits: 8192.000 MiB, 8192 tokens, 8589934592 est)
+srv  get_availabl: prompt cache update took 0.03 ms
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task -1 | sampler params: 
+	repeat_last_n = 64, repeat_penalty = 1.100, frequency_penalty = 0.000, presence_penalty = 0.000
+	dry_multiplier = 0.000, dry_base = 1.750, dry_allowed_length = 2, dry_penalty_last_n = 8192
+	top_k = 40, top_p = 0.900, min_p = 0.000, xtc_probability = 0.000, xtc_threshold = 0.100, typical_p = 1.000, top_n_sigma = -1.000, temp = 0.000
+	mirostat = 0, mirostat_lr = 0.100, mirostat_ent = 5.000, adaptive_target = -1.000, adaptive_decay = 0.900
+slot launch_slot_: id  0 | task 0 | processing task, is_child = 0
+slot   operator(): id  0 | task 0 | new prompt, n_ctx_slot = 8192, n_keep = 4, task.n_tokens = 193
+slot   operator(): id  0 | task 0 | cached n_tokens = 0, memory_seq_rm [0, end)
+srv  stream_sessi: conv_id= (empty=1)
+slot init_sampler: id  0 | task 0 | init sampler, took 0.10 ms, tokens: text = 193, total = 193
+slot print_timing: id  0 | task 0 | prompt eval time =     264.74 ms /   193 tokens (    1.37 ms per token,   729.02 tokens per second)
+slot print_timing: id  0 | task 0 |        eval time =    1604.89 ms /    57 tokens (   28.16 ms per token,    35.52 tokens per second)
+slot print_timing: id  0 | task 0 |       total time =    1869.62 ms /   250 tokens
+slot print_timing: id  0 | task 0 |    graphs reused =         56
+slot      release: id  0 | task 0 | stop processing: n_tokens = 249, truncated = 0
+srv  update_slots: all slots are idle
+[GIN] 2026/07/09 - 19:48:48 | 200 |         1m12s |       127.0.0.1 | POST     "/api/chat"
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 1.000 (> 0.100 thold), f_keep = 0.775
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task -1 | sampler params: 
+	repeat_last_n = 64, repeat_penalty = 1.100, frequency_penalty = 0.000, presence_penalty = 0.000
+	dry_multiplier = 0.000, dry_base = 1.750, dry_allowed_length = 2, dry_penalty_last_n = 8192
+	top_k = 40, top_p = 0.900, min_p = 0.000, xtc_probability = 0.000, xtc_threshold = 0.100, typical_p = 1.000, top_n_sigma = -1.000, temp = 0.700
+	mirostat = 0, mirostat_lr = 0.100, mirostat_ent = 5.000, adaptive_target = -1.000, adaptive_decay = 0.900
+slot launch_slot_: id  0 | task 58 | processing task, is_child = 0
+slot   operator(): id  0 | task 58 | new prompt, n_ctx_slot = 8192, n_keep = 4, task.n_tokens = 193
+slot   operator(): id  0 | task 58 | need to evaluate at least 1 token for each active slot (n_past = 193, task.n_tokens() = 193)
+slot   operator(): id  0 | task 58 | n_past was set to 192
+slot   operator(): id  0 | task 58 | cached n_tokens = 192, memory_seq_rm [192, end)
+srv  stream_sessi: conv_id= (empty=1)
+slot init_sampler: id  0 | task 58 | init sampler, took 0.11 ms, tokens: text = 193, total = 193
+slot print_timing: id  0 | task 58 | prompt eval time =      56.34 ms /     1 tokens (   56.34 ms per token,    17.75 tokens per second)
+slot print_timing: id  0 | task 58 |        eval time =    1544.87 ms /    55 tokens (   28.09 ms per token,    35.60 tokens per second)
+slot print_timing: id  0 | task 58 |       total time =    1601.21 ms /    56 tokens
+slot print_timing: id  0 | task 58 |    graphs reused =        111
+slot      release: id  0 | task 58 | stop processing: n_tokens = 247, truncated = 0
+srv  update_slots: all slots are idle
+[GIN] 2026/07/09 - 19:48:50 | 200 |  2.499601046s |       127.0.0.1 | POST     "/api/chat"
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 1.000 (> 0.100 thold), f_keep = 0.781
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task -1 | sampler params: 
+	repeat_last_n = 64, repeat_penalty = 1.100, frequency_penalty = 0.000, presence_penalty = 0.000
+	dry_multiplier = 0.000, dry_base = 1.750, dry_allowed_length = 2, dry_penalty_last_n = 8192
+	top_k = 40, top_p = 0.900, min_p = 0.000, xtc_probability = 0.000, xtc_threshold = 0.100, typical_p = 1.000, top_n_sigma = -1.000, temp = 0.700
+	mirostat = 0, mirostat_lr = 0.100, mirostat_ent = 5.000, adaptive_target = -1.000, adaptive_decay = 0.900
+slot launch_slot_: id  0 | task 114 | processing task, is_child = 0
+slot   operator(): id  0 | task 114 | new prompt, n_ctx_slot = 8192, n_keep = 4, task.n_tokens = 193
+slot   operator(): id  0 | task 114 | need to evaluate at least 1 token for each active slot (n_past = 193, task.n_tokens() = 193)
+slot   operator(): id  0 | task 114 | n_past was set to 192
+slot   operator(): id  0 | task 114 | cached n_tokens = 192, memory_seq_rm [192, end)
+srv  stream_sessi: conv_id= (empty=1)
+slot init_sampler: id  0 | task 114 | init sampler, took 0.06 ms, tokens: text = 193, total = 193
+slot print_timing: id  0 | task 114 | prompt eval time =      47.83 ms /     1 tokens (   47.83 ms per token,    20.91 tokens per second)
+slot print_timing: id  0 | task 114 |        eval time =    1542.89 ms /    55 tokens (   28.05 ms per token,    35.65 tokens per second)
+slot print_timing: id  0 | task 114 |       total time =    1590.73 ms /    56 tokens
+slot print_timing: id  0 | task 114 |    graphs reused =        166
+slot      release: id  0 | task 114 | stop processing: n_tokens = 247, truncated = 0
+srv  update_slots: all slots are idle
+[GIN] 2026/07/09 - 19:48:53 | 200 |   2.46937586s |       127.0.0.1 | POST     "/api/chat"
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 1.000 (> 0.100 thold), f_keep = 0.781
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task -1 | sampler params: 
+	repeat_last_n = 64, repeat_penalty = 1.100, frequency_penalty = 0.000, presence_penalty = 0.000
+	dry_multiplier = 0.000, dry_base = 1.750, dry_allowed_length = 2, dry_penalty_last_n = 8192
+	top_k = 40, top_p = 0.900, min_p = 0.000, xtc_probability = 0.000, xtc_threshold = 0.100, typical_p = 1.000, top_n_sigma = -1.000, temp = 0.700
+	mirostat = 0, mirostat_lr = 0.100, mirostat_ent = 5.000, adaptive_target = -1.000, adaptive_decay = 0.900
+slot launch_slot_: id  0 | task 170 | processing task, is_child = 0
+slot   operator(): id  0 | task 170 | new prompt, n_ctx_slot = 8192, n_keep = 4, task.n_tokens = 193
+slot   operator(): id  0 | task 170 | need to evaluate at least 1 token for each active slot (n_past = 193, task.n_tokens() = 193)
+slot   operator(): id  0 | task 170 | n_past was set to 192
+slot   operator(): id  0 | task 170 | cached n_tokens = 192, memory_seq_rm [192, end)
+srv  stream_sessi: conv_id= (empty=1)
+slot init_sampler: id  0 | task 170 | init sampler, took 0.06 ms, tokens: text = 193, total = 193
+slot print_timing: id  0 | task 170 | prompt eval time =      48.04 ms /     1 tokens (   48.04 ms per token,    20.82 tokens per second)
+slot print_timing: id  0 | task 170 |        eval time =    1679.10 ms /    60 tokens (   27.98 ms per token,    35.73 tokens per second)
+slot print_timing: id  0 | task 170 |       total time =    1727.14 ms /    61 tokens
+slot print_timing: id  0 | task 170 |    graphs reused =        226
+slot      release: id  0 | task 170 | stop processing: n_tokens = 252, truncated = 0
+srv  update_slots: all slots are idle
+[GIN] 2026/07/09 - 19:48:55 | 200 |   2.59765762s |       127.0.0.1 | POST     "/api/chat"
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 1.000 (> 0.100 thold), f_keep = 0.766
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task -1 | sampler params: 
+	repeat_last_n = 64, repeat_penalty = 1.100, frequency_penalty = 0.000, presence_penalty = 0.000
+	dry_multiplier = 0.000, dry_base = 1.750, dry_allowed_length = 2, dry_penalty_last_n = 8192
+	top_k = 40, top_p = 0.900, min_p = 0.000, xtc_probability = 0.000, xtc_threshold = 0.100, typical_p = 1.000, top_n_sigma = -1.000, temp = 0.700
+	mirostat = 0, mirostat_lr = 0.100, mirostat_ent = 5.000, adaptive_target = -1.000, adaptive_decay = 0.900
+slot launch_slot_: id  0 | task 231 | processing task, is_child = 0
+slot   operator(): id  0 | task 231 | new prompt, n_ctx_slot = 8192, n_keep = 4, task.n_tokens = 193
+slot   operator(): id  0 | task 231 | need to evaluate at least 1 token for each active slot (n_past = 193, task.n_tokens() = 193)
+slot   operator(): id  0 | task 231 | n_past was set to 192
+slot   operator(): id  0 | task 231 | cached n_tokens = 192, memory_seq_rm [192, end)
+srv  stream_sessi: conv_id= (empty=1)
+slot init_sampler: id  0 | task 231 | init sampler, took 0.06 ms, tokens: text = 193, total = 193
+slot print_timing: id  0 | task 231 | prompt eval time =      48.05 ms /     1 tokens (   48.05 ms per token,    20.81 tokens per second)
+slot print_timing: id  0 | task 231 |        eval time =    1544.69 ms /    55 tokens (   28.09 ms per token,    35.61 tokens per second)
+slot print_timing: id  0 | task 231 |       total time =    1592.74 ms /    56 tokens
+slot print_timing: id  0 | task 231 |    graphs reused =        281
+slot      release: id  0 | task 231 | stop processing: n_tokens = 247, truncated = 0
+srv  update_slots: all slots are idle
+[GIN] 2026/07/09 - 19:48:58 | 200 |  2.454111827s |       127.0.0.1 | POST     "/api/chat"
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 1.000 (> 0.100 thold), f_keep = 0.781
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task -1 | sampler params: 
+	repeat_last_n = 64, repeat_penalty = 1.100, frequency_penalty = 0.000, presence_penalty = 0.000
+	dry_multiplier = 0.000, dry_base = 1.750, dry_allowed_length = 2, dry_penalty_last_n = 8192
+	top_k = 40, top_p = 0.900, min_p = 0.000, xtc_probability = 0.000, xtc_threshold = 0.100, typical_p = 1.000, top_n_sigma = -1.000, temp = 0.700
+	mirostat = 0, mirostat_lr = 0.100, mirostat_ent = 5.000, adaptive_target = -1.000, adaptive_decay = 0.900
+slot launch_slot_: id  0 | task 287 | processing task, is_child = 0
+slot   operator(): id  0 | task 287 | new prompt, n_ctx_slot = 8192, n_keep = 4, task.n_tokens = 193
+slot   operator(): id  0 | task 287 | need to evaluate at least 1 token for each active slot (n_past = 193, task.n_tokens() = 193)
+slot   operator(): id  0 | task 287 | n_past was set to 192
+slot   operator(): id  0 | task 287 | cached n_tokens = 192, memory_seq_rm [192, end)
+srv  stream_sessi: conv_id= (empty=1)
+slot init_sampler: id  0 | task 287 | init sampler, took 0.06 ms, tokens: text = 193, total = 193
+slot print_timing: id  0 | task 287 | prompt eval time =      49.13 ms /     1 tokens (   49.13 ms per token,    20.35 tokens per second)
+slot print_timing: id  0 | task 287 |        eval time =    1703.96 ms /    60 tokens (   28.40 ms per token,    35.21 tokens per second)
+slot print_timing: id  0 | task 287 |       total time =    1753.09 ms /    61 tokens
+slot print_timing: id  0 | task 287 |    graphs reused =        341
+slot      release: id  0 | task 287 | stop processing: n_tokens = 252, truncated = 0
+srv  update_slots: all slots are idle
+[GIN] 2026/07/09 - 19:49:00 | 200 |  2.619625061s |       127.0.0.1 | POST     "/api/chat"
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 1.000 (> 0.100 thold), f_keep = 0.766
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task -1 | sampler params: 
+	repeat_last_n = 64, repeat_penalty = 1.100, frequency_penalty = 0.000, presence_penalty = 0.000
+	dry_multiplier = 0.000, dry_base = 1.750, dry_allowed_length = 2, dry_penalty_last_n = 8192
+	top_k = 40, top_p = 0.900, min_p = 0.000, xtc_probability = 0.000, xtc_threshold = 0.100, typical_p = 1.000, top_n_sigma = -1.000, temp = 0.700
+	mirostat = 0, mirostat_lr = 0.100, mirostat_ent = 5.000, adaptive_target = -1.000, adaptive_decay = 0.900
+slot launch_slot_: id  0 | task 348 | processing task, is_child = 0
+slot   operator(): id  0 | task 348 | new prompt, n_ctx_slot = 8192, n_keep = 4, task.n_tokens = 193
+slot   operator(): id  0 | task 348 | need to evaluate at least 1 token for each active slot (n_past = 193, task.n_tokens() = 193)
+slot   operator(): id  0 | task 348 | n_past was set to 192
+slot   operator(): id  0 | task 348 | cached n_tokens = 192, memory_seq_rm [192, end)
+srv  stream_sessi: conv_id= (empty=1)
+slot init_sampler: id  0 | task 348 | init sampler, took 0.08 ms, tokens: text = 193, total = 193
+slot print_timing: id  0 | task 348 | prompt eval time =      55.89 ms /     1 tokens (   55.89 ms per token,    17.89 tokens per second)
+slot print_timing: id  0 | task 348 |        eval time =    1628.77 ms /    57 tokens (   28.57 ms per token,    35.00 tokens per second)
+slot print_timing: id  0 | task 348 |       total time =    1684.66 ms /    58 tokens
+slot print_timing: id  0 | task 348 |    graphs reused =        398
+slot      release: id  0 | task 348 | stop processing: n_tokens = 249, truncated = 0
+srv  update_slots: all slots are idle
+[GIN] 2026/07/09 - 19:49:03 | 200 |  2.569807106s |       127.0.0.1 | POST     "/api/chat"
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 1.000 (> 0.100 thold), f_keep = 0.775
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task -1 | sampler params: 
+	repeat_last_n = 64, repeat_penalty = 1.100, frequency_penalty = 0.000, presence_penalty = 0.000
+	dry_multiplier = 0.000, dry_base = 1.750, dry_allowed_length = 2, dry_penalty_last_n = 8192
+	top_k = 40, top_p = 0.900, min_p = 0.000, xtc_probability = 0.000, xtc_threshold = 0.100, typical_p = 1.000, top_n_sigma = -1.000, temp = 0.700
+	mirostat = 0, mirostat_lr = 0.100, mirostat_ent = 5.000, adaptive_target = -1.000, adaptive_decay = 0.900
+slot launch_slot_: id  0 | task 406 | processing task, is_child = 0
+slot   operator(): id  0 | task 406 | new prompt, n_ctx_slot = 8192, n_keep = 4, task.n_tokens = 193
+slot   operator(): id  0 | task 406 | need to evaluate at least 1 token for each active slot (n_past = 193, task.n_tokens() = 193)
+slot   operator(): id  0 | task 406 | n_past was set to 192
+slot   operator(): id  0 | task 406 | cached n_tokens = 192, memory_seq_rm [192, end)
+srv  stream_sessi: conv_id= (empty=1)
+slot init_sampler: id  0 | task 406 | init sampler, took 0.20 ms, tokens: text = 193, total = 193
+slot print_timing: id  0 | task 406 | prompt eval time =      70.07 ms /     1 tokens (   70.07 ms per token,    14.27 tokens per second)
+slot print_timing: id  0 | task 406 |        eval time =    1650.22 ms /    58 tokens (   28.45 ms per token,    35.15 tokens per second)
+slot print_timing: id  0 | task 406 |       total time =    1720.29 ms /    59 tokens
+slot print_timing: id  0 | task 406 |    graphs reused =        456
+slot      release: id  0 | task 406 | stop processing: n_tokens = 250, truncated = 0
+srv  update_slots: all slots are idle
+[GIN] 2026/07/09 - 19:49:05 | 200 |  2.500224964s |       127.0.0.1 | POST     "/api/chat"
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 1.000 (> 0.100 thold), f_keep = 0.772
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task -1 | sampler params: 
+	repeat_last_n = 64, repeat_penalty = 1.100, frequency_penalty = 0.000, presence_penalty = 0.000
+	dry_multiplier = 0.000, dry_base = 1.750, dry_allowed_length = 2, dry_penalty_last_n = 8192
+	top_k = 40, top_p = 0.900, min_p = 0.000, xtc_probability = 0.000, xtc_threshold = 0.100, typical_p = 1.000, top_n_sigma = -1.000, temp = 0.700
+	mirostat = 0, mirostat_lr = 0.100, mirostat_ent = 5.000, adaptive_target = -1.000, adaptive_decay = 0.900
+slot launch_slot_: id  0 | task 465 | processing task, is_child = 0
+slot   operator(): id  0 | task 465 | new prompt, n_ctx_slot = 8192, n_keep = 4, task.n_tokens = 193
+slot   operator(): id  0 | task 465 | need to evaluate at least 1 token for each active slot (n_past = 193, task.n_tokens() = 193)
+slot   operator(): id  0 | task 465 | n_past was set to 192
+slot   operator(): id  0 | task 465 | cached n_tokens = 192, memory_seq_rm [192, end)
+srv  stream_sessi: conv_id= (empty=1)
+slot init_sampler: id  0 | task 465 | init sampler, took 0.07 ms, tokens: text = 193, total = 193
+slot print_timing: id  0 | task 465 | prompt eval time =      48.37 ms /     1 tokens (   48.37 ms per token,    20.68 tokens per second)
+slot print_timing: id  0 | task 465 |        eval time =    1601.61 ms /    57 tokens (   28.10 ms per token,    35.59 tokens per second)
+slot print_timing: id  0 | task 465 |       total time =    1649.98 ms /    58 tokens
+slot print_timing: id  0 | task 465 |    graphs reused =        513
+slot      release: id  0 | task 465 | stop processing: n_tokens = 249, truncated = 0
+srv  update_slots: all slots are idle
+[GIN] 2026/07/09 - 19:49:08 | 200 |  2.479179295s |       127.0.0.1 | POST     "/api/chat"
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 1.000 (> 0.100 thold), f_keep = 0.775
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task -1 | sampler params: 
+	repeat_last_n = 64, repeat_penalty = 1.100, frequency_penalty = 0.000, presence_penalty = 0.000
+	dry_multiplier = 0.000, dry_base = 1.750, dry_allowed_length = 2, dry_penalty_last_n = 8192
+	top_k = 40, top_p = 0.900, min_p = 0.000, xtc_probability = 0.000, xtc_threshold = 0.100, typical_p = 1.000, top_n_sigma = -1.000, temp = 0.700
+	mirostat = 0, mirostat_lr = 0.100, mirostat_ent = 5.000, adaptive_target = -1.000, adaptive_decay = 0.900
+slot launch_slot_: id  0 | task 523 | processing task, is_child = 0
+slot   operator(): id  0 | task 523 | new prompt, n_ctx_slot = 8192, n_keep = 4, task.n_tokens = 193
+slot   operator(): id  0 | task 523 | need to evaluate at least 1 token for each active slot (n_past = 193, task.n_tokens() = 193)
+slot   operator(): id  0 | task 523 | n_past was set to 192
+slot   operator(): id  0 | task 523 | cached n_tokens = 192, memory_seq_rm [192, end)
+srv  stream_sessi: conv_id= (empty=1)
+slot init_sampler: id  0 | task 523 | init sampler, took 0.06 ms, tokens: text = 193, total = 193
+slot print_timing: id  0 | task 523 | prompt eval time =      48.07 ms /     1 tokens (   48.07 ms per token,    20.80 tokens per second)
+slot print_timing: id  0 | task 523 |        eval time =    1625.60 ms /    57 tokens (   28.52 ms per token,    35.06 tokens per second)
+slot print_timing: id  0 | task 523 |       total time =    1673.66 ms /    58 tokens
+slot print_timing: id  0 | task 523 |    graphs reused =        570
+slot      release: id  0 | task 523 | stop processing: n_tokens = 249, truncated = 0
+srv  update_slots: all slots are idle
+[GIN] 2026/07/09 - 19:49:10 | 200 |   2.53159771s |       127.0.0.1 | POST     "/api/chat"
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 1.000 (> 0.100 thold), f_keep = 0.775
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task -1 | sampler params: 
+	repeat_last_n = 64, repeat_penalty = 1.100, frequency_penalty = 0.000, presence_penalty = 0.000
+	dry_multiplier = 0.000, dry_base = 1.750, dry_allowed_length = 2, dry_penalty_last_n = 8192
+	top_k = 40, top_p = 0.900, min_p = 0.000, xtc_probability = 0.000, xtc_threshold = 0.100, typical_p = 1.000, top_n_sigma = -1.000, temp = 0.700
+	mirostat = 0, mirostat_lr = 0.100, mirostat_ent = 5.000, adaptive_target = -1.000, adaptive_decay = 0.900
+slot launch_slot_: id  0 | task 581 | processing task, is_child = 0
+slot   operator(): id  0 | task 581 | new prompt, n_ctx_slot = 8192, n_keep = 4, task.n_tokens = 193
+slot   operator(): id  0 | task 581 | need to evaluate at least 1 token for each active slot (n_past = 193, task.n_tokens() = 193)
+slot   operator(): id  0 | task 581 | n_past was set to 192
+slot   operator(): id  0 | task 581 | cached n_tokens = 192, memory_seq_rm [192, end)
+srv  stream_sessi: conv_id= (empty=1)
+slot init_sampler: id  0 | task 581 | init sampler, took 0.23 ms, tokens: text = 193, total = 193
+slot print_timing: id  0 | task 581 | prompt eval time =      48.44 ms /     1 tokens (   48.44 ms per token,    20.64 tokens per second)
+slot print_timing: id  0 | task 581 |        eval time =    1568.50 ms /    55 tokens (   28.52 ms per token,    35.07 tokens per second)
+slot print_timing: id  0 | task 581 |       total time =    1616.94 ms /    56 tokens
+slot print_timing: id  0 | task 581 |    graphs reused =        625
+slot      release: id  0 | task 581 | stop processing: n_tokens = 247, truncated = 0
+srv  update_slots: all slots are idle
+[GIN] 2026/07/09 - 19:49:13 | 200 |  2.446146714s |       127.0.0.1 | POST     "/api/chat"
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 0.332 (> 0.100 thold), f_keep = 0.263
+srv  get_availabl: updating prompt cache
+srv   prompt_save:  - saving prompt with length 247, total state size = 38.598 MiB (draft: 0.000 MiB)
+srv          load:  - looking for better prompt, base f_keep = 0.263, sim = 0.332
+srv        update:  - cache state: 1 prompts, 38.598 MiB (limits: 8192.000 MiB, 8192 tokens, 52423 est)
+srv        update:    - prompt 0x1bf47bb0:     247 tokens, checkpoints:  0,    38.598 MiB
+srv  get_availabl: prompt cache update took 42.52 ms
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task -1 | sampler params: 
+	repeat_last_n = 64, repeat_penalty = 1.100, frequency_penalty = 0.000, presence_penalty = 0.000
+	dry_multiplier = 0.000, dry_base = 1.750, dry_allowed_length = 2, dry_penalty_last_n = 8192
+	top_k = 40, top_p = 0.900, min_p = 0.000, xtc_probability = 0.000, xtc_threshold = 0.100, typical_p = 1.000, top_n_sigma = -1.000, temp = 0.000
+	mirostat = 0, mirostat_lr = 0.100, mirostat_ent = 5.000, adaptive_target = -1.000, adaptive_decay = 0.900
+slot launch_slot_: id  0 | task 637 | processing task, is_child = 0
+slot   operator(): id  0 | task 637 | new prompt, n_ctx_slot = 8192, n_keep = 4, task.n_tokens = 196
+slot   operator(): id  0 | task 637 | cached n_tokens = 65, memory_seq_rm [65, end)
+srv  stream_sessi: conv_id= (empty=1)
+slot init_sampler: id  0 | task 637 | init sampler, took 0.08 ms, tokens: text = 196, total = 196
+slot print_timing: id  0 | task 637 | prompt eval time =     197.64 ms /   131 tokens (    1.51 ms per token,   662.82 tokens per second)
+slot print_timing: id  0 | task 637 |        eval time =    1606.86 ms /    56 tokens (   28.69 ms per token,    34.85 tokens per second)
+slot print_timing: id  0 | task 637 |       total time =    1804.50 ms /   187 tokens
+slot print_timing: id  0 | task 637 |    graphs reused =        679
+slot      release: id  0 | task 637 | stop processing: n_tokens = 251, truncated = 0
+srv  update_slots: all slots are idle
+[GIN] 2026/07/09 - 19:49:16 | 200 |  2.748012761s |       127.0.0.1 | POST     "/api/chat"
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 1.000 (> 0.100 thold), f_keep = 0.781
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task -1 | sampler params: 
+	repeat_last_n = 64, repeat_penalty = 1.100, frequency_penalty = 0.000, presence_penalty = 0.000
+	dry_multiplier = 0.000, dry_base = 1.750, dry_allowed_length = 2, dry_penalty_last_n = 8192
+	top_k = 40, top_p = 0.900, min_p = 0.000, xtc_probability = 0.000, xtc_threshold = 0.100, typical_p = 1.000, top_n_sigma = -1.000, temp = 0.700
+	mirostat = 0, mirostat_lr = 0.100, mirostat_ent = 5.000, adaptive_target = -1.000, adaptive_decay = 0.900
+slot launch_slot_: id  0 | task 694 | processing task, is_child = 0
+slot   operator(): id  0 | task 694 | new prompt, n_ctx_slot = 8192, n_keep = 4, task.n_tokens = 196
+slot   operator(): id  0 | task 694 | need to evaluate at least 1 token for each active slot (n_past = 196, task.n_tokens() = 196)
+slot   operator(): id  0 | task 694 | n_past was set to 195
+slot   operator(): id  0 | task 694 | cached n_tokens = 195, memory_seq_rm [195, end)
+srv  stream_sessi: conv_id= (empty=1)
+slot init_sampler: id  0 | task 694 | init sampler, took 0.08 ms, tokens: text = 196, total = 196
+slot print_timing: id  0 | task 694 | prompt eval time =      63.01 ms /     1 tokens (   63.01 ms per token,    15.87 tokens per second)
+slot print_timing: id  0 | task 694 |        eval time =    1576.42 ms /    55 tokens (   28.66 ms per token,    34.89 tokens per second)
+slot print_timing: id  0 | task 694 |       total time =    1639.43 ms /    56 tokens
+slot print_timing: id  0 | task 694 |    graphs reused =        734
+slot      release: id  0 | task 694 | stop processing: n_tokens = 250, truncated = 0
+srv  update_slots: all slots are idle
+[GIN] 2026/07/09 - 19:49:18 | 200 |  2.548458472s |       127.0.0.1 | POST     "/api/chat"
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 1.000 (> 0.100 thold), f_keep = 0.784
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task -1 | sampler params: 
+	repeat_last_n = 64, repeat_penalty = 1.100, frequency_penalty = 0.000, presence_penalty = 0.000
+	dry_multiplier = 0.000, dry_base = 1.750, dry_allowed_length = 2, dry_penalty_last_n = 8192
+	top_k = 40, top_p = 0.900, min_p = 0.000, xtc_probability = 0.000, xtc_threshold = 0.100, typical_p = 1.000, top_n_sigma = -1.000, temp = 0.700
+	mirostat = 0, mirostat_lr = 0.100, mirostat_ent = 5.000, adaptive_target = -1.000, adaptive_decay = 0.900
+slot launch_slot_: id  0 | task 750 | processing task, is_child = 0
+slot   operator(): id  0 | task 750 | new prompt, n_ctx_slot = 8192, n_keep = 4, task.n_tokens = 196
+slot   operator(): id  0 | task 750 | need to evaluate at least 1 token for each active slot (n_past = 196, task.n_tokens() = 196)
+slot   operator(): id  0 | task 750 | n_past was set to 195
+slot   operator(): id  0 | task 750 | cached n_tokens = 195, memory_seq_rm [195, end)
+srv  stream_sessi: conv_id= (empty=1)
+slot init_sampler: id  0 | task 750 | init sampler, took 0.19 ms, tokens: text = 196, total = 196
+slot print_timing: id  0 | task 750 | prompt eval time =      56.38 ms /     1 tokens (   56.38 ms per token,    17.74 tokens per second)
+slot print_timing: id  0 | task 750 |        eval time =    1627.97 ms /    56 tokens (   29.07 ms per token,    34.40 tokens per second)
+slot print_timing: id  0 | task 750 |       total time =    1684.35 ms /    57 tokens
+slot print_timing: id  0 | task 750 |    graphs reused =        790
+slot      release: id  0 | task 750 | stop processing: n_tokens = 251, truncated = 0
+srv  update_slots: all slots are idle
+[GIN] 2026/07/09 - 19:49:21 | 200 |  2.585470906s |       127.0.0.1 | POST     "/api/chat"
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 1.000 (> 0.100 thold), f_keep = 0.781
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task -1 | sampler params: 
+	repeat_last_n = 64, repeat_penalty = 1.100, frequency_penalty = 0.000, presence_penalty = 0.000
+	dry_multiplier = 0.000, dry_base = 1.750, dry_allowed_length = 2, dry_penalty_last_n = 8192
+	top_k = 40, top_p = 0.900, min_p = 0.000, xtc_probability = 0.000, xtc_threshold = 0.100, typical_p = 1.000, top_n_sigma = -1.000, temp = 0.700
+	mirostat = 0, mirostat_lr = 0.100, mirostat_ent = 5.000, adaptive_target = -1.000, adaptive_decay = 0.900
+slot launch_slot_: id  0 | task 807 | processing task, is_child = 0
+slot   operator(): id  0 | task 807 | new prompt, n_ctx_slot = 8192, n_keep = 4, task.n_tokens = 196
+slot   operator(): id  0 | task 807 | need to evaluate at least 1 token for each active slot (n_past = 196, task.n_tokens() = 196)
+slot   operator(): id  0 | task 807 | n_past was set to 195
+slot   operator(): id  0 | task 807 | cached n_tokens = 195, memory_seq_rm [195, end)
+srv  stream_sessi: conv_id= (empty=1)
+slot init_sampler: id  0 | task 807 | init sampler, took 0.08 ms, tokens: text = 196, total = 196
+slot print_timing: id  0 | task 807 | prompt eval time =      64.83 ms /     1 tokens (   64.83 ms per token,    15.42 tokens per second)
+slot print_timing: id  0 | task 807 |        eval time =    1625.16 ms /    56 tokens (   29.02 ms per token,    34.46 tokens per second)
+slot print_timing: id  0 | task 807 |       total time =    1689.99 ms /    57 tokens
+slot print_timing: id  0 | task 807 |    graphs reused =        846
+slot      release: id  0 | task 807 | stop processing: n_tokens = 251, truncated = 0
+srv  update_slots: all slots are idle
+[GIN] 2026/07/09 - 19:49:23 | 200 |  2.548119226s |       127.0.0.1 | POST     "/api/chat"
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 1.000 (> 0.100 thold), f_keep = 0.781
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task -1 | sampler params: 
+	repeat_last_n = 64, repeat_penalty = 1.100, frequency_penalty = 0.000, presence_penalty = 0.000
+	dry_multiplier = 0.000, dry_base = 1.750, dry_allowed_length = 2, dry_penalty_last_n = 8192
+	top_k = 40, top_p = 0.900, min_p = 0.000, xtc_probability = 0.000, xtc_threshold = 0.100, typical_p = 1.000, top_n_sigma = -1.000, temp = 0.700
+	mirostat = 0, mirostat_lr = 0.100, mirostat_ent = 5.000, adaptive_target = -1.000, adaptive_decay = 0.900
+slot launch_slot_: id  0 | task 864 | processing task, is_child = 0
+slot   operator(): id  0 | task 864 | new prompt, n_ctx_slot = 8192, n_keep = 4, task.n_tokens = 196
+slot   operator(): id  0 | task 864 | need to evaluate at least 1 token for each active slot (n_past = 196, task.n_tokens() = 196)
+slot   operator(): id  0 | task 864 | n_past was set to 195
+slot   operator(): id  0 | task 864 | cached n_tokens = 195, memory_seq_rm [195, end)
+srv  stream_sessi: conv_id= (empty=1)
+slot init_sampler: id  0 | task 864 | init sampler, took 0.09 ms, tokens: text = 196, total = 196
+slot print_timing: id  0 | task 864 | prompt eval time =      56.86 ms /     1 tokens (   56.86 ms per token,    17.59 tokens per second)
+slot print_timing: id  0 | task 864 |        eval time =    1519.47 ms /    52 tokens (   29.22 ms per token,    34.22 tokens per second)
+slot print_timing: id  0 | task 864 |       total time =    1576.34 ms /    53 tokens
+slot print_timing: id  0 | task 864 |    graphs reused =        898
+slot      release: id  0 | task 864 | stop processing: n_tokens = 247, truncated = 0
+srv  update_slots: all slots are idle
+[GIN] 2026/07/09 - 19:49:26 | 200 |  2.416193994s |       127.0.0.1 | POST     "/api/chat"
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 1.000 (> 0.100 thold), f_keep = 0.794
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task -1 | sampler params: 
+	repeat_last_n = 64, repeat_penalty = 1.100, frequency_penalty = 0.000, presence_penalty = 0.000
+	dry_multiplier = 0.000, dry_base = 1.750, dry_allowed_length = 2, dry_penalty_last_n = 8192
+	top_k = 40, top_p = 0.900, min_p = 0.000, xtc_probability = 0.000, xtc_threshold = 0.100, typical_p = 1.000, top_n_sigma = -1.000, temp = 0.700
+	mirostat = 0, mirostat_lr = 0.100, mirostat_ent = 5.000, adaptive_target = -1.000, adaptive_decay = 0.900
+slot launch_slot_: id  0 | task 917 | processing task, is_child = 0
+slot   operator(): id  0 | task 917 | new prompt, n_ctx_slot = 8192, n_keep = 4, task.n_tokens = 196
+slot   operator(): id  0 | task 917 | need to evaluate at least 1 token for each active slot (n_past = 196, task.n_tokens() = 196)
+slot   operator(): id  0 | task 917 | n_past was set to 195
+slot   operator(): id  0 | task 917 | cached n_tokens = 195, memory_seq_rm [195, end)
+srv  stream_sessi: conv_id= (empty=1)
+slot init_sampler: id  0 | task 917 | init sampler, took 0.23 ms, tokens: text = 196, total = 196
+slot print_timing: id  0 | task 917 | prompt eval time =      56.28 ms /     1 tokens (   56.28 ms per token,    17.77 tokens per second)
+slot print_timing: id  0 | task 917 |        eval time =    1469.77 ms /    52 tokens (   28.26 ms per token,    35.38 tokens per second)
+slot print_timing: id  0 | task 917 |       total time =    1526.06 ms /    53 tokens
+slot print_timing: id  0 | task 917 |    graphs reused =        950
+slot      release: id  0 | task 917 | stop processing: n_tokens = 247, truncated = 0
+srv  update_slots: all slots are idle
+[GIN] 2026/07/09 - 19:49:28 | 200 |  2.346250937s |       127.0.0.1 | POST     "/api/chat"
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 1.000 (> 0.100 thold), f_keep = 0.794
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task -1 | sampler params: 
+	repeat_last_n = 64, repeat_penalty = 1.100, frequency_penalty = 0.000, presence_penalty = 0.000
+	dry_multiplier = 0.000, dry_base = 1.750, dry_allowed_length = 2, dry_penalty_last_n = 8192
+	top_k = 40, top_p = 0.900, min_p = 0.000, xtc_probability = 0.000, xtc_threshold = 0.100, typical_p = 1.000, top_n_sigma = -1.000, temp = 0.700
+	mirostat = 0, mirostat_lr = 0.100, mirostat_ent = 5.000, adaptive_target = -1.000, adaptive_decay = 0.900
+slot launch_slot_: id  0 | task 970 | processing task, is_child = 0
+slot   operator(): id  0 | task 970 | new prompt, n_ctx_slot = 8192, n_keep = 4, task.n_tokens = 196
+slot   operator(): id  0 | task 970 | need to evaluate at least 1 token for each active slot (n_past = 196, task.n_tokens() = 196)
+slot   operator(): id  0 | task 970 | n_past was set to 195
+slot   operator(): id  0 | task 970 | cached n_tokens = 195, memory_seq_rm [195, end)
+srv  stream_sessi: conv_id= (empty=1)
+slot init_sampler: id  0 | task 970 | init sampler, took 0.27 ms, tokens: text = 196, total = 196
+slot print_timing: id  0 | task 970 | prompt eval time =      48.42 ms /     1 tokens (   48.42 ms per token,    20.65 tokens per second)
+slot print_timing: id  0 | task 970 |        eval time =    1554.54 ms /    56 tokens (   27.76 ms per token,    36.02 tokens per second)
+slot print_timing: id  0 | task 970 |       total time =    1602.96 ms /    57 tokens
+slot print_timing: id  0 | task 970 |    graphs reused =       1006
+slot      release: id  0 | task 970 | stop processing: n_tokens = 251, truncated = 0
+srv  update_slots: all slots are idle
+[GIN] 2026/07/09 - 19:49:30 | 200 |  2.411598861s |       127.0.0.1 | POST     "/api/chat"
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 1.000 (> 0.100 thold), f_keep = 0.781
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task -1 | sampler params: 
+	repeat_last_n = 64, repeat_penalty = 1.100, frequency_penalty = 0.000, presence_penalty = 0.000
+	dry_multiplier = 0.000, dry_base = 1.750, dry_allowed_length = 2, dry_penalty_last_n = 8192
+	top_k = 40, top_p = 0.900, min_p = 0.000, xtc_probability = 0.000, xtc_threshold = 0.100, typical_p = 1.000, top_n_sigma = -1.000, temp = 0.700
+	mirostat = 0, mirostat_lr = 0.100, mirostat_ent = 5.000, adaptive_target = -1.000, adaptive_decay = 0.900
+slot launch_slot_: id  0 | task 1027 | processing task, is_child = 0
+slot   operator(): id  0 | task 1027 | new prompt, n_ctx_slot = 8192, n_keep = 4, task.n_tokens = 196
+slot   operator(): id  0 | task 1027 | need to evaluate at least 1 token for each active slot (n_past = 196, task.n_tokens() = 196)
+slot   operator(): id  0 | task 1027 | n_past was set to 195
+slot   operator(): id  0 | task 1027 | cached n_tokens = 195, memory_seq_rm [195, end)
+srv  stream_sessi: conv_id= (empty=1)
+slot init_sampler: id  0 | task 1027 | init sampler, took 0.12 ms, tokens: text = 196, total = 196
+slot print_timing: id  0 | task 1027 | prompt eval time =      56.25 ms /     1 tokens (   56.25 ms per token,    17.78 tokens per second)
+slot print_timing: id  0 | task 1027 |        eval time =    1603.76 ms /    56 tokens (   28.64 ms per token,    34.92 tokens per second)
+slot print_timing: id  0 | task 1027 |       total time =    1660.01 ms /    57 tokens
+slot print_timing: id  0 | task 1027 |    graphs reused =       1062
+slot      release: id  0 | task 1027 | stop processing: n_tokens = 251, truncated = 0
+srv  update_slots: all slots are idle
+[GIN] 2026/07/09 - 19:49:33 | 200 |   2.44072931s |       127.0.0.1 | POST     "/api/chat"
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 1.000 (> 0.100 thold), f_keep = 0.781
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task -1 | sampler params: 
+	repeat_last_n = 64, repeat_penalty = 1.100, frequency_penalty = 0.000, presence_penalty = 0.000
+	dry_multiplier = 0.000, dry_base = 1.750, dry_allowed_length = 2, dry_penalty_last_n = 8192
+	top_k = 40, top_p = 0.900, min_p = 0.000, xtc_probability = 0.000, xtc_threshold = 0.100, typical_p = 1.000, top_n_sigma = -1.000, temp = 0.700
+	mirostat = 0, mirostat_lr = 0.100, mirostat_ent = 5.000, adaptive_target = -1.000, adaptive_decay = 0.900
+slot launch_slot_: id  0 | task 1084 | processing task, is_child = 0
+slot   operator(): id  0 | task 1084 | new prompt, n_ctx_slot = 8192, n_keep = 4, task.n_tokens = 196
+slot   operator(): id  0 | task 1084 | need to evaluate at least 1 token for each active slot (n_past = 196, task.n_tokens() = 196)
+slot   operator(): id  0 | task 1084 | n_past was set to 195
+slot   operator(): id  0 | task 1084 | cached n_tokens = 195, memory_seq_rm [195, end)
+srv  stream_sessi: conv_id= (empty=1)
+slot init_sampler: id  0 | task 1084 | init sampler, took 0.08 ms, tokens: text = 196, total = 196
+slot print_timing: id  0 | task 1084 | prompt eval time =      56.11 ms /     1 tokens (   56.11 ms per token,    17.82 tokens per second)
+slot print_timing: id  0 | task 1084 |        eval time =    1683.64 ms /    59 tokens (   28.54 ms per token,    35.04 tokens per second)
+slot print_timing: id  0 | task 1084 |       total time =    1739.74 ms /    60 tokens
+slot print_timing: id  0 | task 1084 |    graphs reused =       1121
+slot      release: id  0 | task 1084 | stop processing: n_tokens = 254, truncated = 0
+srv  update_slots: all slots are idle
+[GIN] 2026/07/09 - 19:49:35 | 200 |   2.57469242s |       127.0.0.1 | POST     "/api/chat"
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 1.000 (> 0.100 thold), f_keep = 0.772
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task -1 | sampler params: 
+	repeat_last_n = 64, repeat_penalty = 1.100, frequency_penalty = 0.000, presence_penalty = 0.000
+	dry_multiplier = 0.000, dry_base = 1.750, dry_allowed_length = 2, dry_penalty_last_n = 8192
+	top_k = 40, top_p = 0.900, min_p = 0.000, xtc_probability = 0.000, xtc_threshold = 0.100, typical_p = 1.000, top_n_sigma = -1.000, temp = 0.700
+	mirostat = 0, mirostat_lr = 0.100, mirostat_ent = 5.000, adaptive_target = -1.000, adaptive_decay = 0.900
+slot launch_slot_: id  0 | task 1144 | processing task, is_child = 0
+slot   operator(): id  0 | task 1144 | new prompt, n_ctx_slot = 8192, n_keep = 4, task.n_tokens = 196
+slot   operator(): id  0 | task 1144 | need to evaluate at least 1 token for each active slot (n_past = 196, task.n_tokens() = 196)
+slot   operator(): id  0 | task 1144 | n_past was set to 195
+slot   operator(): id  0 | task 1144 | cached n_tokens = 195, memory_seq_rm [195, end)
+srv  stream_sessi: conv_id= (empty=1)
+slot init_sampler: id  0 | task 1144 | init sampler, took 0.23 ms, tokens: text = 196, total = 196
+slot print_timing: id  0 | task 1144 | prompt eval time =      48.61 ms /     1 tokens (   48.61 ms per token,    20.57 tokens per second)
+slot print_timing: id  0 | task 1144 |        eval time =    1730.83 ms /    61 tokens (   28.37 ms per token,    35.24 tokens per second)
+slot print_timing: id  0 | task 1144 |       total time =    1779.44 ms /    62 tokens
+slot print_timing: id  0 | task 1144 |    graphs reused =       1182
+slot      release: id  0 | task 1144 | stop processing: n_tokens = 256, truncated = 0
+srv  update_slots: all slots are idle
+[GIN] 2026/07/09 - 19:49:38 | 200 |  2.640418878s |       127.0.0.1 | POST     "/api/chat"
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 1.000 (> 0.100 thold), f_keep = 0.766
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task -1 | sampler params: 
+	repeat_last_n = 64, repeat_penalty = 1.100, frequency_penalty = 0.000, presence_penalty = 0.000
+	dry_multiplier = 0.000, dry_base = 1.750, dry_allowed_length = 2, dry_penalty_last_n = 8192
+	top_k = 40, top_p = 0.900, min_p = 0.000, xtc_probability = 0.000, xtc_threshold = 0.100, typical_p = 1.000, top_n_sigma = -1.000, temp = 0.700
+	mirostat = 0, mirostat_lr = 0.100, mirostat_ent = 5.000, adaptive_target = -1.000, adaptive_decay = 0.900
+slot launch_slot_: id  0 | task 1206 | processing task, is_child = 0
+slot   operator(): id  0 | task 1206 | new prompt, n_ctx_slot = 8192, n_keep = 4, task.n_tokens = 196
+slot   operator(): id  0 | task 1206 | need to evaluate at least 1 token for each active slot (n_past = 196, task.n_tokens() = 196)
+slot   operator(): id  0 | task 1206 | n_past was set to 195
+slot   operator(): id  0 | task 1206 | cached n_tokens = 195, memory_seq_rm [195, end)
+srv  stream_sessi: conv_id= (empty=1)
+slot init_sampler: id  0 | task 1206 | init sampler, took 0.09 ms, tokens: text = 196, total = 196
+slot print_timing: id  0 | task 1206 | prompt eval time =      48.91 ms /     1 tokens (   48.91 ms per token,    20.44 tokens per second)
+slot print_timing: id  0 | task 1206 |        eval time =    1635.66 ms /    58 tokens (   28.20 ms per token,    35.46 tokens per second)
+slot print_timing: id  0 | task 1206 |       total time =    1684.58 ms /    59 tokens
+slot print_timing: id  0 | task 1206 |    graphs reused =       1240
+slot      release: id  0 | task 1206 | stop processing: n_tokens = 253, truncated = 0
+srv  update_slots: all slots are idle
+[GIN] 2026/07/09 - 19:49:41 | 200 |    2.5173425s |       127.0.0.1 | POST     "/api/chat"
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 0.335 (> 0.100 thold), f_keep = 0.257
+srv  get_availabl: updating prompt cache
+srv   prompt_save:  - saving prompt with length 253, total state size = 39.535 MiB (draft: 0.000 MiB)
+srv          load:  - looking for better prompt, base f_keep = 0.257, sim = 0.335
+srv        update:  - cache state: 2 prompts, 78.133 MiB (limits: 8192.000 MiB, 8192 tokens, 52423 est)
+srv        update:    - prompt 0x1bf47bb0:     247 tokens, checkpoints:  0,    38.598 MiB
+srv        update:    - prompt 0x1bf22380:     253 tokens, checkpoints:  0,    39.535 MiB
+srv  get_availabl: prompt cache update took 43.26 ms
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task -1 | sampler params: 
+	repeat_last_n = 64, repeat_penalty = 1.100, frequency_penalty = 0.000, presence_penalty = 0.000
+	dry_multiplier = 0.000, dry_base = 1.750, dry_allowed_length = 2, dry_penalty_last_n = 8192
+	top_k = 40, top_p = 0.900, min_p = 0.000, xtc_probability = 0.000, xtc_threshold = 0.100, typical_p = 1.000, top_n_sigma = -1.000, temp = 0.000
+	mirostat = 0, mirostat_lr = 0.100, mirostat_ent = 5.000, adaptive_target = -1.000, adaptive_decay = 0.900
+slot launch_slot_: id  0 | task 1265 | processing task, is_child = 0
+slot   operator(): id  0 | task 1265 | new prompt, n_ctx_slot = 8192, n_keep = 4, task.n_tokens = 194
+slot   operator(): id  0 | task 1265 | cached n_tokens = 65, memory_seq_rm [65, end)
+srv  stream_sessi: conv_id= (empty=1)
+slot init_sampler: id  0 | task 1265 | init sampler, took 0.09 ms, tokens: text = 194, total = 194
+slot print_timing: id  0 | task 1265 | prompt eval time =     198.65 ms /   129 tokens (    1.54 ms per token,   649.38 tokens per second)
+slot print_timing: id  0 | task 1265 |        eval time =    1621.38 ms /    57 tokens (   28.45 ms per token,    35.16 tokens per second)
+slot print_timing: id  0 | task 1265 |       total time =    1820.03 ms /   186 tokens
+slot print_timing: id  0 | task 1265 |    graphs reused =       1295
+slot      release: id  0 | task 1265 | stop processing: n_tokens = 250, truncated = 0
+srv  update_slots: all slots are idle
+[GIN] 2026/07/09 - 19:49:43 | 200 |   2.74116012s |       127.0.0.1 | POST     "/api/chat"
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 1.000 (> 0.100 thold), f_keep = 0.776
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task -1 | sampler params: 
+	repeat_last_n = 64, repeat_penalty = 1.100, frequency_penalty = 0.000, presence_penalty = 0.000
+	dry_multiplier = 0.000, dry_base = 1.750, dry_allowed_length = 2, dry_penalty_last_n = 8192
+	top_k = 40, top_p = 0.900, min_p = 0.000, xtc_probability = 0.000, xtc_threshold = 0.100, typical_p = 1.000, top_n_sigma = -1.000, temp = 0.700
+	mirostat = 0, mirostat_lr = 0.100, mirostat_ent = 5.000, adaptive_target = -1.000, adaptive_decay = 0.900
+slot launch_slot_: id  0 | task 1323 | processing task, is_child = 0
+slot   operator(): id  0 | task 1323 | new prompt, n_ctx_slot = 8192, n_keep = 4, task.n_tokens = 194
+slot   operator(): id  0 | task 1323 | need to evaluate at least 1 token for each active slot (n_past = 194, task.n_tokens() = 194)
+slot   operator(): id  0 | task 1323 | n_past was set to 193
+slot   operator(): id  0 | task 1323 | cached n_tokens = 193, memory_seq_rm [193, end)
+srv  stream_sessi: conv_id= (empty=1)
+slot init_sampler: id  0 | task 1323 | init sampler, took 0.13 ms, tokens: text = 194, total = 194
+slot print_timing: id  0 | task 1323 | prompt eval time =      56.12 ms /     1 tokens (   56.12 ms per token,    17.82 tokens per second)
+slot print_timing: id  0 | task 1323 |        eval time =    1585.30 ms /    55 tokens (   28.82 ms per token,    34.69 tokens per second)
+slot print_timing: id  0 | task 1323 |       total time =    1641.42 ms /    56 tokens
+slot print_timing: id  0 | task 1323 |    graphs reused =       1350
+slot      release: id  0 | task 1323 | stop processing: n_tokens = 248, truncated = 0
+srv  update_slots: all slots are idle
+[GIN] 2026/07/09 - 19:49:46 | 200 |  2.521390674s |       127.0.0.1 | POST     "/api/chat"
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 1.000 (> 0.100 thold), f_keep = 0.782
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task -1 | sampler params: 
+	repeat_last_n = 64, repeat_penalty = 1.100, frequency_penalty = 0.000, presence_penalty = 0.000
+	dry_multiplier = 0.000, dry_base = 1.750, dry_allowed_length = 2, dry_penalty_last_n = 8192
+	top_k = 40, top_p = 0.900, min_p = 0.000, xtc_probability = 0.000, xtc_threshold = 0.100, typical_p = 1.000, top_n_sigma = -1.000, temp = 0.700
+	mirostat = 0, mirostat_lr = 0.100, mirostat_ent = 5.000, adaptive_target = -1.000, adaptive_decay = 0.900
+slot launch_slot_: id  0 | task 1379 | processing task, is_child = 0
+slot   operator(): id  0 | task 1379 | new prompt, n_ctx_slot = 8192, n_keep = 4, task.n_tokens = 194
+slot   operator(): id  0 | task 1379 | need to evaluate at least 1 token for each active slot (n_past = 194, task.n_tokens() = 194)
+slot   operator(): id  0 | task 1379 | n_past was set to 193
+slot   operator(): id  0 | task 1379 | cached n_tokens = 193, memory_seq_rm [193, end)
+srv  stream_sessi: conv_id= (empty=1)
+slot init_sampler: id  0 | task 1379 | init sampler, took 0.06 ms, tokens: text = 194, total = 194
+slot print_timing: id  0 | task 1379 | prompt eval time =      48.09 ms /     1 tokens (   48.09 ms per token,    20.80 tokens per second)
+slot print_timing: id  0 | task 1379 |        eval time =    1624.73 ms /    57 tokens (   28.50 ms per token,    35.08 tokens per second)
+slot print_timing: id  0 | task 1379 |       total time =    1672.82 ms /    58 tokens
+slot print_timing: id  0 | task 1379 |    graphs reused =       1407
+slot      release: id  0 | task 1379 | stop processing: n_tokens = 250, truncated = 0
+srv  update_slots: all slots are idle
+[GIN] 2026/07/09 - 19:49:48 | 200 |  2.462212678s |       127.0.0.1 | POST     "/api/chat"
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 1.000 (> 0.100 thold), f_keep = 0.776
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task -1 | sampler params: 
+	repeat_last_n = 64, repeat_penalty = 1.100, frequency_penalty = 0.000, presence_penalty = 0.000
+	dry_multiplier = 0.000, dry_base = 1.750, dry_allowed_length = 2, dry_penalty_last_n = 8192
+	top_k = 40, top_p = 0.900, min_p = 0.000, xtc_probability = 0.000, xtc_threshold = 0.100, typical_p = 1.000, top_n_sigma = -1.000, temp = 0.700
+	mirostat = 0, mirostat_lr = 0.100, mirostat_ent = 5.000, adaptive_target = -1.000, adaptive_decay = 0.900
+slot launch_slot_: id  0 | task 1437 | processing task, is_child = 0
+slot   operator(): id  0 | task 1437 | new prompt, n_ctx_slot = 8192, n_keep = 4, task.n_tokens = 194
+slot   operator(): id  0 | task 1437 | need to evaluate at least 1 token for each active slot (n_past = 194, task.n_tokens() = 194)
+slot   operator(): id  0 | task 1437 | n_past was set to 193
+slot   operator(): id  0 | task 1437 | cached n_tokens = 193, memory_seq_rm [193, end)
+srv  stream_sessi: conv_id= (empty=1)
+slot init_sampler: id  0 | task 1437 | init sampler, took 0.06 ms, tokens: text = 194, total = 194
+slot print_timing: id  0 | task 1437 | prompt eval time =      47.90 ms /     1 tokens (   47.90 ms per token,    20.88 tokens per second)
+slot print_timing: id  0 | task 1437 |        eval time =    1603.58 ms /    57 tokens (   28.13 ms per token,    35.55 tokens per second)
+slot print_timing: id  0 | task 1437 |       total time =    1651.47 ms /    58 tokens
+slot print_timing: id  0 | task 1437 |    graphs reused =       1464
+slot      release: id  0 | task 1437 | stop processing: n_tokens = 250, truncated = 0
+srv  update_slots: all slots are idle
+[GIN] 2026/07/09 - 19:49:51 | 200 |  2.368270823s |       127.0.0.1 | POST     "/api/chat"
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 1.000 (> 0.100 thold), f_keep = 0.776
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task -1 | sampler params: 
+	repeat_last_n = 64, repeat_penalty = 1.100, frequency_penalty = 0.000, presence_penalty = 0.000
+	dry_multiplier = 0.000, dry_base = 1.750, dry_allowed_length = 2, dry_penalty_last_n = 8192
+	top_k = 40, top_p = 0.900, min_p = 0.000, xtc_probability = 0.000, xtc_threshold = 0.100, typical_p = 1.000, top_n_sigma = -1.000, temp = 0.700
+	mirostat = 0, mirostat_lr = 0.100, mirostat_ent = 5.000, adaptive_target = -1.000, adaptive_decay = 0.900
+slot launch_slot_: id  0 | task 1495 | processing task, is_child = 0
+slot   operator(): id  0 | task 1495 | new prompt, n_ctx_slot = 8192, n_keep = 4, task.n_tokens = 194
+slot   operator(): id  0 | task 1495 | need to evaluate at least 1 token for each active slot (n_past = 194, task.n_tokens() = 194)
+slot   operator(): id  0 | task 1495 | n_past was set to 193
+slot   operator(): id  0 | task 1495 | cached n_tokens = 193, memory_seq_rm [193, end)
+srv  stream_sessi: conv_id= (empty=1)
+slot init_sampler: id  0 | task 1495 | init sampler, took 0.10 ms, tokens: text = 194, total = 194
+slot print_timing: id  0 | task 1495 | prompt eval time =      54.03 ms /     1 tokens (   54.03 ms per token,    18.51 tokens per second)
+slot print_timing: id  0 | task 1495 |        eval time =    1603.57 ms /    57 tokens (   28.13 ms per token,    35.55 tokens per second)
+slot print_timing: id  0 | task 1495 |       total time =    1657.61 ms /    58 tokens
+slot print_timing: id  0 | task 1495 |    graphs reused =       1521
+slot      release: id  0 | task 1495 | stop processing: n_tokens = 250, truncated = 0
+srv  update_slots: all slots are idle
+[GIN] 2026/07/09 - 19:49:53 | 200 |  2.466982606s |       127.0.0.1 | POST     "/api/chat"
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 1.000 (> 0.100 thold), f_keep = 0.776
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task -1 | sampler params: 
+	repeat_last_n = 64, repeat_penalty = 1.100, frequency_penalty = 0.000, presence_penalty = 0.000
+	dry_multiplier = 0.000, dry_base = 1.750, dry_allowed_length = 2, dry_penalty_last_n = 8192
+	top_k = 40, top_p = 0.900, min_p = 0.000, xtc_probability = 0.000, xtc_threshold = 0.100, typical_p = 1.000, top_n_sigma = -1.000, temp = 0.700
+	mirostat = 0, mirostat_lr = 0.100, mirostat_ent = 5.000, adaptive_target = -1.000, adaptive_decay = 0.900
+slot launch_slot_: id  0 | task 1553 | processing task, is_child = 0
+slot   operator(): id  0 | task 1553 | new prompt, n_ctx_slot = 8192, n_keep = 4, task.n_tokens = 194
+slot   operator(): id  0 | task 1553 | need to evaluate at least 1 token for each active slot (n_past = 194, task.n_tokens() = 194)
+slot   operator(): id  0 | task 1553 | n_past was set to 193
+slot   operator(): id  0 | task 1553 | cached n_tokens = 193, memory_seq_rm [193, end)
+srv  stream_sessi: conv_id= (empty=1)
+slot init_sampler: id  0 | task 1553 | init sampler, took 0.32 ms, tokens: text = 194, total = 194
+slot print_timing: id  0 | task 1553 | prompt eval time =      48.76 ms /     1 tokens (   48.76 ms per token,    20.51 tokens per second)
+slot print_timing: id  0 | task 1553 |        eval time =    1536.09 ms /    53 tokens (   28.98 ms per token,    34.50 tokens per second)
+slot print_timing: id  0 | task 1553 |       total time =    1584.85 ms /    54 tokens
+slot print_timing: id  0 | task 1553 |    graphs reused =       1574
+slot      release: id  0 | task 1553 | stop processing: n_tokens = 246, truncated = 0
+srv  update_slots: all slots are idle
+[GIN] 2026/07/09 - 19:49:56 | 200 |  2.403875703s |       127.0.0.1 | POST     "/api/chat"
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 1.000 (> 0.100 thold), f_keep = 0.789
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task -1 | sampler params: 
+	repeat_last_n = 64, repeat_penalty = 1.100, frequency_penalty = 0.000, presence_penalty = 0.000
+	dry_multiplier = 0.000, dry_base = 1.750, dry_allowed_length = 2, dry_penalty_last_n = 8192
+	top_k = 40, top_p = 0.900, min_p = 0.000, xtc_probability = 0.000, xtc_threshold = 0.100, typical_p = 1.000, top_n_sigma = -1.000, temp = 0.700
+	mirostat = 0, mirostat_lr = 0.100, mirostat_ent = 5.000, adaptive_target = -1.000, adaptive_decay = 0.900
+slot launch_slot_: id  0 | task 1607 | processing task, is_child = 0
+slot   operator(): id  0 | task 1607 | new prompt, n_ctx_slot = 8192, n_keep = 4, task.n_tokens = 194
+slot   operator(): id  0 | task 1607 | need to evaluate at least 1 token for each active slot (n_past = 194, task.n_tokens() = 194)
+slot   operator(): id  0 | task 1607 | n_past was set to 193
+slot   operator(): id  0 | task 1607 | cached n_tokens = 193, memory_seq_rm [193, end)
+srv  stream_sessi: conv_id= (empty=1)
+slot init_sampler: id  0 | task 1607 | init sampler, took 0.09 ms, tokens: text = 194, total = 194
+slot print_timing: id  0 | task 1607 | prompt eval time =      56.12 ms /     1 tokens (   56.12 ms per token,    17.82 tokens per second)
+slot print_timing: id  0 | task 1607 |        eval time =    1627.34 ms /    56 tokens (   29.06 ms per token,    34.41 tokens per second)
+slot print_timing: id  0 | task 1607 |       total time =    1683.47 ms /    57 tokens
+slot print_timing: id  0 | task 1607 |    graphs reused =       1630
+slot      release: id  0 | task 1607 | stop processing: n_tokens = 249, truncated = 0
+srv  update_slots: all slots are idle
+[GIN] 2026/07/09 - 19:49:58 | 200 |   2.51306807s |       127.0.0.1 | POST     "/api/chat"
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 1.000 (> 0.100 thold), f_keep = 0.779
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task -1 | sampler params: 
+	repeat_last_n = 64, repeat_penalty = 1.100, frequency_penalty = 0.000, presence_penalty = 0.000
+	dry_multiplier = 0.000, dry_base = 1.750, dry_allowed_length = 2, dry_penalty_last_n = 8192
+	top_k = 40, top_p = 0.900, min_p = 0.000, xtc_probability = 0.000, xtc_threshold = 0.100, typical_p = 1.000, top_n_sigma = -1.000, temp = 0.700
+	mirostat = 0, mirostat_lr = 0.100, mirostat_ent = 5.000, adaptive_target = -1.000, adaptive_decay = 0.900
+slot launch_slot_: id  0 | task 1664 | processing task, is_child = 0
+slot   operator(): id  0 | task 1664 | new prompt, n_ctx_slot = 8192, n_keep = 4, task.n_tokens = 194
+slot   operator(): id  0 | task 1664 | need to evaluate at least 1 token for each active slot (n_past = 194, task.n_tokens() = 194)
+slot   operator(): id  0 | task 1664 | n_past was set to 193
+slot   operator(): id  0 | task 1664 | cached n_tokens = 193, memory_seq_rm [193, end)
+srv  stream_sessi: conv_id= (empty=1)
+slot init_sampler: id  0 | task 1664 | init sampler, took 0.09 ms, tokens: text = 194, total = 194
+slot print_timing: id  0 | task 1664 | prompt eval time =      48.14 ms /     1 tokens (   48.14 ms per token,    20.77 tokens per second)
+slot print_timing: id  0 | task 1664 |        eval time =    1633.81 ms /    58 tokens (   28.17 ms per token,    35.50 tokens per second)
+slot print_timing: id  0 | task 1664 |       total time =    1681.94 ms /    59 tokens
+slot print_timing: id  0 | task 1664 |    graphs reused =       1688
+slot      release: id  0 | task 1664 | stop processing: n_tokens = 251, truncated = 0
+srv  update_slots: all slots are idle
+[GIN] 2026/07/09 - 19:50:01 | 200 |  2.468837779s |       127.0.0.1 | POST     "/api/chat"
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 1.000 (> 0.100 thold), f_keep = 0.773
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task -1 | sampler params: 
+	repeat_last_n = 64, repeat_penalty = 1.100, frequency_penalty = 0.000, presence_penalty = 0.000
+	dry_multiplier = 0.000, dry_base = 1.750, dry_allowed_length = 2, dry_penalty_last_n = 8192
+	top_k = 40, top_p = 0.900, min_p = 0.000, xtc_probability = 0.000, xtc_threshold = 0.100, typical_p = 1.000, top_n_sigma = -1.000, temp = 0.700
+	mirostat = 0, mirostat_lr = 0.100, mirostat_ent = 5.000, adaptive_target = -1.000, adaptive_decay = 0.900
+slot launch_slot_: id  0 | task 1723 | processing task, is_child = 0
+slot   operator(): id  0 | task 1723 | new prompt, n_ctx_slot = 8192, n_keep = 4, task.n_tokens = 194
+slot   operator(): id  0 | task 1723 | need to evaluate at least 1 token for each active slot (n_past = 194, task.n_tokens() = 194)
+slot   operator(): id  0 | task 1723 | n_past was set to 193
+slot   operator(): id  0 | task 1723 | cached n_tokens = 193, memory_seq_rm [193, end)
+srv  stream_sessi: conv_id= (empty=1)
+slot init_sampler: id  0 | task 1723 | init sampler, took 0.13 ms, tokens: text = 194, total = 194
+slot print_timing: id  0 | task 1723 | prompt eval time =      48.28 ms /     1 tokens (   48.28 ms per token,    20.71 tokens per second)
+slot print_timing: id  0 | task 1723 |        eval time =    1499.38 ms /    53 tokens (   28.29 ms per token,    35.35 tokens per second)
+slot print_timing: id  0 | task 1723 |       total time =    1547.66 ms /    54 tokens
+slot print_timing: id  0 | task 1723 |    graphs reused =       1741
+slot      release: id  0 | task 1723 | stop processing: n_tokens = 246, truncated = 0
+srv  update_slots: all slots are idle
+[GIN] 2026/07/09 - 19:50:03 | 200 |  2.395004301s |       127.0.0.1 | POST     "/api/chat"
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 1.000 (> 0.100 thold), f_keep = 0.789
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task -1 | sampler params: 
+	repeat_last_n = 64, repeat_penalty = 1.100, frequency_penalty = 0.000, presence_penalty = 0.000
+	dry_multiplier = 0.000, dry_base = 1.750, dry_allowed_length = 2, dry_penalty_last_n = 8192
+	top_k = 40, top_p = 0.900, min_p = 0.000, xtc_probability = 0.000, xtc_threshold = 0.100, typical_p = 1.000, top_n_sigma = -1.000, temp = 0.700
+	mirostat = 0, mirostat_lr = 0.100, mirostat_ent = 5.000, adaptive_target = -1.000, adaptive_decay = 0.900
+slot launch_slot_: id  0 | task 1777 | processing task, is_child = 0
+slot   operator(): id  0 | task 1777 | new prompt, n_ctx_slot = 8192, n_keep = 4, task.n_tokens = 194
+slot   operator(): id  0 | task 1777 | need to evaluate at least 1 token for each active slot (n_past = 194, task.n_tokens() = 194)
+slot   operator(): id  0 | task 1777 | n_past was set to 193
+slot   operator(): id  0 | task 1777 | cached n_tokens = 193, memory_seq_rm [193, end)
+srv  stream_sessi: conv_id= (empty=1)
+slot init_sampler: id  0 | task 1777 | init sampler, took 0.08 ms, tokens: text = 194, total = 194
+slot print_timing: id  0 | task 1777 | prompt eval time =      56.71 ms /     1 tokens (   56.71 ms per token,    17.63 tokens per second)
+slot print_timing: id  0 | task 1777 |        eval time =    1694.23 ms /    58 tokens (   29.21 ms per token,    34.23 tokens per second)
+slot print_timing: id  0 | task 1777 |       total time =    1750.94 ms /    59 tokens
+slot print_timing: id  0 | task 1777 |    graphs reused =       1799
+slot      release: id  0 | task 1777 | stop processing: n_tokens = 251, truncated = 0
+srv  update_slots: all slots are idle
+[GIN] 2026/07/09 - 19:50:05 | 200 |  2.517550256s |       127.0.0.1 | POST     "/api/chat"
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 1.000 (> 0.100 thold), f_keep = 0.773
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task -1 | sampler params: 
+	repeat_last_n = 64, repeat_penalty = 1.100, frequency_penalty = 0.000, presence_penalty = 0.000
+	dry_multiplier = 0.000, dry_base = 1.750, dry_allowed_length = 2, dry_penalty_last_n = 8192
+	top_k = 40, top_p = 0.900, min_p = 0.000, xtc_probability = 0.000, xtc_threshold = 0.100, typical_p = 1.000, top_n_sigma = -1.000, temp = 0.700
+	mirostat = 0, mirostat_lr = 0.100, mirostat_ent = 5.000, adaptive_target = -1.000, adaptive_decay = 0.900
+slot launch_slot_: id  0 | task 1836 | processing task, is_child = 0
+slot   operator(): id  0 | task 1836 | new prompt, n_ctx_slot = 8192, n_keep = 4, task.n_tokens = 194
+slot   operator(): id  0 | task 1836 | need to evaluate at least 1 token for each active slot (n_past = 194, task.n_tokens() = 194)
+slot   operator(): id  0 | task 1836 | n_past was set to 193
+slot   operator(): id  0 | task 1836 | cached n_tokens = 193, memory_seq_rm [193, end)
+srv  stream_sessi: conv_id= (empty=1)
+slot init_sampler: id  0 | task 1836 | init sampler, took 0.09 ms, tokens: text = 194, total = 194
+slot print_timing: id  0 | task 1836 | prompt eval time =      48.34 ms /     1 tokens (   48.34 ms per token,    20.68 tokens per second)
+slot print_timing: id  0 | task 1836 |        eval time =    1600.30 ms /    56 tokens (   28.58 ms per token,    34.99 tokens per second)
+slot print_timing: id  0 | task 1836 |       total time =    1648.64 ms /    57 tokens
+slot print_timing: id  0 | task 1836 |    graphs reused =       1855
+slot      release: id  0 | task 1836 | stop processing: n_tokens = 249, truncated = 0
+srv  update_slots: all slots are idle
+[GIN] 2026/07/09 - 19:50:08 | 200 |  2.412246139s |       127.0.0.1 | POST     "/api/chat"
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 0.333 (> 0.100 thold), f_keep = 0.261
+srv  get_availabl: updating prompt cache
+srv   prompt_save:  - saving prompt with length 249, total state size = 38.910 MiB (draft: 0.000 MiB)
+srv          load:  - looking for better prompt, base f_keep = 0.261, sim = 0.333
+srv        update:  - cache state: 3 prompts, 117.043 MiB (limits: 8192.000 MiB, 8192 tokens, 52423 est)
+srv        update:    - prompt 0x1bf47bb0:     247 tokens, checkpoints:  0,    38.598 MiB
+srv        update:    - prompt 0x1bf22380:     253 tokens, checkpoints:  0,    39.535 MiB
+srv        update:    - prompt 0x1c1c29a0:     249 tokens, checkpoints:  0,    38.910 MiB
+srv  get_availabl: prompt cache update took 42.56 ms
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task -1 | sampler params: 
+	repeat_last_n = 64, repeat_penalty = 1.100, frequency_penalty = 0.000, presence_penalty = 0.000
+	dry_multiplier = 0.000, dry_base = 1.750, dry_allowed_length = 2, dry_penalty_last_n = 8192
+	top_k = 40, top_p = 0.900, min_p = 0.000, xtc_probability = 0.000, xtc_threshold = 0.100, typical_p = 1.000, top_n_sigma = -1.000, temp = 0.000
+	mirostat = 0, mirostat_lr = 0.100, mirostat_ent = 5.000, adaptive_target = -1.000, adaptive_decay = 0.900
+slot launch_slot_: id  0 | task 1893 | processing task, is_child = 0
+slot   operator(): id  0 | task 1893 | new prompt, n_ctx_slot = 8192, n_keep = 4, task.n_tokens = 195
+slot   operator(): id  0 | task 1893 | cached n_tokens = 65, memory_seq_rm [65, end)
+srv  stream_sessi: conv_id= (empty=1)
+slot init_sampler: id  0 | task 1893 | init sampler, took 0.10 ms, tokens: text = 195, total = 195
+slot print_timing: id  0 | task 1893 | prompt eval time =     199.09 ms /   130 tokens (    1.53 ms per token,   652.97 tokens per second)
+slot print_timing: id  0 | task 1893 |        eval time =    1620.82 ms /    56 tokens (   28.94 ms per token,    34.55 tokens per second)
+slot print_timing: id  0 | task 1893 |       total time =    1819.91 ms /   186 tokens
+slot print_timing: id  0 | task 1893 |    graphs reused =       1909
+slot      release: id  0 | task 1893 | stop processing: n_tokens = 250, truncated = 0
+srv  update_slots: all slots are idle
+[GIN] 2026/07/09 - 19:50:11 | 200 |  2.778570353s |       127.0.0.1 | POST     "/api/chat"
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 1.000 (> 0.100 thold), f_keep = 0.780
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task -1 | sampler params: 
+	repeat_last_n = 64, repeat_penalty = 1.100, frequency_penalty = 0.000, presence_penalty = 0.000
+	dry_multiplier = 0.000, dry_base = 1.750, dry_allowed_length = 2, dry_penalty_last_n = 8192
+	top_k = 40, top_p = 0.900, min_p = 0.000, xtc_probability = 0.000, xtc_threshold = 0.100, typical_p = 1.000, top_n_sigma = -1.000, temp = 0.700
+	mirostat = 0, mirostat_lr = 0.100, mirostat_ent = 5.000, adaptive_target = -1.000, adaptive_decay = 0.900
+slot launch_slot_: id  0 | task 1950 | processing task, is_child = 0
+slot   operator(): id  0 | task 1950 | new prompt, n_ctx_slot = 8192, n_keep = 4, task.n_tokens = 195
+slot   operator(): id  0 | task 1950 | need to evaluate at least 1 token for each active slot (n_past = 195, task.n_tokens() = 195)
+slot   operator(): id  0 | task 1950 | n_past was set to 194
+slot   operator(): id  0 | task 1950 | cached n_tokens = 194, memory_seq_rm [194, end)
+srv  stream_sessi: conv_id= (empty=1)
+slot init_sampler: id  0 | task 1950 | init sampler, took 0.07 ms, tokens: text = 195, total = 195
+slot print_timing: id  0 | task 1950 | prompt eval time =      47.97 ms /     1 tokens (   47.97 ms per token,    20.85 tokens per second)
+slot print_timing: id  0 | task 1950 |        eval time =    1464.79 ms /    51 tokens (   28.72 ms per token,    34.82 tokens per second)
+slot print_timing: id  0 | task 1950 |       total time =    1512.76 ms /    52 tokens
+slot print_timing: id  0 | task 1950 |    graphs reused =       1960
+slot      release: id  0 | task 1950 | stop processing: n_tokens = 245, truncated = 0
+srv  update_slots: all slots are idle
+[GIN] 2026/07/09 - 19:50:13 | 200 |  2.405158679s |       127.0.0.1 | POST     "/api/chat"
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 1.000 (> 0.100 thold), f_keep = 0.796
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task -1 | sampler params: 
+	repeat_last_n = 64, repeat_penalty = 1.100, frequency_penalty = 0.000, presence_penalty = 0.000
+	dry_multiplier = 0.000, dry_base = 1.750, dry_allowed_length = 2, dry_penalty_last_n = 8192
+	top_k = 40, top_p = 0.900, min_p = 0.000, xtc_probability = 0.000, xtc_threshold = 0.100, typical_p = 1.000, top_n_sigma = -1.000, temp = 0.700
+	mirostat = 0, mirostat_lr = 0.100, mirostat_ent = 5.000, adaptive_target = -1.000, adaptive_decay = 0.900
+slot launch_slot_: id  0 | task 2002 | processing task, is_child = 0
+slot   operator(): id  0 | task 2002 | new prompt, n_ctx_slot = 8192, n_keep = 4, task.n_tokens = 195
+slot   operator(): id  0 | task 2002 | need to evaluate at least 1 token for each active slot (n_past = 195, task.n_tokens() = 195)
+slot   operator(): id  0 | task 2002 | n_past was set to 194
+slot   operator(): id  0 | task 2002 | cached n_tokens = 194, memory_seq_rm [194, end)
+srv  stream_sessi: conv_id= (empty=1)
+slot init_sampler: id  0 | task 2002 | init sampler, took 0.06 ms, tokens: text = 195, total = 195
+slot print_timing: id  0 | task 2002 | prompt eval time =      48.02 ms /     1 tokens (   48.02 ms per token,    20.82 tokens per second)
+slot print_timing: id  0 | task 2002 |        eval time =    1598.42 ms /    56 tokens (   28.54 ms per token,    35.03 tokens per second)
+slot print_timing: id  0 | task 2002 |       total time =    1646.44 ms /    57 tokens
+slot print_timing: id  0 | task 2002 |    graphs reused =       2016
+slot      release: id  0 | task 2002 | stop processing: n_tokens = 250, truncated = 0
+srv  update_slots: all slots are idle
+[GIN] 2026/07/09 - 19:50:16 | 200 |  2.479482597s |       127.0.0.1 | POST     "/api/chat"
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 1.000 (> 0.100 thold), f_keep = 0.780
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task -1 | sampler params: 
+	repeat_last_n = 64, repeat_penalty = 1.100, frequency_penalty = 0.000, presence_penalty = 0.000
+	dry_multiplier = 0.000, dry_base = 1.750, dry_allowed_length = 2, dry_penalty_last_n = 8192
+	top_k = 40, top_p = 0.900, min_p = 0.000, xtc_probability = 0.000, xtc_threshold = 0.100, typical_p = 1.000, top_n_sigma = -1.000, temp = 0.700
+	mirostat = 0, mirostat_lr = 0.100, mirostat_ent = 5.000, adaptive_target = -1.000, adaptive_decay = 0.900
+slot launch_slot_: id  0 | task 2059 | processing task, is_child = 0
+slot   operator(): id  0 | task 2059 | new prompt, n_ctx_slot = 8192, n_keep = 4, task.n_tokens = 195
+slot   operator(): id  0 | task 2059 | need to evaluate at least 1 token for each active slot (n_past = 195, task.n_tokens() = 195)
+slot   operator(): id  0 | task 2059 | n_past was set to 194
+slot   operator(): id  0 | task 2059 | cached n_tokens = 194, memory_seq_rm [194, end)
+srv  stream_sessi: conv_id= (empty=1)
+slot init_sampler: id  0 | task 2059 | init sampler, took 0.09 ms, tokens: text = 195, total = 195
+slot print_timing: id  0 | task 2059 | prompt eval time =      56.26 ms /     1 tokens (   56.26 ms per token,    17.78 tokens per second)
+slot print_timing: id  0 | task 2059 |        eval time =    1659.94 ms /    57 tokens (   29.12 ms per token,    34.34 tokens per second)
+slot print_timing: id  0 | task 2059 |       total time =    1716.19 ms /    58 tokens
+slot print_timing: id  0 | task 2059 |    graphs reused =       2073
+slot      release: id  0 | task 2059 | stop processing: n_tokens = 251, truncated = 0
+srv  update_slots: all slots are idle
+[GIN] 2026/07/09 - 19:50:18 | 200 |  2.537119716s |       127.0.0.1 | POST     "/api/chat"
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 1.000 (> 0.100 thold), f_keep = 0.777
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task -1 | sampler params: 
+	repeat_last_n = 64, repeat_penalty = 1.100, frequency_penalty = 0.000, presence_penalty = 0.000
+	dry_multiplier = 0.000, dry_base = 1.750, dry_allowed_length = 2, dry_penalty_last_n = 8192
+	top_k = 40, top_p = 0.900, min_p = 0.000, xtc_probability = 0.000, xtc_threshold = 0.100, typical_p = 1.000, top_n_sigma = -1.000, temp = 0.700
+	mirostat = 0, mirostat_lr = 0.100, mirostat_ent = 5.000, adaptive_target = -1.000, adaptive_decay = 0.900
+slot launch_slot_: id  0 | task 2117 | processing task, is_child = 0
+slot   operator(): id  0 | task 2117 | new prompt, n_ctx_slot = 8192, n_keep = 4, task.n_tokens = 195
+slot   operator(): id  0 | task 2117 | need to evaluate at least 1 token for each active slot (n_past = 195, task.n_tokens() = 195)
+slot   operator(): id  0 | task 2117 | n_past was set to 194
+slot   operator(): id  0 | task 2117 | cached n_tokens = 194, memory_seq_rm [194, end)
+srv  stream_sessi: conv_id= (empty=1)
+slot init_sampler: id  0 | task 2117 | init sampler, took 0.06 ms, tokens: text = 195, total = 195
+slot print_timing: id  0 | task 2117 | prompt eval time =      53.31 ms /     1 tokens (   53.31 ms per token,    18.76 tokens per second)
+slot print_timing: id  0 | task 2117 |        eval time =    1524.78 ms /    54 tokens (   28.24 ms per token,    35.42 tokens per second)
+slot print_timing: id  0 | task 2117 |       total time =    1578.09 ms /    55 tokens
+slot print_timing: id  0 | task 2117 |    graphs reused =       2127
+slot      release: id  0 | task 2117 | stop processing: n_tokens = 248, truncated = 0
+srv  update_slots: all slots are idle
+[GIN] 2026/07/09 - 19:50:20 | 200 |   2.33283421s |       127.0.0.1 | POST     "/api/chat"
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 1.000 (> 0.100 thold), f_keep = 0.786
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task -1 | sampler params: 
+	repeat_last_n = 64, repeat_penalty = 1.100, frequency_penalty = 0.000, presence_penalty = 0.000
+	dry_multiplier = 0.000, dry_base = 1.750, dry_allowed_length = 2, dry_penalty_last_n = 8192
+	top_k = 40, top_p = 0.900, min_p = 0.000, xtc_probability = 0.000, xtc_threshold = 0.100, typical_p = 1.000, top_n_sigma = -1.000, temp = 0.700
+	mirostat = 0, mirostat_lr = 0.100, mirostat_ent = 5.000, adaptive_target = -1.000, adaptive_decay = 0.900
+slot launch_slot_: id  0 | task 2172 | processing task, is_child = 0
+slot   operator(): id  0 | task 2172 | new prompt, n_ctx_slot = 8192, n_keep = 4, task.n_tokens = 195
+slot   operator(): id  0 | task 2172 | need to evaluate at least 1 token for each active slot (n_past = 195, task.n_tokens() = 195)
+slot   operator(): id  0 | task 2172 | n_past was set to 194
+slot   operator(): id  0 | task 2172 | cached n_tokens = 194, memory_seq_rm [194, end)
+srv  stream_sessi: conv_id= (empty=1)
+slot init_sampler: id  0 | task 2172 | init sampler, took 0.06 ms, tokens: text = 195, total = 195
+slot print_timing: id  0 | task 2172 | prompt eval time =      48.44 ms /     1 tokens (   48.44 ms per token,    20.65 tokens per second)
+slot print_timing: id  0 | task 2172 |        eval time =    1522.97 ms /    54 tokens (   28.20 ms per token,    35.46 tokens per second)
+slot print_timing: id  0 | task 2172 |       total time =    1571.40 ms /    55 tokens
+slot print_timing: id  0 | task 2172 |    graphs reused =       2181
+slot      release: id  0 | task 2172 | stop processing: n_tokens = 248, truncated = 0
+srv  update_slots: all slots are idle
+[GIN] 2026/07/09 - 19:50:23 | 200 |  2.391360992s |       127.0.0.1 | POST     "/api/chat"
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 1.000 (> 0.100 thold), f_keep = 0.786
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task -1 | sampler params: 
+	repeat_last_n = 64, repeat_penalty = 1.100, frequency_penalty = 0.000, presence_penalty = 0.000
+	dry_multiplier = 0.000, dry_base = 1.750, dry_allowed_length = 2, dry_penalty_last_n = 8192
+	top_k = 40, top_p = 0.900, min_p = 0.000, xtc_probability = 0.000, xtc_threshold = 0.100, typical_p = 1.000, top_n_sigma = -1.000, temp = 0.700
+	mirostat = 0, mirostat_lr = 0.100, mirostat_ent = 5.000, adaptive_target = -1.000, adaptive_decay = 0.900
+slot launch_slot_: id  0 | task 2227 | processing task, is_child = 0
+slot   operator(): id  0 | task 2227 | new prompt, n_ctx_slot = 8192, n_keep = 4, task.n_tokens = 195
+slot   operator(): id  0 | task 2227 | need to evaluate at least 1 token for each active slot (n_past = 195, task.n_tokens() = 195)
+slot   operator(): id  0 | task 2227 | n_past was set to 194
+slot   operator(): id  0 | task 2227 | cached n_tokens = 194, memory_seq_rm [194, end)
+srv  stream_sessi: conv_id= (empty=1)
+slot init_sampler: id  0 | task 2227 | init sampler, took 0.20 ms, tokens: text = 195, total = 195
+slot print_timing: id  0 | task 2227 | prompt eval time =      48.57 ms /     1 tokens (   48.57 ms per token,    20.59 tokens per second)
+slot print_timing: id  0 | task 2227 |        eval time =    1503.52 ms /    54 tokens (   27.84 ms per token,    35.92 tokens per second)
+slot print_timing: id  0 | task 2227 |       total time =    1552.09 ms /    55 tokens
+slot print_timing: id  0 | task 2227 |    graphs reused =       2235
+slot      release: id  0 | task 2227 | stop processing: n_tokens = 248, truncated = 0
+srv  update_slots: all slots are idle
+[GIN] 2026/07/09 - 19:50:25 | 200 |  2.393351144s |       127.0.0.1 | POST     "/api/chat"
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 1.000 (> 0.100 thold), f_keep = 0.786
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task -1 | sampler params: 
+	repeat_last_n = 64, repeat_penalty = 1.100, frequency_penalty = 0.000, presence_penalty = 0.000
+	dry_multiplier = 0.000, dry_base = 1.750, dry_allowed_length = 2, dry_penalty_last_n = 8192
+	top_k = 40, top_p = 0.900, min_p = 0.000, xtc_probability = 0.000, xtc_threshold = 0.100, typical_p = 1.000, top_n_sigma = -1.000, temp = 0.700
+	mirostat = 0, mirostat_lr = 0.100, mirostat_ent = 5.000, adaptive_target = -1.000, adaptive_decay = 0.900
+slot launch_slot_: id  0 | task 2282 | processing task, is_child = 0
+slot   operator(): id  0 | task 2282 | new prompt, n_ctx_slot = 8192, n_keep = 4, task.n_tokens = 195
+slot   operator(): id  0 | task 2282 | need to evaluate at least 1 token for each active slot (n_past = 195, task.n_tokens() = 195)
+slot   operator(): id  0 | task 2282 | n_past was set to 194
+slot   operator(): id  0 | task 2282 | cached n_tokens = 194, memory_seq_rm [194, end)
+srv  stream_sessi: conv_id= (empty=1)
+slot init_sampler: id  0 | task 2282 | init sampler, took 0.10 ms, tokens: text = 195, total = 195
+slot print_timing: id  0 | task 2282 | prompt eval time =      56.19 ms /     1 tokens (   56.19 ms per token,    17.80 tokens per second)
+slot print_timing: id  0 | task 2282 |        eval time =    1587.80 ms /    55 tokens (   28.87 ms per token,    34.64 tokens per second)
+slot print_timing: id  0 | task 2282 |       total time =    1643.99 ms /    56 tokens
+slot print_timing: id  0 | task 2282 |    graphs reused =       2290
+slot      release: id  0 | task 2282 | stop processing: n_tokens = 249, truncated = 0
+srv  update_slots: all slots are idle
+[GIN] 2026/07/09 - 19:50:28 | 200 |  2.459021919s |       127.0.0.1 | POST     "/api/chat"
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 1.000 (> 0.100 thold), f_keep = 0.783
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task -1 | sampler params: 
+	repeat_last_n = 64, repeat_penalty = 1.100, frequency_penalty = 0.000, presence_penalty = 0.000
+	dry_multiplier = 0.000, dry_base = 1.750, dry_allowed_length = 2, dry_penalty_last_n = 8192
+	top_k = 40, top_p = 0.900, min_p = 0.000, xtc_probability = 0.000, xtc_threshold = 0.100, typical_p = 1.000, top_n_sigma = -1.000, temp = 0.700
+	mirostat = 0, mirostat_lr = 0.100, mirostat_ent = 5.000, adaptive_target = -1.000, adaptive_decay = 0.900
+slot launch_slot_: id  0 | task 2338 | processing task, is_child = 0
+slot   operator(): id  0 | task 2338 | new prompt, n_ctx_slot = 8192, n_keep = 4, task.n_tokens = 195
+slot   operator(): id  0 | task 2338 | need to evaluate at least 1 token for each active slot (n_past = 195, task.n_tokens() = 195)
+slot   operator(): id  0 | task 2338 | n_past was set to 194
+slot   operator(): id  0 | task 2338 | cached n_tokens = 194, memory_seq_rm [194, end)
+srv  stream_sessi: conv_id= (empty=1)
+slot init_sampler: id  0 | task 2338 | init sampler, took 0.09 ms, tokens: text = 195, total = 195
+slot print_timing: id  0 | task 2338 | prompt eval time =      56.17 ms /     1 tokens (   56.17 ms per token,    17.80 tokens per second)
+slot print_timing: id  0 | task 2338 |        eval time =    1576.99 ms /    55 tokens (   28.67 ms per token,    34.88 tokens per second)
+slot print_timing: id  0 | task 2338 |       total time =    1633.16 ms /    56 tokens
+slot print_timing: id  0 | task 2338 |    graphs reused =       2345
+slot      release: id  0 | task 2338 | stop processing: n_tokens = 249, truncated = 0
+srv  update_slots: all slots are idle
+[GIN] 2026/07/09 - 19:50:30 | 200 |  2.493761269s |       127.0.0.1 | POST     "/api/chat"
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 1.000 (> 0.100 thold), f_keep = 0.783
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task -1 | sampler params: 
+	repeat_last_n = 64, repeat_penalty = 1.100, frequency_penalty = 0.000, presence_penalty = 0.000
+	dry_multiplier = 0.000, dry_base = 1.750, dry_allowed_length = 2, dry_penalty_last_n = 8192
+	top_k = 40, top_p = 0.900, min_p = 0.000, xtc_probability = 0.000, xtc_threshold = 0.100, typical_p = 1.000, top_n_sigma = -1.000, temp = 0.700
+	mirostat = 0, mirostat_lr = 0.100, mirostat_ent = 5.000, adaptive_target = -1.000, adaptive_decay = 0.900
+slot launch_slot_: id  0 | task 2394 | processing task, is_child = 0
+slot   operator(): id  0 | task 2394 | new prompt, n_ctx_slot = 8192, n_keep = 4, task.n_tokens = 195
+slot   operator(): id  0 | task 2394 | need to evaluate at least 1 token for each active slot (n_past = 195, task.n_tokens() = 195)
+slot   operator(): id  0 | task 2394 | n_past was set to 194
+slot   operator(): id  0 | task 2394 | cached n_tokens = 194, memory_seq_rm [194, end)
+srv  stream_sessi: conv_id= (empty=1)
+slot init_sampler: id  0 | task 2394 | init sampler, took 0.08 ms, tokens: text = 195, total = 195
+slot print_timing: id  0 | task 2394 | prompt eval time =      56.46 ms /     1 tokens (   56.46 ms per token,    17.71 tokens per second)
+slot print_timing: id  0 | task 2394 |        eval time =    1668.41 ms /    58 tokens (   28.77 ms per token,    34.76 tokens per second)
+slot print_timing: id  0 | task 2394 |       total time =    1724.87 ms /    59 tokens
+slot print_timing: id  0 | task 2394 |    graphs reused =       2403
+slot      release: id  0 | task 2394 | stop processing: n_tokens = 252, truncated = 0
+srv  update_slots: all slots are idle
+[GIN] 2026/07/09 - 19:50:33 | 200 |  2.553239544s |       127.0.0.1 | POST     "/api/chat"
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 1.000 (> 0.100 thold), f_keep = 0.774
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task -1 | sampler params: 
+	repeat_last_n = 64, repeat_penalty = 1.100, frequency_penalty = 0.000, presence_penalty = 0.000
+	dry_multiplier = 0.000, dry_base = 1.750, dry_allowed_length = 2, dry_penalty_last_n = 8192
+	top_k = 40, top_p = 0.900, min_p = 0.000, xtc_probability = 0.000, xtc_threshold = 0.100, typical_p = 1.000, top_n_sigma = -1.000, temp = 0.700
+	mirostat = 0, mirostat_lr = 0.100, mirostat_ent = 5.000, adaptive_target = -1.000, adaptive_decay = 0.900
+slot launch_slot_: id  0 | task 2453 | processing task, is_child = 0
+slot   operator(): id  0 | task 2453 | new prompt, n_ctx_slot = 8192, n_keep = 4, task.n_tokens = 195
+slot   operator(): id  0 | task 2453 | need to evaluate at least 1 token for each active slot (n_past = 195, task.n_tokens() = 195)
+slot   operator(): id  0 | task 2453 | n_past was set to 194
+slot   operator(): id  0 | task 2453 | cached n_tokens = 194, memory_seq_rm [194, end)
+srv  stream_sessi: conv_id= (empty=1)
+slot init_sampler: id  0 | task 2453 | init sampler, took 0.24 ms, tokens: text = 195, total = 195
+slot print_timing: id  0 | task 2453 | prompt eval time =      57.38 ms /     1 tokens (   57.38 ms per token,    17.43 tokens per second)
+slot print_timing: id  0 | task 2453 |        eval time =    1637.73 ms /    56 tokens (   29.25 ms per token,    34.19 tokens per second)
+slot print_timing: id  0 | task 2453 |       total time =    1695.11 ms /    57 tokens
+slot print_timing: id  0 | task 2453 |    graphs reused =       2459
+slot      release: id  0 | task 2453 | stop processing: n_tokens = 250, truncated = 0
+srv  update_slots: all slots are idle
+[GIN] 2026/07/09 - 19:50:35 | 200 |  2.484454869s |       127.0.0.1 | POST     "/api/chat"
