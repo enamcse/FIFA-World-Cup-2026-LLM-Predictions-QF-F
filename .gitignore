@@ -4,3 +4,6 @@ __pycache__/
 # model weights never belong in git
 wc26_ollama_models/
 ollama_models/
+
+# local editor/agent config
+.claude/

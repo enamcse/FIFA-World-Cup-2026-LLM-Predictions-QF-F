@@ -99,5 +99,15 @@ logs/slurm/               SLURM job + ollama server logs               (committe
 Everything needed to reproduce a number — model digest, pinned Ollama version, seeds,
 prompt hash, git commit, hostname, job ID — is embedded in every JSONL record.
 
-A front-end dashboard reading `results/scores/leaderboard.json` is planned as a
-follow-up project.
+## Dashboard
+
+**Live dashboard → <https://enamcse.github.io/FIFA-World-Cup-2026-LLM-Predictions-QF-F/>**
+
+[index.html](index.html) is a self-contained static page that reads
+`results/scores/leaderboard.json`, `data/matches.json`, `data/actuals.json`, and
+`results/predictions/*.jsonl` at runtime — bracket, leaderboard, points-by-match
+heatmap, and a per-match breakdown of every model's call (including locked-in
+predictions for unplayed matches). It is deployed to GitHub Pages by
+[.github/workflows/pages.yml](.github/workflows/pages.yml) on every push to
+`main`, so committing new actuals + a re-scored leaderboard updates the site
+automatically. To preview locally: `python3 -m http.server` from the repo root.
