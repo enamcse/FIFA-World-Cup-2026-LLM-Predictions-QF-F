@@ -1,0 +1,55 @@
+=== Job 48066 on ai01 at 2026-07-15T21:32:48Z ===
+ollama Warning: could not connect to a running Ollama instance
+Warning: client version is 0.31.1 present
+--- GPU allocation ---
+Failed to initialize NVML: Driver/library version mismatch
+NVML library version: 580.159
+--- Starting ollama serve on 127.0.0.1:28066 (models: /home/ehassan/wc26_ollama_models) ---
+Server ready: {"version":"0.31.1"}
+--- Ensuring model is present: gemma4:26b ---
+[?2026h[?25l[1Gpulling manifest ⠋ [K[?25h[?2026l[?2026h[?25l[1Gpulling manifest ⠙ [K[?25h[?2026l[?2026h[?25l[1Gpulling manifest [K
+pulling 7121486771cb: 100% ▕██████████████████▏  17 GB                         [K
+pulling 7339fa418c9a: 100% ▕██████████████████▏  11 KB                         [K
+pulling 56380ca2ab89: 100% ▕██████████████████▏   42 B                         [K
+pulling 90294508afbb: 100% ▕██████████████████▏  474 B                         [K
+verifying sha256 digest [K
+writing manifest ⠋ [K[?25h[?2026l[?2026h[?25l[A[A[A[A[A[A[1Gpulling manifest [K
+pulling 7121486771cb: 100% ▕██████████████████▏  17 GB                         [K
+pulling 7339fa418c9a: 100% ▕██████████████████▏  11 KB                         [K
+pulling 56380ca2ab89: 100% ▕██████████████████▏   42 B                         [K
+pulling 90294508afbb: 100% ▕██████████████████▏  474 B                         [K
+verifying sha256 digest [K
+writing manifest [K
+success [K[?25h[?2026l
+  Model
+    architecture        gemma4    
+    parameters          25.8B     
+    context length      262144    
+    embedding length    2816      
+    quantization        Q4_K_M    
+    requires            0.20.0    
+
+  Capabilities
+    completion    
+    vision        
+    tools         
+    thinking      
+
+  Parameters
+    temperature    1       
+    top_k          64      
+    top_p          0.95    
+
+  License
+    Apache License               
+    Version 2.0, January 2004    
+    ...                          
+
+--- Running predictions: stage=TPP samples=10 ---
+Skipping TBD matches: TPP
+Nothing to run.
+--- GPU state after run ---
+Failed to initialize NVML: Driver/library version mismatch
+NVML library version: 580.159
+=== Finished at 2026-07-15T21:32:54Z with exit code 0 ===
+--- Stopping ollama (pid 1833559) ---

@@ -1,0 +1,50 @@
+=== Job 48074 on ai04 at 2026-07-15T21:33:50Z ===
+ollama Warning: could not connect to a running Ollama instance
+Warning: client version is 0.31.1 present
+--- GPU allocation ---
+index, name, memory.total [MiB], memory.used [MiB]
+0, Quadro RTX 8000, 49152 MiB, 1 MiB
+1, Quadro RTX 8000, 49152 MiB, 1 MiB
+--- Starting ollama serve on 127.0.0.1:28074 (models: /home/ehassan/wc26_ollama_models) ---
+Server ready: {"version":"0.31.1"}
+--- Ensuring model is present: llama3.3:70b ---
+[?2026h[?25l[1Gpulling manifest ⠋ [K[?25h[?2026l[?2026h[?25l[1Gpulling manifest ⠙ [K[?25h[?2026l[?2026h[?25l[1Gpulling manifest ⠹ [K[?25h[?2026l[?2026h[?25l[1Gpulling manifest [K
+pulling 4824460d29f2: 100% ▕██████████████████▏  42 GB                         [K
+pulling 948af2743fc7: 100% ▕██████████████████▏ 1.5 KB                         [K
+pulling bc371a43ce90: 100% ▕██████████████████▏ 7.6 KB                         [K
+pulling 53a87df39647: 100% ▕██████████████████▏ 5.6 KB                         [K
+pulling 56bb8bd477a5: 100% ▕██████████████████▏   96 B                         [K
+pulling c7091aa45e9b: 100% ▕██████████████████▏  562 B                         [K
+verifying sha256 digest [K
+writing manifest [K
+success [K[?25h[?2026l
+  Model
+    architecture        llama     
+    parameters          70.6B     
+    context length      131072    
+    embedding length    8192      
+    quantization        Q4_K_M    
+
+  Capabilities
+    completion    
+    tools         
+
+  Parameters
+    stop    "<|start_header_id|>"    
+    stop    "<|end_header_id|>"      
+    stop    "<|eot_id|>"             
+
+  License
+    LLAMA 3.3 COMMUNITY LICENSE AGREEMENT               
+    Llama 3.3 Version Release Date: December 6, 2024    
+    ...                                                 
+
+--- Running predictions: stage=TPP samples=10 ---
+Skipping TBD matches: TPP
+Nothing to run.
+--- GPU state after run ---
+index, name, memory.used [MiB]
+0, Quadro RTX 8000, 1 MiB
+1, Quadro RTX 8000, 1 MiB
+=== Finished at 2026-07-15T21:33:57Z with exit code 0 ===
+--- Stopping ollama (pid 2694517) ---

@@ -1,0 +1,24 @@
+time=2026-07-15T21:33:44.599Z level=INFO source=routes.go:1961 msg="server config" env="map[CUDA_VISIBLE_DEVICES:0 GGML_VK_VISIBLE_DEVICES: GPU_DEVICE_ORDINAL:0 HIP_VISIBLE_DEVICES: HSA_OVERRIDE_GFX_VERSION: HTTPS_PROXY: HTTP_PROXY: LLAMA_ARG_FIT: LLAMA_ARG_FIT_TARGET: NO_PROXY: OLLAMA_CONTEXT_LENGTH:0 OLLAMA_DEBUG:INFO OLLAMA_DEBUG_LOG_REQUESTS:false OLLAMA_EDITOR: OLLAMA_FLASH_ATTENTION:false OLLAMA_GO_TEMPLATE:true OLLAMA_GPU_OVERHEAD:0 OLLAMA_HOST:http://127.0.0.1:28073 OLLAMA_IGPU_ENABLE: OLLAMA_KEEP_ALIVE:2562047h47m16.854775807s OLLAMA_KV_CACHE_TYPE: OLLAMA_LLM_LIBRARY: OLLAMA_LOAD_TIMEOUT:5m0s OLLAMA_MAX_LOADED_MODELS:1 OLLAMA_MAX_QUEUE:512 OLLAMA_MAX_TRANSFER_STREAMS:4 OLLAMA_MODELS:/home/ehassan/wc26_ollama_models OLLAMA_NOHISTORY:false OLLAMA_NOPRUNE:false OLLAMA_NO_CLOUD:false OLLAMA_NUM_PARALLEL:1 OLLAMA_ORIGINS:[http://localhost https://localhost http://localhost:* https://localhost:* http://127.0.0.1 https://127.0.0.1 http://127.0.0.1:* https://127.0.0.1:* http://0.0.0.0 https://0.0.0.0 http://0.0.0.0:* https://0.0.0.0:* app://* file://* tauri://* vscode-webview://* vscode-file://*] OLLAMA_REMOTES:[ollama.com] OLLAMA_SCHED_SPREAD:false OLLAMA_VULKAN:true ROCR_VISIBLE_DEVICES:0 http_proxy: https_proxy: no_proxy:]"
+time=2026-07-15T21:33:44.599Z level=INFO source=routes.go:1963 msg="Ollama cloud disabled: false"
+time=2026-07-15T21:33:44.617Z level=INFO source=images.go:883 msg="total blobs: 49"
+time=2026-07-15T21:33:44.623Z level=INFO source=images.go:890 msg="total unused blobs removed: 0"
+time=2026-07-15T21:33:44.629Z level=INFO source=routes.go:2023 msg="Listening on 127.0.0.1:28073 (version 0.31.1)"
+time=2026-07-15T21:33:44.631Z level=INFO source=runner.go:60 msg="discovering available GPUs..."
+time=2026-07-15T21:33:44.632Z level=WARN source=runner.go:713 msg="user overrode visible devices" CUDA_VISIBLE_DEVICES=0
+time=2026-07-15T21:33:44.632Z level=WARN source=runner.go:713 msg="user overrode visible devices" ROCR_VISIBLE_DEVICES=0
+time=2026-07-15T21:33:44.632Z level=WARN source=runner.go:713 msg="user overrode visible devices" GPU_DEVICE_ORDINAL=0
+time=2026-07-15T21:33:44.632Z level=WARN source=runner.go:717 msg="if GPUs are not correctly discovered, unset and try again"
+time=2026-07-15T21:33:44.655Z level=INFO source=model_list_cache.go:111 msg="model list cache hydration complete" models=11 failures=0 elapsed=26.09265ms
+time=2026-07-15T21:33:44.737Z level=INFO source=model_recommendations.go:177 msg="model recommendations cache sleep scheduled" wait=4h4m11.435897089s consecutive_failures=0
+time=2026-07-15T21:33:45.628Z level=WARN source=cuda_compat.go:39 msg="could not verify NVIDIA driver compatibility for CUDA"
+time=2026-07-15T21:33:46.558Z level=INFO source=llama_server.go:299 msg="skipping CUDA device — compute capability not in compiled architectures" device="Tesla V100-SXM2-32GB" cc=700 archs="[750 800 860 870 890 900 1000 1030 1100 1200 1210]" libDirs="[/home/ehassan/wc26-tools/ollama-v0.31.1/lib/ollama /home/ehassan/wc26-tools/ollama-v0.31.1/lib/ollama/cuda_v13]"
+time=2026-07-15T21:33:48.427Z level=INFO source=types.go:32 msg="inference compute" id=0 filter_id=0 library=CUDA compute=7.0 name=CUDA0 description="Tesla V100-SXM2-32GB" libdirs=ollama,cuda_v12 driver=13.0 pci_id=0000:1a:00.0 type=discrete total="31.7 GiB" available="31.4 GiB"
+time=2026-07-15T21:33:48.427Z level=INFO source=routes.go:2073 msg="vram-based default context" total_vram="31.7 GiB" default_num_ctx=32768
+[GIN] 2026/07/15 - 21:33:48 | 200 |      96.448µs |       127.0.0.1 | GET      "/api/version"
+[GIN] 2026/07/15 - 21:33:48 | 200 |      39.772µs |       127.0.0.1 | GET      "/api/version"
+[GIN] 2026/07/15 - 21:33:48 | 200 |      39.578µs |       127.0.0.1 | HEAD     "/"
+[GIN] 2026/07/15 - 21:33:48 | 200 |   344.55727ms |       127.0.0.1 | POST     "/api/pull"
+[GIN] 2026/07/15 - 21:33:48 | 200 |       32.62µs |       127.0.0.1 | HEAD     "/"
+[GIN] 2026/07/15 - 21:33:49 | 200 |  515.467385ms |       127.0.0.1 | POST     "/api/show"
+[GIN] 2026/07/15 - 21:33:49 | 200 |       73.47µs |       127.0.0.1 | GET      "/api/version"
+[GIN] 2026/07/15 - 21:33:49 | 200 |   19.193224ms |       127.0.0.1 | POST     "/api/show"

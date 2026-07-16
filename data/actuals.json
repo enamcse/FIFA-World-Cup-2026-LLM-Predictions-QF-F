@@ -4,8 +4,8 @@
   "QF2": {"home_goals_90": 2, "away_goals_90": 1, "advanced": "Spain", "source": "https://sports.yahoo.com/soccer/live/world-cup-bracket-schedule-scores-results-live-updates-quarterfinals-203257966.html"},
   "QF3": {"home_goals_90": 1, "away_goals_90": 1, "advanced": "England", "source": "England won 2-1 in extra time (Bellingham 2); 1-1 after 90'. https://sports.yahoo.com/soccer/live/world-cup-bracket-schedule-scores-results-live-updates-quarterfinals-203257966.html"},
   "QF4": {"home_goals_90": 1, "away_goals_90": 1, "advanced": "Argentina", "source": "Argentina won 3-1 in extra time (Alvarez 112', Martinez); 1-1 after 90'. https://sports.yahoo.com/soccer/live/world-cup-bracket-schedule-scores-results-live-updates-quarterfinals-203257966.html"},
-  "SF1": {"home_goals_90": null, "away_goals_90": null, "advanced": null, "source": ""},
-  "SF2": {"home_goals_90": null, "away_goals_90": null, "advanced": null, "source": ""},
+  "SF1": {"home_goals_90": 0, "away_goals_90": 2, "advanced": "Spain", "source": "Spain won 2-0 in regulation (Oyarzabal, Porro). https://www.aljazeera.com/sports/liveblog/2026/7/14/france-vs-spain-live-fifa-world-cup-2026-semifinal"},
+  "SF2": {"home_goals_90": 1, "away_goals_90": 2, "advanced": "Argentina", "source": "Argentina won 2-1 in regulation, two late goals. https://sports.yahoo.com/soccer/article/world-cup-semifinals-bracket-full-schedule-matchups-and-path-to-the-final-164942403.html"},
   "TPP": {"home_goals_90": null, "away_goals_90": null, "advanced": null, "source": ""},
   "F":   {"home_goals_90": null, "away_goals_90": null, "advanced": null, "source": ""}
 }

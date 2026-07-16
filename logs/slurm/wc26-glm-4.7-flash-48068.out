@@ -1,0 +1,49 @@
+=== Job 48068 on ai01 at 2026-07-15T21:33:01Z ===
+ollama Warning: could not connect to a running Ollama instance
+Warning: client version is 0.31.1 present
+--- GPU allocation ---
+Failed to initialize NVML: Driver/library version mismatch
+NVML library version: 580.159
+--- Starting ollama serve on 127.0.0.1:28068 (models: /home/ehassan/wc26_ollama_models) ---
+Server ready: {"version":"0.31.1"}
+--- Ensuring model is present: glm-4.7-flash ---
+[?2026h[?25l[1Gpulling manifest ⠋ [K[?25h[?2026l[?2026h[?25l[1Gpulling manifest ⠙ [K[?25h[?2026l[?2026h[?25l[1Gpulling manifest ⠹ [K[?25h[?2026l[?2026h[?25l[1Gpulling manifest [K
+pulling 9eba2761cf0b: 100% ▕██████████████████▏  19 GB                         [K
+pulling b1bca6ec8117: 100% ▕██████████████████▏ 1.1 KB                         [K
+pulling 543c6a8262f9: 100% ▕██████████████████▏   63 B                         [K
+pulling 89d1ec0bb838: 100% ▕██████████████████▏  486 B                         [K
+verifying sha256 digest [K
+writing manifest [K
+success [K[?25h[?2026l
+  Model
+    architecture        glm4moelite    
+    parameters          29.9B          
+    context length      202752         
+    embedding length    2048           
+    quantization        Q4_K_M         
+    requires            0.15.0         
+
+  Capabilities
+    completion    
+    tools         
+    thinking      
+
+  Parameters
+    min_p             0.01    
+    repeat_penalty    1       
+    temperature       1       
+    top_p             0.95    
+
+  License
+    MIT License                        
+    Copyright (c) [year] [fullname]    
+    ...                                
+
+--- Running predictions: stage=TPP samples=10 ---
+Skipping TBD matches: TPP
+Nothing to run.
+--- GPU state after run ---
+Failed to initialize NVML: Driver/library version mismatch
+NVML library version: 580.159
+=== Finished at 2026-07-15T21:33:06Z with exit code 0 ===
+--- Stopping ollama (pid 1833959) ---

@@ -1,0 +1,51 @@
+=== Job 48070 on ai04 at 2026-07-15T21:33:17Z ===
+ollama Warning: could not connect to a running Ollama instance
+Warning: client version is 0.31.1 present
+--- GPU allocation ---
+index, name, memory.total [MiB], memory.used [MiB]
+0, Quadro RTX 8000, 49152 MiB, 1 MiB
+--- Starting ollama serve on 127.0.0.1:28070 (models: /home/ehassan/wc26_ollama_models) ---
+Server ready: {"version":"0.31.1"}
+--- Ensuring model is present: qwen3.6:35b ---
+[?2026h[?25l[1Gpulling manifest ⠋ [K[?25h[?2026l[?2026h[?25l[1Gpulling manifest ⠙ [K[?25h[?2026l[?2026h[?25l[1Gpulling manifest ⠹ [K[?25h[?2026l[?2026h[?25l[1Gpulling manifest [K
+pulling f5ee307a2982: 100% ▕██████████████████▏  23 GB                         [K
+pulling 5f3a3c817e78: 100% ▕██████████████████▏  11 KB                         [K
+pulling 86eff881e8d2: 100% ▕██████████████████▏   94 B                         [K
+pulling 5d1c86a949f7: 100% ▕██████████████████▏  462 B                         [K
+verifying sha256 digest [K
+writing manifest [K
+success [K[?25h[?2026l
+  Model
+    architecture        qwen35moe    
+    parameters          36.0B        
+    context length      262144       
+    embedding length    2048         
+    quantization        Q4_K_M       
+
+  Capabilities
+    completion    
+    vision        
+    tools         
+    thinking      
+
+  Parameters
+    presence_penalty    1.5     
+    repeat_penalty      1       
+    temperature         1       
+    top_k               20      
+    top_p               0.95    
+    min_p               0       
+
+  License
+    Apache License               
+    Version 2.0, January 2004    
+    ...                          
+
+--- Running predictions: stage=TPP samples=10 ---
+Skipping TBD matches: TPP
+Nothing to run.
+--- GPU state after run ---
+index, name, memory.used [MiB]
+0, Quadro RTX 8000, 1 MiB
+=== Finished at 2026-07-15T21:33:28Z with exit code 0 ===
+--- Stopping ollama (pid 2694284) ---

@@ -64,23 +64,23 @@
     {
       "match_id": "TPP",
       "stage": "Third-place play-off",
-      "home": "TBD",
-      "away": "TBD",
+      "home": "France",
+      "away": "England",
       "home_from": "loser of SF1",
       "away_from": "loser of SF2",
-      "kickoff_utc": "2026-07-18T19:00:00Z",
-      "venue": "Miami Stadium, Miami Gardens",
+      "kickoff_utc": "2026-07-18T21:00:00Z",
+      "venue": "Hard Rock Stadium, Miami Gardens",
       "winner_to": null
     },
     {
       "match_id": "F",
       "stage": "Final",
-      "home": "TBD",
-      "away": "TBD",
+      "home": "Spain",
+      "away": "Argentina",
       "home_from": "winner of SF1",
       "away_from": "winner of SF2",
-      "kickoff_utc": "2026-07-20T00:00:00Z",
-      "venue": "New York New Jersey Stadium, East Rutherford",
+      "kickoff_utc": "2026-07-19T19:00:00Z",
+      "venue": "MetLife Stadium, East Rutherford",
       "winner_to": null
     }
   ]
