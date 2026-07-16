@@ -110,7 +110,7 @@ footer{margin:44px 0 30px; padding-top:16px; border-top:1px solid var(--border);
 <div class="kpis">
   <div class="kpi"><div class="num">6 / 8</div><div class="label">matches predicted &amp; scored</div></div>
   <div class="kpi"><div class="num">11</div><div class="label">models benchmarked (all local via Ollama)</div></div>
-  <div class="kpi"><div class="num">43+</div><div class="label">SLURM jobs since Jul 8</div></div>
+  <div class="kpi"><div class="num">44</div><div class="label">SLURM jobs since Jul 8</div></div>
   <div class="kpi"><div class="num">≈6.4</div><div class="label">GPU·hours for all QF+SF inference</div></div>
   <div class="kpi"><div class="num">726</div><div class="label">logged generations (66 × 11 seeds)</div></div>
   <div class="kpi"><div class="num">glm-4.7-flash</div><div class="label">leader after 6 matches · 16 pts</div></div>
@@ -188,7 +188,9 @@ options: num_ctx 8192 · num_predict 4096
     <li><div class="when">Jul 12 · 07:24</div><div class="what"><b>Dashboard shipped</b> (commits <code>04f13b1</code>, <code>67e6bcb</code>, separate session): self-contained index.html + GitHub Pages deploy via gh-pages branch. Auxiliary jobs 47738–47740 belong to that session.</div></li>
     <li><div class="when">Jul 14–15</div><div class="what"><b>Semifinals played</b>: France 0-2 Spain and England 1-2 Argentina, both in regulation. glm-4.7-flash called SF2 exactly (1-2, Argentina) and was the only model backing Spain to advance in SF1.</div></li>
     <li class="incident"><div class="when">Jul 15 · 21:32–23:15</div><div class="what"><b>Empty TPP/F attempt</b> (jobs 48065–48075, 5–16 s each): every job exited cleanly with <code>Skipping TBD matches … Nothing to run</code> because the third-place/final teams hadn't been written into matches.json yet. By design, not a bug — predict.py refuses to predict a match without real teams.</div></li>
-    <li class="milestone"><div class="when">Jul 16 · 04:48</div><div class="what"><b>SF scored, bracket advanced</b> (commit <code>72ee019</code>): cumulative leader glm-4.7-flash (16 pts). TPP set to France–England (Jul 18, 21:00), Final to Spain–Argentina (Jul 19, 19:00). <b>TPP/F queue submitted</b> (jobs 48110–48120, chained); this run log added. Remaining deadline: commit the TPP/F predictions when the queue drains — well before Jul 18, 21:00 UTC.</div></li>
+    <li class="milestone"><div class="when">Jul 16 · 04:48</div><div class="what"><b>SF scored, bracket advanced</b> (commit <code>72ee019</code>): cumulative leader glm-4.7-flash (16 pts). TPP set to France–England (Jul 18, 21:00), Final to Spain–Argentina (Jul 19, 19:00). <b>TPP/F queue submitted</b> (jobs 48110–48120, chained); this run log added.</div></li>
+    <li class="incident"><div class="when">Jul 16 · 04:51</div><div class="what"><b>The comma bug</b>: job 48110's log showed it predicted TPP but never the Final. Cause: <code>sbatch --export=…,STAGE=TPP,F,…</code> — sbatch parses <code>--export</code> as a comma-separated list, so <code>STAGE</code> silently became <code>TPP</code> (this also explains why the Jul 15 logs only mentioned skipping TPP). Fix: run_queue.sh converts commas to <code>+</code>, predict.py accepts both. The 48110–48120 chain completes TPP; a Final-only chain (jobs <b>48123–48133</b>) was submitted behind it via the new <code>--after</code> flag.</div></li>
+    <li><div class="when">next</div><div class="what"><b>Remaining deadline</b>: commit the TPP + Final predictions once both chains drain — well before TPP kickoff Jul 18, 21:00 UTC. After the matches: fill the last two rows of actuals.json, re-run score.py, final leaderboard.</div></li>
   </ul>
   </div>
 </section>
@@ -198,7 +200,8 @@ options: num_ctx 8192 · num_predict 4096
   <div class="card scroll">
     <table>
       <thead><tr><th>job id</th><th>name</th><th>phase</th><th>node</th><th>GPUs</th><th>start (UTC)</th><th>elapsed</th><th>state</th><th>note</th></tr></thead>
-      <tbody><tr><td>45404</td><td>nettest</td><td>Setup</td><td>tesla1</td><td>0</td><td>2026-07-08 16:45:12</td><td>00:00:00</td><td><span class="st ok">COMPLETED</span></td><td class="note">Connectivity probe: compute nodes reach github.com & ollama.com — enabled the compute-node-only design</td></tr>
+      <tbody>
+<tr><td>45404</td><td>nettest</td><td>Setup</td><td>tesla1</td><td>0</td><td>2026-07-08 16:45:12</td><td>00:00:00</td><td><span class="st ok">COMPLETED</span></td><td class="note">Connectivity probe: compute nodes reach github.com & ollama.com — enabled the compute-node-only design</td></tr>
 <tr><td>45408</td><td>wc26-prefetch</td><td>Setup</td><td>quadro1</td><td>0</td><td>2026-07-08 17:01:41</td><td>01:10:00</td><td><span class="st ok">COMPLETED</span></td><td class="note">CPU-only prefetch of 9 models' weights (~110 GB) to shared /home; no GPU held</td></tr>
 <tr><td>45417</td><td>wc26-gpt-oss-20b</td><td>QF</td><td>quadro1</td><td>1</td><td>2026-07-09 01:29:04</td><td>00:05:48</td><td><span class="st ok">COMPLETED</span></td><td class="note">QF predictions (parallel submission — deadline mode)</td></tr>
 <tr><td>45418</td><td>wc26-gemma4-26b</td><td>QF</td><td>tesla1</td><td>1</td><td>2026-07-09 18:40:31</td><td>01:23:05</td><td><span class="st ok">COMPLETED</span></td><td class="note">QF predictions (parallel submission — deadline mode)</td></tr>
@@ -240,7 +243,9 @@ options: num_ctx 8192 · num_predict 4096
 <tr><td>48076</td><td>wc26-llm</td><td>Aux</td><td>quadro1</td><td>1</td><td>2026-07-15 21:51:30</td><td>00:03:34</td><td><span class="st ok">COMPLETED</span></td><td class="note">Auxiliary job from the dashboard-dev session; output not in this repo's logs/</td></tr>
 <tr><td>48077</td><td>wc26-predict</td><td>Aux</td><td>orion</td><td>0</td><td>2026-07-15 21:56:42</td><td>00:00:23</td><td><span class="st ok">COMPLETED</span></td><td class="note">Auxiliary job from the dashboard-dev session; output not in this repo's logs/</td></tr>
 <tr><td>48110</td><td>wc26-gpt-oss-20b</td><td>TPP/F</td><td>quadro1</td><td>1</td><td>2026-07-16 04:48:57</td><td>00:02:27</td><td><span class="st ok">COMPLETED</span></td><td class="note">TPP + Final predictions (chained queue)</td></tr>
-<tr><td>48111</td><td>wc26-gemma4-26b</td><td>TPP/F</td><td>quadro1</td><td>1</td><td>2026-07-16 04:51:24</td><td>00:00:55</td><td><span class="st run">RUNNING</span></td><td class="note">TPP + Final predictions (chained queue)</td></tr></tbody>
+<tr><td>48111</td><td>wc26-gemma4-26b</td><td>TPP/F</td><td>quadro1</td><td>1</td><td>2026-07-16 04:51:24</td><td>00:07:33</td><td><span class="st run">RUNNING</span></td><td class="note">TPP + Final predictions (chained queue)</td></tr>
+<tr><td>48122</td><td>wc26-predict</td><td>?</td><td>orion</td><td>0</td><td>2026-07-16 04:57:51</td><td>00:00:17</td><td><span class="st ok">COMPLETED</span></td><td class="note"></td></tr>
+</tbody>
     </table>
   </div>
   <p style="font-size:12.5px; color:var(--muted); margin:8px 2px">SLURM node names vs hostnames: orion=ai01, tesla1=ai02, quadro1=ai04, quadro2=ai05 (hostnames appear inside job logs). Jobs marked <i>Aux</i> were submitted by the dashboard-dev session from outside this repo, so their stdout files are not under <code>logs/slurm/</code>.</p>
@@ -313,6 +318,7 @@ options: num_ctx 8192 · num_predict 4096
     <div class="lesson"><b>5 · Progress bars are log poison</b><p><code>ollama pull</code> writes thousands of carriage-return animation frames; one prefetch log hit 12 MB and stalled <code>git add</code> past a 2-minute timeout on NFS. Fix: strip <code>\r</code>-frames from job logs before committing.</p></div>
     <div class="lesson"><b>6 · "Nothing to run" is a feature, but it needs eyes</b><p>predict.py silently skips TBD matches so you can never predict a fixture that doesn't exist yet — but that means a forgotten matches.json edit yields 11 green jobs and zero output (Jul 15, jobs 48065–48075). The bracket must be advanced by hand after each round; that's step 5 of the RUNBOOK.</p></div>
     <div class="lesson"><b>7 · Check the clock before auditing timestamps</b><p>The entire cluster runs on UTC (<code>date</code> = <code>date -u</code> on the login node; job-script <code>date -u</code> agrees with sacct). So JSONL <code>ts</code>, sacct times, and file mtimes are directly comparable to kickoff times — no timezone gymnastics in the timing audit.</p></div>
+    <div class="lesson"><b>8 · sbatch --export eats commas</b><p><code>--export=ALL,STAGE=TPP,F</code> is parsed as three comma-separated tokens, so <code>STAGE</code> silently truncates to <code>TPP</code> and the Final was never predicted (caught Jul 16 by reading job 48110's log — clean exit codes hide this class of bug; logs don't). Fix: use a comma-free separator (<code>TPP+F</code>) in exported values. General rule: any value passed through <code>--export</code> must not contain commas.</p></div>
   </div>
 </section>
 
