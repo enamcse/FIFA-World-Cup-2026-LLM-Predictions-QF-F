@@ -23,7 +23,7 @@ jobs:
       - name: Assemble site
         run: |
           mkdir -p _site
-          cp index.html _site/
+          cp index.html runlog.html _site/
           cp -r --parents data/matches.json data/actuals.json \
             results/scores/leaderboard.json results/predictions _site/
           touch _site/.nojekyll

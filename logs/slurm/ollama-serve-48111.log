@@ -702,3 +702,14 @@ slot   operator(): id  0 | task 19554 | cached n_tokens = 204, memory_seq_rm [20
 srv  stream_sessi: conv_id= (empty=1)
 slot   operator(): id  0 | task 19554 | cached n_tokens = 210, memory_seq_rm [210, end)
 slot init_sampler: id  0 | task 19554 | init sampler, took 0.07 ms, tokens: text = 214, total = 214
+slot print_timing: id  0 | task 19554 | n_decoded =    197, tg =  65.59 t/s, tg_3s =  65.59 t/s
+slot print_timing: id  0 | task 19554 | n_decoded =    438, tg =  72.95 t/s, tg_3s =  80.31 t/s
+slot print_timing: id  0 | task 19554 | n_decoded =    680, tg =  75.42 t/s, tg_3s =  80.36 t/s
+slot print_timing: id  0 | task 19554 | n_decoded =    920, tg =  76.50 t/s, tg_3s =  79.74 t/s
+slot print_timing: id  0 | task 19554 | n_decoded =   1155, tg =  76.81 t/s, tg_3s =  78.01 t/s
+slot print_timing: id  0 | task 19554 | n_decoded =   1390, tg =  77.02 t/s, tg_3s =  78.08 t/s
+slot print_timing: id  0 | task 19554 | n_decoded =   1623, tg =  77.10 t/s, tg_3s =  77.57 t/s
+slot print_timing: id  0 | task 19554 | n_decoded =   1855, tg =  77.11 t/s, tg_3s =  77.19 t/s
+slot print_timing: id  0 | task 19554 | n_decoded =   2087, tg =  77.10 t/s, tg_3s =  77.05 t/s
+slot print_timing: id  0 | task 19554 | n_decoded =   2318, tg =  77.09 t/s, tg_3s =  76.96 t/s
+slot print_timing: id  0 | task 19554 | n_decoded =   2549, tg =  77.07 t/s, tg_3s =  76.93 t/s
