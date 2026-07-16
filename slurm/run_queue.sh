@@ -13,18 +13,23 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."   # repo root, so #SBATCH --output paths work
 
-STAGE="all"; SAMPLES="10"; ONLY=""; START_AT="1"; DRY=""; PARALLEL=""
+STAGE="all"; SAMPLES="10"; ONLY=""; START_AT="1"; DRY=""; PARALLEL=""; AFTER=""
 while [ $# -gt 0 ]; do
     case "$1" in
         --stage)    STAGE="$2"; shift 2;;
         --samples)  SAMPLES="$2"; shift 2;;
         --only)     ONLY="$2"; shift 2;;
         --start-at) START_AT="$2"; shift 2;;
+        --after)    AFTER="$2"; shift 2;;   # chain the whole queue behind an existing job id
         --parallel) PARALLEL=1; shift;;
         --dry-run)  DRY=1; shift;;
         *) echo "unknown arg: $1"; exit 1;;
     esac
 done
+
+# sbatch --export splits on commas, so a multi-stage value like "TPP,F" would be
+# truncated to "TPP". Convert to '+' which predict.py also accepts (bug found 2026-07-16).
+STAGE="${STAGE//,/+}"
 
 mkdir -p logs/slurm results/predictions logs/raw
 
@@ -48,7 +53,7 @@ EOF
 )
 [ -n "$PLAN" ] || { echo "Nothing matched the filters."; exit 1; }
 
-PREV=""
+PREV="$AFTER"
 echo "priority  jobid    model                 resources"
 while IFS='|' read -r PRIO TAG GRES NODELIST EXCLUDE MEM TIME; do
     ARGS=(--partition=defq --gres="$GRES" --mem="$MEM" --time="$TIME"

@@ -13,7 +13,10 @@ echo "workdir: $TMP"
 python3 tests/mock_ollama.py "$PORT" &
 MOCK_PID=$!
 trap 'kill $MOCK_PID 2>/dev/null || true; rm -rf "$TMP"' EXIT
-sleep 1
+for _ in $(seq 1 20); do
+    curl -sf "http://127.0.0.1:$PORT/api/version" >/dev/null && break
+    sleep 0.5
+done
 
 for MODEL in mock-alpha mock-beta; do
     python3 src/predict.py --model "$MODEL" --host "http://127.0.0.1:$PORT" \

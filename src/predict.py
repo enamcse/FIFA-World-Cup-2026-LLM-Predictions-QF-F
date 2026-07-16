@@ -256,7 +256,8 @@ def main():
     p.add_argument("--model", required=True, help="Ollama model tag, e.g. gpt-oss:20b")
     p.add_argument("--matches", default="data/matches.json")
     p.add_argument("--stage", default="all",
-                   help="comma-separated match_ids (QF1,QF2,...) or prefix (QF, SF, TPP, F) or 'all'")
+                   help="match_ids (QF1,QF2,...) or prefixes (QF, SF, TPP, F) or 'all'; "
+                        "separate with ',' or '+' ('+' survives sbatch --export, which eats commas)")
     p.add_argument("--samples", type=int, default=10)
     p.add_argument("--temperature", type=float, default=0.7)
     p.add_argument("--greedy-seed", type=int, default=42)
@@ -283,7 +284,7 @@ def main():
     with open(args.matches) as f:
         matches_doc = json.load(f)
 
-    wanted = [w.strip() for w in args.stage.split(",")]
+    wanted = [w.strip() for w in args.stage.replace("+", ",").split(",")]
     def selected(m):
         if args.stage == "all":
             return True
