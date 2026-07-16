@@ -99,9 +99,14 @@ logs/slurm/               SLURM job + ollama server logs               (committe
 Everything needed to reproduce a number — model digest, pinned Ollama version, seeds,
 prompt hash, git commit, hostname, job ID — is embedded in every JSONL record.
 
-## Dashboard
+## Dashboard & run log
 
 **Live dashboard → <https://enamcse.github.io/FIFA-World-Cup-2026-LLM-Predictions-QF-F/>**
+
+**Run log (full chronicle) → <https://enamcse.github.io/FIFA-World-Cup-2026-LLM-Predictions-QF-F/runlog.html>** —
+every step of the project, day by day: the exact prompts, every SLURM job with its
+ID/node/elapsed time/state, per-round predictions vs reality with the timing audit,
+and the incidents-and-lessons list ([runlog.html](runlog.html)).
 
 [index.html](index.html) is a self-contained static page that reads
 `results/scores/leaderboard.json`, `data/matches.json`, `data/actuals.json`, and
