@@ -71,6 +71,13 @@ page = replace_between(page, '<tbody id="jobs-body">', "</tbody>", "\n".join(job
 page = replace_between(page, '<tbody id="lb-body">', "</tbody>", "\n".join(lb_rows))
 page = re.sub(r'(<h2 id="lb-title">)[^<]*', rf'\g<1>Leaderboard after {n_scored} of 8 matches', page)
 page = re.sub(r'(<div class="num" id="kpi-matches">)[^<]*', rf'\g<1>{n_scored} / 8', page)
+page = re.sub(r'(<div class="num" id="kpi-jobs">)[^<]*', rf'\g<1>{len(job_rows)}', page)
+n_gens = sum(1 for p in os.listdir("results/predictions") if p.endswith(".jsonl"))
+n_preds = sum(sum(1 for _ in open(os.path.join("results/predictions", p)))
+              for p in os.listdir("results/predictions") if p.endswith(".jsonl"))
+page = re.sub(r'(<div class="num" id="kpi-gens">)[^<]*', rf'\g<1>{n_preds * 11}', page)
+page = re.sub(r'(<div class="label">logged generations )[^<]*',
+              rf'\g<1>({n_preds} × 11 seeds)', page)
 page = re.sub(r'(<div class="num" id="kpi-leader">)[^<]*', rf'\g<1>{lb[0]["model"]}', page)
 page = re.sub(r'(<div class="label" id="kpi-leader-label">)[^<]*',
               rf'\g<1>leader after {n_scored} matches · {lb[0]["points"]} pts', page)
