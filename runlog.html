@@ -108,12 +108,12 @@ footer{margin:44px 0 30px; padding-top:16px; border-top:1px solid var(--border);
 <main class="wrap">
 
 <div class="kpis">
-  <div class="kpi"><div class="num">6 / 8</div><div class="label">matches predicted &amp; scored</div></div>
+  <div class="kpi"><div class="num" id="kpi-matches">7 / 8</div><div class="label">matches predicted &amp; scored</div></div>
   <div class="kpi"><div class="num">11</div><div class="label">models benchmarked (all local via Ollama)</div></div>
   <div class="kpi"><div class="num">44</div><div class="label">SLURM jobs since Jul 8</div></div>
   <div class="kpi"><div class="num">≈6.4</div><div class="label">GPU·hours for all QF+SF inference</div></div>
   <div class="kpi"><div class="num">726</div><div class="label">logged generations (66 × 11 seeds)</div></div>
-  <div class="kpi"><div class="num">glm-4.7-flash</div><div class="label">leader after 6 matches · 16 pts</div></div>
+  <div class="kpi"><div class="num" id="kpi-leader">glm-4.7-flash</div><div class="label" id="kpi-leader-label">leader after 7 matches · 16 pts</div></div>
 </div>
 
 <section>
@@ -190,7 +190,10 @@ options: num_ctx 8192 · num_predict 4096
     <li class="incident"><div class="when">Jul 15 · 21:32–23:15</div><div class="what"><b>Empty TPP/F attempt</b> (jobs 48065–48075, 5–16 s each): every job exited cleanly with <code>Skipping TBD matches … Nothing to run</code> because the third-place/final teams hadn't been written into matches.json yet. By design, not a bug — predict.py refuses to predict a match without real teams.</div></li>
     <li class="milestone"><div class="when">Jul 16 · 04:48</div><div class="what"><b>SF scored, bracket advanced</b> (commit <code>72ee019</code>): cumulative leader glm-4.7-flash (16 pts). TPP set to France–England (Jul 18, 21:00), Final to Spain–Argentina (Jul 19, 19:00). <b>TPP/F queue submitted</b> (jobs 48110–48120, chained); this run log added.</div></li>
     <li class="incident"><div class="when">Jul 16 · 04:51</div><div class="what"><b>The comma bug</b>: job 48110's log showed it predicted TPP but never the Final. Cause: <code>sbatch --export=…,STAGE=TPP,F,…</code> — sbatch parses <code>--export</code> as a comma-separated list, so <code>STAGE</code> silently became <code>TPP</code> (this also explains why the Jul 15 logs only mentioned skipping TPP). Fix: run_queue.sh converts commas to <code>+</code>, predict.py accepts both. The 48110–48120 chain completes TPP; a Final-only chain (jobs <b>48123–48133</b>) was submitted behind it via the new <code>--after</code> flag.</div></li>
-    <li><div class="when">next</div><div class="what"><b>Remaining deadline</b>: commit the TPP + Final predictions once both chains drain — well before TPP kickoff Jul 18, 21:00 UTC. After the matches: fill the last two rows of actuals.json, re-run score.py, final leaderboard.</div></li>
+    <li><div class="when">Jul 16 · 04:51–06:37</div><div class="what"><b>TPP + Final predictions generated</b>: the TPP chain (48110–48120) and Final chain (48123–48133) drained in under two hours — every record's <code>ts</code> is in this window, 2.5 days before the third-place match. TPP consensus: 2-1 France (7 models); gemma4, phi4 and qwen3.6 back England 1-2. Final: eight models back Spain (mostly 2-1); glm-4.7-flash alone calls 1-2 Argentina; qwen3.6 says 1-1, Argentina on penalties.</div></li>
+    <li class="incident"><div class="when">Jul 18 · 21:00</div><div class="what"><b>Third place: France 4-6 England</b> — a ten-goal all-regulation classic (Saka hat-trick, Bellingham 90'+8). No model came close to the scoreline; the three England-backers take tendency+advance (3 pts each). Bookkeeping slip: the TPP/F prediction records had sat <b>uncommitted</b> since Jul 16 — the TPP round therefore isn't commit-stamped before its kickoff, and rests on generation timestamps + SLURM accounting instead (offline inference, as always).</div></li>
+    <li class="milestone"><div class="when">Jul 19 · 01:00</div><div class="what"><b>Final pre-registered</b>: all TPP/F predictions, TPP actuals, and the 7-match leaderboard committed and pushed — 18 hours before the Final (Spain vs Argentina, 19:00 UTC, MetLife). Title race: glm-4.7-flash 16 · qwen3.6:35b 15 · gpt-oss:20b 15, and their divergent Final picks (1-2 Argentina / 1-1 Arg / 2-1 Spain) mean the benchmark title is decided on the pitch.</div></li>
+    <li><div class="when">next</div><div class="what"><b>After the Final</b>: fill the F row of actuals.json (90-minute score — stoppage time counts, extra time doesn't), run <code>python3 src/score.py</code>, refresh this page with <code>python3 scripts/update_runlog.py</code>, commit, push. The dashboard and this chronicle update on push.</div></li>
   </ul>
   </div>
 </section>
@@ -200,7 +203,7 @@ options: num_ctx 8192 · num_predict 4096
   <div class="card scroll">
     <table>
       <thead><tr><th>job id</th><th>name</th><th>phase</th><th>node</th><th>GPUs</th><th>start (UTC)</th><th>elapsed</th><th>state</th><th>note</th></tr></thead>
-      <tbody>
+      <tbody id="jobs-body">
 <tr><td>45404</td><td>nettest</td><td>Setup</td><td>tesla1</td><td>0</td><td>2026-07-08 16:45:12</td><td>00:00:00</td><td><span class="st ok">COMPLETED</span></td><td class="note">Connectivity probe: compute nodes reach github.com & ollama.com — enabled the compute-node-only design</td></tr>
 <tr><td>45408</td><td>wc26-prefetch</td><td>Setup</td><td>quadro1</td><td>0</td><td>2026-07-08 17:01:41</td><td>01:10:00</td><td><span class="st ok">COMPLETED</span></td><td class="note">CPU-only prefetch of 9 models' weights (~110 GB) to shared /home; no GPU held</td></tr>
 <tr><td>45417</td><td>wc26-gpt-oss-20b</td><td>QF</td><td>quadro1</td><td>1</td><td>2026-07-09 01:29:04</td><td>00:05:48</td><td><span class="st ok">COMPLETED</span></td><td class="note">QF predictions (parallel submission — deadline mode)</td></tr>
@@ -242,9 +245,31 @@ options: num_ctx 8192 · num_predict 4096
 <tr><td>48075</td><td>wc26-gpt-oss-120b</td><td>TPP/F try</td><td>quadro2</td><td>2</td><td>2026-07-15 23:15:36</td><td>00:00:16</td><td><span class="st ok">COMPLETED</span></td><td class="note">Nothing to run: TPP/Final teams were still TBD in matches.json — predict.py skipped by design</td></tr>
 <tr><td>48076</td><td>wc26-llm</td><td>Aux</td><td>quadro1</td><td>1</td><td>2026-07-15 21:51:30</td><td>00:03:34</td><td><span class="st ok">COMPLETED</span></td><td class="note">Auxiliary job from the dashboard-dev session; output not in this repo's logs/</td></tr>
 <tr><td>48077</td><td>wc26-predict</td><td>Aux</td><td>orion</td><td>0</td><td>2026-07-15 21:56:42</td><td>00:00:23</td><td><span class="st ok">COMPLETED</span></td><td class="note">Auxiliary job from the dashboard-dev session; output not in this repo's logs/</td></tr>
-<tr><td>48110</td><td>wc26-gpt-oss-20b</td><td>TPP/F</td><td>quadro1</td><td>1</td><td>2026-07-16 04:48:57</td><td>00:02:27</td><td><span class="st ok">COMPLETED</span></td><td class="note">TPP + Final predictions (chained queue)</td></tr>
-<tr><td>48111</td><td>wc26-gemma4-26b</td><td>TPP/F</td><td>quadro1</td><td>1</td><td>2026-07-16 04:51:24</td><td>00:07:33</td><td><span class="st run">RUNNING</span></td><td class="note">TPP + Final predictions (chained queue)</td></tr>
-<tr><td>48122</td><td>wc26-predict</td><td>?</td><td>orion</td><td>0</td><td>2026-07-16 04:57:51</td><td>00:00:17</td><td><span class="st ok">COMPLETED</span></td><td class="note"></td></tr>
+<tr><td>48110</td><td>wc26-gpt-oss-20b</td><td>TPP</td><td>quadro1</td><td>1</td><td>2026-07-16 04:48:57</td><td>00:02:27</td><td><span class="st ok">COMPLETED</span></td><td class="note">TPP predictions (chained queue; STAGE lost ',F' to the sbatch comma bug)</td></tr>
+<tr><td>48111</td><td>wc26-gemma4-26b</td><td>TPP</td><td>quadro1</td><td>1</td><td>2026-07-16 04:51:24</td><td>00:17:31</td><td><span class="st ok">COMPLETED</span></td><td class="note">TPP predictions (chained queue; STAGE lost ',F' to the sbatch comma bug)</td></tr>
+<tr><td>48112</td><td>wc26-deepseek-r1-32b</td><td>TPP</td><td>quadro1</td><td>1</td><td>2026-07-16 05:08:55</td><td>00:07:26</td><td><span class="st ok">COMPLETED</span></td><td class="note">TPP predictions (chained queue; STAGE lost ',F' to the sbatch comma bug)</td></tr>
+<tr><td>48113</td><td>wc26-glm-4.7-flash</td><td>TPP</td><td>quadro1</td><td>1</td><td>2026-07-16 05:16:22</td><td>00:04:16</td><td><span class="st ok">COMPLETED</span></td><td class="note">TPP predictions (chained queue; STAGE lost ',F' to the sbatch comma bug)</td></tr>
+<tr><td>48114</td><td>wc26-mistral-small3.2</td><td>TPP</td><td>quadro1</td><td>1</td><td>2026-07-16 05:20:38</td><td>00:02:00</td><td><span class="st ok">COMPLETED</span></td><td class="note">TPP predictions (chained queue; STAGE lost ',F' to the sbatch comma bug)</td></tr>
+<tr><td>48115</td><td>wc26-qwen3.6-35b</td><td>TPP</td><td>quadro1</td><td>1</td><td>2026-07-16 05:22:38</td><td>00:06:03</td><td><span class="st ok">COMPLETED</span></td><td class="note">TPP predictions (chained queue; STAGE lost ',F' to the sbatch comma bug)</td></tr>
+<tr><td>48116</td><td>wc26-phi4-14b</td><td>TPP</td><td>quadro1</td><td>1</td><td>2026-07-16 05:28:41</td><td>00:01:13</td><td><span class="st ok">COMPLETED</span></td><td class="note">TPP predictions (chained queue; STAGE lost ',F' to the sbatch comma bug)</td></tr>
+<tr><td>48117</td><td>wc26-llama3.1-8b</td><td>TPP</td><td>quadro1</td><td>1</td><td>2026-07-16 05:29:54</td><td>00:00:52</td><td><span class="st ok">COMPLETED</span></td><td class="note">TPP predictions (chained queue; STAGE lost ',F' to the sbatch comma bug)</td></tr>
+<tr><td>48118</td><td>wc26-llama3.2-3b</td><td>TPP</td><td>quadro1</td><td>1</td><td>2026-07-16 05:30:47</td><td>00:00:32</td><td><span class="st ok">COMPLETED</span></td><td class="note">TPP predictions (chained queue; STAGE lost ',F' to the sbatch comma bug)</td></tr>
+<tr><td>48119</td><td>wc26-llama3.3-70b</td><td>TPP</td><td>quadro1</td><td>2</td><td>2026-07-16 05:31:19</td><td>00:03:15</td><td><span class="st ok">COMPLETED</span></td><td class="note">TPP predictions (chained queue; STAGE lost ',F' to the sbatch comma bug)</td></tr>
+<tr><td>48120</td><td>wc26-gpt-oss-120b</td><td>TPP</td><td>quadro1</td><td>2</td><td>2026-07-16 05:34:34</td><td>00:05:10</td><td><span class="st ok">COMPLETED</span></td><td class="note">TPP predictions (chained queue; STAGE lost ',F' to the sbatch comma bug)</td></tr>
+<tr><td>48122</td><td>wc26-predict</td><td></td><td>orion</td><td>0</td><td>2026-07-16 04:57:51</td><td>00:00:17</td><td><span class="st ok">COMPLETED</span></td><td class="note"></td></tr>
+<tr><td>48123</td><td>wc26-gpt-oss-20b</td><td>F</td><td>quadro1</td><td>1</td><td>2026-07-16 05:39:44</td><td>00:01:26</td><td><span class="st ok">COMPLETED</span></td><td class="note">Final predictions (chained behind the TPP queue via --after)</td></tr>
+<tr><td>48124</td><td>wc26-gemma4-26b</td><td>F</td><td>quadro1</td><td>1</td><td>2026-07-16 05:41:10</td><td>00:32:04</td><td><span class="st ok">COMPLETED</span></td><td class="note">Final predictions (chained behind the TPP queue via --after)</td></tr>
+<tr><td>48125</td><td>wc26-deepseek-r1-32b</td><td>F</td><td>quadro1</td><td>1</td><td>2026-07-16 06:13:14</td><td>00:07:20</td><td><span class="st ok">COMPLETED</span></td><td class="note">Final predictions (chained behind the TPP queue via --after)</td></tr>
+<tr><td>48126</td><td>wc26-glm-4.7-flash</td><td>F</td><td>quadro1</td><td>1</td><td>2026-07-16 06:20:34</td><td>00:03:56</td><td><span class="st ok">COMPLETED</span></td><td class="note">Final predictions (chained behind the TPP queue via --after)</td></tr>
+<tr><td>48127</td><td>wc26-mistral-small3.2</td><td>F</td><td>quadro1</td><td>1</td><td>2026-07-16 06:24:30</td><td>00:00:57</td><td><span class="st ok">COMPLETED</span></td><td class="note">Final predictions (chained behind the TPP queue via --after)</td></tr>
+<tr><td>48128</td><td>wc26-qwen3.6-35b</td><td>F</td><td>quadro1</td><td>1</td><td>2026-07-16 06:25:27</td><td>00:06:07</td><td><span class="st ok">COMPLETED</span></td><td class="note">Final predictions (chained behind the TPP queue via --after)</td></tr>
+<tr><td>48129</td><td>wc26-phi4-14b</td><td>F</td><td>quadro1</td><td>1</td><td>2026-07-16 06:31:34</td><td>00:00:52</td><td><span class="st ok">COMPLETED</span></td><td class="note">Final predictions (chained behind the TPP queue via --after)</td></tr>
+<tr><td>48130</td><td>wc26-llama3.1-8b</td><td>F</td><td>quadro1</td><td>1</td><td>2026-07-16 06:32:26</td><td>00:00:50</td><td><span class="st ok">COMPLETED</span></td><td class="note">Final predictions (chained behind the TPP queue via --after)</td></tr>
+<tr><td>48131</td><td>wc26-llama3.2-3b</td><td>F</td><td>quadro1</td><td>1</td><td>2026-07-16 06:33:16</td><td>00:00:33</td><td><span class="st ok">COMPLETED</span></td><td class="note">Final predictions (chained behind the TPP queue via --after)</td></tr>
+<tr><td>48132</td><td>wc26-llama3.3-70b</td><td>F</td><td>quadro1</td><td>2</td><td>2026-07-16 06:33:49</td><td>00:01:52</td><td><span class="st ok">COMPLETED</span></td><td class="note">Final predictions (chained behind the TPP queue via --after)</td></tr>
+<tr><td>48133</td><td>wc26-gpt-oss-120b</td><td>F</td><td>quadro1</td><td>2</td><td>2026-07-16 06:35:41</td><td>00:01:59</td><td><span class="st ok">COMPLETED</span></td><td class="note">Final predictions (chained behind the TPP queue via --after)</td></tr>
+<tr><td>48135</td><td>wc26-llm</td><td></td><td>quadro1</td><td>1</td><td>2026-07-16 05:13:02</td><td>00:03:06</td><td><span class="st ok">COMPLETED</span></td><td class="note"></td></tr>
+<tr><td>48136</td><td>wc26-predict</td><td></td><td>orion</td><td>0</td><td>2026-07-16 05:16:28</td><td>00:00:18</td><td><span class="st ok">COMPLETED</span></td><td class="note"></td></tr>
 </tbody>
     </table>
   </div>
@@ -289,21 +314,23 @@ options: num_ctx 8192 · num_predict 4096
 </section>
 
 <section>
-  <div class="sechead"><h2>Leaderboard after 6 of 8 matches</h2><span class="sub">rank = points, then mean RPS (lower = better-calibrated sample distribution)</span></div>
+  <div class="sechead"><h2 id="lb-title">Leaderboard after 7 of 8 matches</h2><span class="sub">rank = points, then mean RPS (lower = better-calibrated sample distribution)</span></div>
   <div class="card scroll">
     <table>
       <thead><tr><th>#</th><th>model</th><th>pts</th><th>exact</th><th>goal diff</th><th>tendency</th><th>miss</th><th>adv bonus</th><th>mean RPS</th><th>mean Brier</th><th>MAE goals</th></tr></thead>
-      <tbody><tr><td>1</td><td class="mdl">glm-4.7-flash</td><td class="tot">16</td><td>2</td><td>0</td><td>1</td><td>3</td><td>6</td><td>0.2066</td><td>0.7879</td><td>0.5</td></tr>
-<tr><td>2</td><td class="mdl">gpt-oss:20b</td><td class="tot">15</td><td>2</td><td>0</td><td>1</td><td>3</td><td>5</td><td>0.3264</td><td>0.9284</td><td>0.667</td></tr>
-<tr><td>3</td><td class="mdl">qwen3.6:35b</td><td class="tot">12</td><td>1</td><td>0</td><td>1</td><td>4</td><td>6</td><td>0.23</td><td>0.9146</td><td>0.667</td></tr>
-<tr><td>4</td><td class="mdl">phi4:14b</td><td class="tot">10</td><td>1</td><td>0</td><td>1</td><td>4</td><td>4</td><td>0.3113</td><td>0.9559</td><td>0.667</td></tr>
-<tr><td>5</td><td class="mdl">llama3.3:70b</td><td class="tot">10</td><td>1</td><td>0</td><td>1</td><td>4</td><td>4</td><td>0.4298</td><td>1.1928</td><td>0.667</td></tr>
-<tr><td>6</td><td class="mdl">gpt-oss:120b</td><td class="tot">10</td><td>1</td><td>0</td><td>1</td><td>4</td><td>4</td><td>0.4566</td><td>1.2479</td><td>0.667</td></tr>
-<tr><td>7</td><td class="mdl">mistral-small3.2</td><td class="tot">10</td><td>1</td><td>0</td><td>1</td><td>4</td><td>4</td><td>0.4711</td><td>1.2755</td><td>0.667</td></tr>
-<tr><td>8</td><td class="mdl">gemma4:26b</td><td class="tot">9</td><td>0</td><td>1</td><td>1</td><td>4</td><td>4</td><td>0.4427</td><td>1.1667</td><td>1.5</td></tr>
-<tr><td>9</td><td class="mdl">deepseek-r1:32b</td><td class="tot">9</td><td>1</td><td>0</td><td>1</td><td>4</td><td>3</td><td>0.4566</td><td>1.2176</td><td>0.667</td></tr>
-<tr><td>10</td><td class="mdl">llama3.1:8b</td><td class="tot">9</td><td>1</td><td>0</td><td>1</td><td>4</td><td>3</td><td>0.4587</td><td>1.2507</td><td>0.5</td></tr>
-<tr><td>11</td><td class="mdl">llama3.2:3b</td><td class="tot">7</td><td>0</td><td>1</td><td>0</td><td>5</td><td>4</td><td>0.2225</td><td>0.7686</td><td>2.167</td></tr></tbody>
+      <tbody id="lb-body">
+<tr><td>1</td><td class="mdl">glm-4.7-flash</td><td class="tot">16</td><td>2</td><td>0</td><td>1</td><td>4</td><td>6</td><td>0.2739</td><td>0.8737</td><td>1.429</td></tr>
+<tr><td>2</td><td class="mdl">qwen3.6:35b</td><td class="tot">15</td><td>1</td><td>0</td><td>2</td><td>4</td><td>7</td><td>0.2237</td><td>0.8477</td><td>1.571</td></tr>
+<tr><td>3</td><td class="mdl">gpt-oss:20b</td><td class="tot">15</td><td>2</td><td>0</td><td>1</td><td>4</td><td>5</td><td>0.3377</td><td>0.9115</td><td>1.571</td></tr>
+<tr><td>4</td><td class="mdl">phi4:14b</td><td class="tot">13</td><td>1</td><td>0</td><td>2</td><td>4</td><td>5</td><td>0.2963</td><td>0.8784</td><td>1.571</td></tr>
+<tr><td>5</td><td class="mdl">gemma4:26b</td><td class="tot">12</td><td>0</td><td>1</td><td>2</td><td>4</td><td>5</td><td>0.4074</td><td>1.058</td><td>2.286</td></tr>
+<tr><td>6</td><td class="mdl">llama3.3:70b</td><td class="tot">10</td><td>1</td><td>0</td><td>1</td><td>5</td><td>4</td><td>0.4864</td><td>1.2586</td><td>1.571</td></tr>
+<tr><td>7</td><td class="mdl">gpt-oss:120b</td><td class="tot">10</td><td>1</td><td>0</td><td>1</td><td>5</td><td>4</td><td>0.5342</td><td>1.3554</td><td>1.571</td></tr>
+<tr><td>8</td><td class="mdl">mistral-small3.2</td><td class="tot">10</td><td>1</td><td>0</td><td>1</td><td>5</td><td>4</td><td>0.5466</td><td>1.379</td><td>1.571</td></tr>
+<tr><td>9</td><td class="mdl">deepseek-r1:32b</td><td class="tot">9</td><td>1</td><td>0</td><td>1</td><td>5</td><td>3</td><td>0.5094</td><td>1.2798</td><td>1.571</td></tr>
+<tr><td>10</td><td class="mdl">llama3.1:8b</td><td class="tot">9</td><td>1</td><td>0</td><td>1</td><td>5</td><td>3</td><td>0.536</td><td>1.3577</td><td>1.429</td></tr>
+<tr><td>11</td><td class="mdl">llama3.2:3b</td><td class="tot">7</td><td>0</td><td>1</td><td>0</td><td>6</td><td>4</td><td>0.2385</td><td>0.8501</td><td>3.286</td></tr>
+</tbody>
     </table>
   </div>
 </section>

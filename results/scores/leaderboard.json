@@ -1,211 +1,212 @@
 {
   "meta": {
-    "generated_at": "2026-07-16T04:47:22.225123+00:00",
+    "generated_at": "2026-07-19T00:55:59.592356+00:00",
     "matches_scored": [
       "QF1",
       "QF2",
       "QF3",
       "QF4",
       "SF1",
-      "SF2"
+      "SF2",
+      "TPP"
     ]
   },
   "leaderboard": [
     {
       "model": "glm-4.7-flash",
-      "matches": 6,
+      "matches": 7,
       "points": 16,
-      "avg_points": 2.667,
+      "avg_points": 2.286,
       "exact": 2,
-      "goal_diff": 0,
-      "tendency": 1,
-      "miss": 3,
-      "advance_bonus": 6,
-      "mae_home": 0.333,
-      "mae_away": 0.5,
-      "mae_total_goals": 0.5,
-      "mean_rps": 0.2066,
-      "mean_brier": 0.7879,
-      "missing_matches": "",
-      "rank": 1
-    },
-    {
-      "model": "gpt-oss:20b",
-      "matches": 6,
-      "points": 15,
-      "avg_points": 2.5,
-      "exact": 2,
-      "goal_diff": 0,
-      "tendency": 1,
-      "miss": 3,
-      "advance_bonus": 5,
-      "mae_home": 0.5,
-      "mae_away": 0.5,
-      "mae_total_goals": 0.667,
-      "mean_rps": 0.3264,
-      "mean_brier": 0.9284,
-      "missing_matches": "",
-      "rank": 2
-    },
-    {
-      "model": "qwen3.6:35b",
-      "matches": 6,
-      "points": 12,
-      "avg_points": 2.0,
-      "exact": 1,
       "goal_diff": 0,
       "tendency": 1,
       "miss": 4,
       "advance_bonus": 6,
-      "mae_home": 0.333,
-      "mae_away": 0.667,
-      "mae_total_goals": 0.667,
-      "mean_rps": 0.23,
-      "mean_brier": 0.9146,
+      "mae_home": 0.571,
+      "mae_away": 1.143,
+      "mae_total_goals": 1.429,
+      "mean_rps": 0.2739,
+      "mean_brier": 0.8737,
+      "missing_matches": "",
+      "rank": 1
+    },
+    {
+      "model": "qwen3.6:35b",
+      "matches": 7,
+      "points": 15,
+      "avg_points": 2.143,
+      "exact": 1,
+      "goal_diff": 0,
+      "tendency": 2,
+      "miss": 4,
+      "advance_bonus": 7,
+      "mae_home": 0.714,
+      "mae_away": 1.143,
+      "mae_total_goals": 1.571,
+      "mean_rps": 0.2237,
+      "mean_brier": 0.8477,
+      "missing_matches": "",
+      "rank": 2
+    },
+    {
+      "model": "gpt-oss:20b",
+      "matches": 7,
+      "points": 15,
+      "avg_points": 2.143,
+      "exact": 2,
+      "goal_diff": 0,
+      "tendency": 1,
+      "miss": 4,
+      "advance_bonus": 5,
+      "mae_home": 0.714,
+      "mae_away": 1.143,
+      "mae_total_goals": 1.571,
+      "mean_rps": 0.3377,
+      "mean_brier": 0.9115,
       "missing_matches": "",
       "rank": 3
     },
     {
       "model": "phi4:14b",
-      "matches": 6,
-      "points": 10,
-      "avg_points": 1.667,
+      "matches": 7,
+      "points": 13,
+      "avg_points": 1.857,
       "exact": 1,
       "goal_diff": 0,
-      "tendency": 1,
+      "tendency": 2,
       "miss": 4,
-      "advance_bonus": 4,
-      "mae_home": 0.667,
-      "mae_away": 0.667,
-      "mae_total_goals": 0.667,
-      "mean_rps": 0.3113,
-      "mean_brier": 0.9559,
+      "advance_bonus": 5,
+      "mae_home": 1.0,
+      "mae_away": 1.143,
+      "mae_total_goals": 1.571,
+      "mean_rps": 0.2963,
+      "mean_brier": 0.8784,
       "missing_matches": "",
       "rank": 4
     },
     {
-      "model": "llama3.3:70b",
-      "matches": 6,
-      "points": 10,
-      "avg_points": 1.667,
-      "exact": 1,
-      "goal_diff": 0,
-      "tendency": 1,
+      "model": "gemma4:26b",
+      "matches": 7,
+      "points": 12,
+      "avg_points": 1.714,
+      "exact": 0,
+      "goal_diff": 1,
+      "tendency": 2,
       "miss": 4,
-      "advance_bonus": 4,
-      "mae_home": 0.667,
-      "mae_away": 0.667,
-      "mae_total_goals": 0.667,
-      "mean_rps": 0.4298,
-      "mean_brier": 1.1928,
+      "advance_bonus": 5,
+      "mae_home": 1.286,
+      "mae_away": 1.286,
+      "mae_total_goals": 2.286,
+      "mean_rps": 0.4074,
+      "mean_brier": 1.058,
       "missing_matches": "",
       "rank": 5
     },
     {
-      "model": "gpt-oss:120b",
-      "matches": 6,
+      "model": "llama3.3:70b",
+      "matches": 7,
       "points": 10,
-      "avg_points": 1.667,
+      "avg_points": 1.429,
       "exact": 1,
       "goal_diff": 0,
       "tendency": 1,
-      "miss": 4,
+      "miss": 5,
       "advance_bonus": 4,
-      "mae_home": 0.667,
-      "mae_away": 0.667,
-      "mae_total_goals": 0.667,
-      "mean_rps": 0.4566,
-      "mean_brier": 1.2479,
+      "mae_home": 0.857,
+      "mae_away": 1.286,
+      "mae_total_goals": 1.571,
+      "mean_rps": 0.4864,
+      "mean_brier": 1.2586,
       "missing_matches": "",
       "rank": 6
     },
     {
-      "model": "mistral-small3.2",
-      "matches": 6,
+      "model": "gpt-oss:120b",
+      "matches": 7,
       "points": 10,
-      "avg_points": 1.667,
+      "avg_points": 1.429,
       "exact": 1,
       "goal_diff": 0,
       "tendency": 1,
-      "miss": 4,
+      "miss": 5,
       "advance_bonus": 4,
-      "mae_home": 0.667,
-      "mae_away": 0.667,
-      "mae_total_goals": 0.667,
-      "mean_rps": 0.4711,
-      "mean_brier": 1.2755,
+      "mae_home": 0.857,
+      "mae_away": 1.286,
+      "mae_total_goals": 1.571,
+      "mean_rps": 0.5342,
+      "mean_brier": 1.3554,
       "missing_matches": "",
       "rank": 7
     },
     {
-      "model": "gemma4:26b",
-      "matches": 6,
-      "points": 9,
-      "avg_points": 1.5,
-      "exact": 0,
-      "goal_diff": 1,
+      "model": "mistral-small3.2",
+      "matches": 7,
+      "points": 10,
+      "avg_points": 1.429,
+      "exact": 1,
+      "goal_diff": 0,
       "tendency": 1,
-      "miss": 4,
+      "miss": 5,
       "advance_bonus": 4,
-      "mae_home": 1.0,
-      "mae_away": 0.833,
-      "mae_total_goals": 1.5,
-      "mean_rps": 0.4427,
-      "mean_brier": 1.1667,
+      "mae_home": 0.857,
+      "mae_away": 1.286,
+      "mae_total_goals": 1.571,
+      "mean_rps": 0.5466,
+      "mean_brier": 1.379,
       "missing_matches": "",
       "rank": 8
     },
     {
       "model": "deepseek-r1:32b",
-      "matches": 6,
+      "matches": 7,
       "points": 9,
-      "avg_points": 1.5,
+      "avg_points": 1.286,
       "exact": 1,
       "goal_diff": 0,
       "tendency": 1,
-      "miss": 4,
+      "miss": 5,
       "advance_bonus": 3,
-      "mae_home": 0.667,
-      "mae_away": 0.667,
-      "mae_total_goals": 0.667,
-      "mean_rps": 0.4566,
-      "mean_brier": 1.2176,
+      "mae_home": 0.857,
+      "mae_away": 1.286,
+      "mae_total_goals": 1.571,
+      "mean_rps": 0.5094,
+      "mean_brier": 1.2798,
       "missing_matches": "",
       "rank": 9
     },
     {
       "model": "llama3.1:8b",
-      "matches": 6,
+      "matches": 7,
       "points": 9,
-      "avg_points": 1.5,
+      "avg_points": 1.286,
       "exact": 1,
       "goal_diff": 0,
       "tendency": 1,
-      "miss": 4,
+      "miss": 5,
       "advance_bonus": 3,
-      "mae_home": 0.833,
-      "mae_away": 0.667,
-      "mae_total_goals": 0.5,
-      "mean_rps": 0.4587,
-      "mean_brier": 1.2507,
+      "mae_home": 1.0,
+      "mae_away": 1.286,
+      "mae_total_goals": 1.429,
+      "mean_rps": 0.536,
+      "mean_brier": 1.3577,
       "missing_matches": "",
       "rank": 10
     },
     {
       "model": "llama3.2:3b",
-      "matches": 6,
+      "matches": 7,
       "points": 7,
-      "avg_points": 1.167,
+      "avg_points": 1.0,
       "exact": 0,
       "goal_diff": 1,
       "tendency": 0,
-      "miss": 5,
+      "miss": 6,
       "advance_bonus": 4,
-      "mae_home": 1.167,
-      "mae_away": 1.0,
-      "mae_total_goals": 2.167,
-      "mean_rps": 0.2225,
-      "mean_brier": 0.7686,
+      "mae_home": 1.571,
+      "mae_away": 1.714,
+      "mae_total_goals": 3.286,
+      "mean_rps": 0.2385,
+      "mean_brier": 0.8501,
       "missing_matches": "",
       "rank": 11
     }
@@ -300,6 +301,22 @@
         "advance_bonus": 0,
         "predicted_advances": "England",
         "actually_advanced": "Argentina",
+        "rps": 0.8264,
+        "brier": 1.6529,
+        "outcome_probs": {
+          "home_win": 0.9090909090909091,
+          "draw": 0.0,
+          "away_win": 0.09090909090909091
+        }
+      },
+      "TPP": {
+        "predicted": "2-1",
+        "actual": "4-6",
+        "category": "miss",
+        "points": 0,
+        "advance_bonus": 0,
+        "predicted_advances": "France",
+        "actually_advanced": "England",
         "rps": 0.8264,
         "brier": 1.6529,
         "outcome_probs": {
@@ -405,6 +422,22 @@
           "draw": 0.0,
           "away_win": 0.0
         }
+      },
+      "TPP": {
+        "predicted": "1-2",
+        "actual": "4-6",
+        "category": "tendency",
+        "points": 2,
+        "advance_bonus": 1,
+        "predicted_advances": "England",
+        "actually_advanced": "England",
+        "rps": 0.1953,
+        "brier": 0.4062,
+        "outcome_probs": {
+          "home_win": 0.375,
+          "draw": 0.125,
+          "away_win": 0.5
+        }
       }
     },
     "glm-4.7-flash": {
@@ -503,6 +536,22 @@
           "draw": 0.18181818181818182,
           "away_win": 0.8181818181818182
         }
+      },
+      "TPP": {
+        "predicted": "2-1",
+        "actual": "4-6",
+        "category": "miss",
+        "points": 0,
+        "advance_bonus": 0,
+        "predicted_advances": "France",
+        "actually_advanced": "England",
+        "rps": 0.6777,
+        "brier": 1.3884,
+        "outcome_probs": {
+          "home_win": 0.7272727272727273,
+          "draw": 0.18181818181818182,
+          "away_win": 0.09090909090909091
+        }
       }
     },
     "gpt-oss:120b": {
@@ -599,6 +648,22 @@
         "outcome_probs": {
           "home_win": 0.9090909090909091,
           "draw": 0.09090909090909091,
+          "away_win": 0.0
+        }
+      },
+      "TPP": {
+        "predicted": "2-1",
+        "actual": "4-6",
+        "category": "miss",
+        "points": 0,
+        "advance_bonus": 0,
+        "predicted_advances": "France",
+        "actually_advanced": "England",
+        "rps": 1.0,
+        "brier": 2.0,
+        "outcome_probs": {
+          "home_win": 1.0,
+          "draw": 0.0,
           "away_win": 0.0
         }
       }
@@ -699,6 +764,22 @@
           "draw": 0.0,
           "away_win": 0.5454545454545454
         }
+      },
+      "TPP": {
+        "predicted": "2-1",
+        "actual": "4-6",
+        "category": "miss",
+        "points": 0,
+        "advance_bonus": 0,
+        "predicted_advances": "France",
+        "actually_advanced": "England",
+        "rps": 0.405,
+        "brier": 0.8099,
+        "outcome_probs": {
+          "home_win": 0.6363636363636364,
+          "draw": 0.0,
+          "away_win": 0.36363636363636365
+        }
       }
     },
     "llama3.1:8b": {
@@ -790,6 +871,22 @@
         "advance_bonus": 0,
         "predicted_advances": "England",
         "actually_advanced": "Argentina",
+        "rps": 1.0,
+        "brier": 2.0,
+        "outcome_probs": {
+          "home_win": 1.0,
+          "draw": 0.0,
+          "away_win": 0.0
+        }
+      },
+      "TPP": {
+        "predicted": "2-1",
+        "actual": "4-6",
+        "category": "miss",
+        "points": 0,
+        "advance_bonus": 0,
+        "predicted_advances": "France",
+        "actually_advanced": "England",
         "rps": 1.0,
         "brier": 2.0,
         "outcome_probs": {
@@ -895,6 +992,22 @@
           "draw": 0.45454545454545453,
           "away_win": 0.36363636363636365
         }
+      },
+      "TPP": {
+        "predicted": "0-0",
+        "actual": "4-6",
+        "category": "miss",
+        "points": 0,
+        "advance_bonus": 0,
+        "predicted_advances": "France",
+        "actually_advanced": "England",
+        "rps": 0.3347,
+        "brier": 1.3388,
+        "outcome_probs": {
+          "home_win": 0.0,
+          "draw": 0.8181818181818182,
+          "away_win": 0.18181818181818182
+        }
       }
     },
     "llama3.3:70b": {
@@ -992,6 +1105,22 @@
           "home_win": 0.2727272727272727,
           "draw": 0.0,
           "away_win": 0.7272727272727273
+        }
+      },
+      "TPP": {
+        "predicted": "2-1",
+        "actual": "4-6",
+        "category": "miss",
+        "points": 0,
+        "advance_bonus": 0,
+        "predicted_advances": "France",
+        "actually_advanced": "England",
+        "rps": 0.8264,
+        "brier": 1.6529,
+        "outcome_probs": {
+          "home_win": 0.9090909090909091,
+          "draw": 0.0,
+          "away_win": 0.09090909090909091
         }
       }
     },
@@ -1091,6 +1220,22 @@
           "draw": 0.0,
           "away_win": 0.09090909090909091
         }
+      },
+      "TPP": {
+        "predicted": "2-1",
+        "actual": "4-6",
+        "category": "miss",
+        "points": 0,
+        "advance_bonus": 0,
+        "predicted_advances": "France",
+        "actually_advanced": "England",
+        "rps": 1.0,
+        "brier": 2.0,
+        "outcome_probs": {
+          "home_win": 1.0,
+          "draw": 0.0,
+          "away_win": 0.0
+        }
       }
     },
     "phi4:14b": {
@@ -1189,6 +1334,22 @@
           "draw": 0.0,
           "away_win": 0.6363636363636364
         }
+      },
+      "TPP": {
+        "predicted": "1-2",
+        "actual": "4-6",
+        "category": "tendency",
+        "points": 2,
+        "advance_bonus": 1,
+        "predicted_advances": "England",
+        "actually_advanced": "England",
+        "rps": 0.2066,
+        "brier": 0.4132,
+        "outcome_probs": {
+          "home_win": 0.45454545454545453,
+          "draw": 0.0,
+          "away_win": 0.5454545454545454
+        }
       }
     },
     "qwen3.6:35b": {
@@ -1286,6 +1447,22 @@
           "home_win": 0.09090909090909091,
           "draw": 0.9090909090909091,
           "away_win": 0.0
+        }
+      },
+      "TPP": {
+        "predicted": "1-2",
+        "actual": "4-6",
+        "category": "tendency",
+        "points": 2,
+        "advance_bonus": 1,
+        "predicted_advances": "England",
+        "actually_advanced": "England",
+        "rps": 0.186,
+        "brier": 0.4463,
+        "outcome_probs": {
+          "home_win": 0.2727272727272727,
+          "draw": 0.2727272727272727,
+          "away_win": 0.45454545454545453
         }
       }
     }

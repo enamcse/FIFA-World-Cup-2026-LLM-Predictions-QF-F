@@ -1,0 +1,92 @@
+=== Job 48112 on ai04 at 2026-07-16T05:08:56Z ===
+ollama ollama version is 0.30.7
+Warning: client version is 0.31.1 present
+--- GPU allocation ---
+index, name, memory.total [MiB], memory.used [MiB]
+0, Quadro RTX 8000, 49152 MiB, 1 MiB
+--- Starting ollama serve on 127.0.0.1:28112 (models: /home/ehassan/wc26_ollama_models) ---
+Server ready: {"version":"0.31.1"}
+--- Ensuring model is present: deepseek-r1:32b ---
+[?2026h[?25l[1Gpulling manifest ⠋ [K[?25h[?2026l[?2026h[?25l[1Gpulling manifest ⠙ [K[?25h[?2026l[?2026h[?25l[1Gpulling manifest ⠹ [K[?25h[?2026l[?2026h[?25l[1Gpulling manifest [K
+pulling 6150cb382311: 100% ▕██████████████████▏  19 GB                         [K
+pulling c5ad996bda6e: 100% ▕██████████████████▏  556 B                         [K
+pulling 6e4c38e1172f: 100% ▕██████████████████▏ 1.1 KB                         [K
+pulling f4d24e9138dd: 100% ▕██████████████████▏  148 B                         [K
+pulling c7f3ea903b50: 100% ▕██████████████████▏  488 B                         [K
+verifying sha256 digest [K
+writing manifest [K
+success [K[?25h[?2026l
+  Model
+    architecture        qwen2     
+    parameters          32.8B     
+    context length      131072    
+    embedding length    5120      
+    quantization        Q4_K_M    
+
+  Capabilities
+    tools         
+    thinking      
+    completion    
+
+  Parameters
+    stop    "<｜begin▁of▁sentence｜>"    
+    stop    "<｜end▁of▁sentence｜>"      
+    stop    "<｜User｜>"                 
+    stop    "<｜Assistant｜>"            
+
+  License
+    MIT License                    
+    Copyright (c) 2023 DeepSeek    
+    ...                            
+
+--- Running predictions: stage=TPP samples=10 ---
+{
+  "run_meta": {
+    "run_ts": "2026-07-16T05:09:00.584134+00:00",
+    "model": "deepseek-r1:32b",
+    "ollama_version": "0.31.1",
+    "model_info": {
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "qwen2",
+        "families": [
+          "qwen2"
+        ],
+        "parameter_size": "32.8B",
+        "quantization_level": "Q4_K_M"
+      },
+      "parameters": "stop                           \"<\uff5cbegin\u2581of\u2581sentence\uff5c>\"\nstop                           \"<\uff5cend\u2581of\u2581sentence\uff5c>\"\nstop                           \"<\uff5cUser\uff5c>\"\nstop                           \"<\uff5cAssistant\uff5c>\"",
+      "digest": null
+    },
+    "git_commit": "b0e0c1dceec4ea4ed3e09a51dcef862ecdc480e7",
+    "prompt_version": "v1",
+    "samples": 10,
+    "temperature": 0.7,
+    "greedy_seed": 42,
+    "sample_seed_base": 1000,
+    "num_ctx": 8192,
+    "hostname": "ai04",
+    "slurm_job_id": "48112"
+  }
+}
+
+=== TPP: France vs England ===
+    seed 1001: 2-0 (advances: France)
+    seed 1002: 2-1 (advances: France)
+    seed 1003: 2-1 (advances: France)
+    seed 1004: 2-1 (advances: France)
+    seed 1005: 1-2 (advances: France)
+    seed 1006: 1-0 (advances: France)
+    seed 1007: 2-1 (advances: France)
+    seed 1008: 2-1 (advances: France)
+    seed 1009: 2-1 (advances: France)
+    seed 1010: 2-1 (advances: France)
+  => aggregated: 2-1 (8/11 votes), advances: France
+
+Done. Aggregated predictions appended to results/predictions/deepseek-r1_32b.jsonl
+--- GPU state after run ---
+index, name, memory.used [MiB]
+0, Quadro RTX 8000, 21152 MiB
+=== Finished at 2026-07-16T05:16:20Z with exit code 0 ===
+--- Stopping ollama (pid 2704923) ---

@@ -1,0 +1,99 @@
+=== Job 48133 on ai04 at 2026-07-16T06:35:42Z ===
+ollama ollama version is 0.30.7
+Warning: client version is 0.31.1 present
+--- GPU allocation ---
+index, name, memory.total [MiB], memory.used [MiB]
+0, Quadro RTX 8000, 49152 MiB, 1 MiB
+1, Quadro RTX 8000, 49152 MiB, 1 MiB
+--- Starting ollama serve on 127.0.0.1:28133 (models: /home/ehassan/wc26_ollama_models) ---
+Server ready: {"version":"0.31.1"}
+--- Ensuring model is present: gpt-oss:120b ---
+[?2026h[?25l[1Gpulling manifest ⠋ [K[?25h[?2026l[?2026h[?25l[1Gpulling manifest ⠙ [K[?25h[?2026l[?2026h[?25l[1Gpulling manifest ⠹ [K[?25h[?2026l[?2026h[?25l[1Gpulling manifest [K
+pulling 6be6d66a3f54: 100% ▕██████████████████▏  65 GB                         [K
+pulling fa6710a93d78: 100% ▕██████████████████▏ 7.2 KB                         [K
+pulling f60356777647: 100% ▕██████████████████▏  11 KB                         [K
+pulling d8ba2f9a17b3: 100% ▕██████████████████▏   18 B                         [K
+pulling 0b3eaefc220f: 100% ▕██████████████████▏  490 B                         [K
+verifying sha256 digest [K
+writing manifest [K
+success ⠋ [K[?25h[?2026l[?2026h[?25l[A[A[A[A[A[A[A[A[1Gpulling manifest [K
+pulling 6be6d66a3f54: 100% ▕██████████████████▏  65 GB                         [K
+pulling fa6710a93d78: 100% ▕██████████████████▏ 7.2 KB                         [K
+pulling f60356777647: 100% ▕██████████████████▏  11 KB                         [K
+pulling d8ba2f9a17b3: 100% ▕██████████████████▏   18 B                         [K
+pulling 0b3eaefc220f: 100% ▕██████████████████▏  490 B                         [K
+verifying sha256 digest [K
+writing manifest [K
+success [K[?25h[?2026l
+  Model
+    architecture        gptoss    
+    parameters          116.8B    
+    context length      131072    
+    embedding length    2880      
+    quantization        MXFP4     
+
+  Capabilities
+    completion    
+    tools         
+    thinking      
+
+  Parameters
+    temperature    1    
+
+  License
+    Apache License               
+    Version 2.0, January 2004    
+    ...                          
+
+--- Running predictions: stage=F samples=10 ---
+{
+  "run_meta": {
+    "run_ts": "2026-07-16T06:35:49.155375+00:00",
+    "model": "gpt-oss:120b",
+    "ollama_version": "0.31.1",
+    "model_info": {
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "gptoss",
+        "families": [
+          "gptoss"
+        ],
+        "parameter_size": "116.8B",
+        "quantization_level": "MXFP4"
+      },
+      "parameters": "temperature                    1",
+      "digest": null
+    },
+    "git_commit": "b0e0c1dceec4ea4ed3e09a51dcef862ecdc480e7",
+    "prompt_version": "v1",
+    "samples": 10,
+    "temperature": 0.7,
+    "greedy_seed": 42,
+    "sample_seed_base": 1000,
+    "num_ctx": 8192,
+    "hostname": "ai04",
+    "slurm_job_id": "48133"
+  }
+}
+
+=== F: Spain vs Argentina ===
+    seed 1001: 2-1 (advances: Spain)
+    seed 1002: 2-1 (advances: Spain)
+    seed 1003: 2-1 (advances: Spain)
+    seed 1004: 1-2 (advances: Argentina)
+    seed 1005: 2-1 (advances: Spain)
+    seed 1006: 2-1 (advances: Spain)
+    seed 1007: 1-2 (advances: Argentina)
+    seed 1008: 1-2 (advances: Argentina)
+    seed 1009: 2-1 (advances: Spain)
+    seed 1010: 2-1 (advances: Spain)
+  => aggregated: 2-1 (8/11 votes), advances: Spain
+
+Done. Aggregated predictions appended to results/predictions/gpt-oss_120b.jsonl
+--- GPU state after run ---
+index, name, memory.used [MiB]
+0, Quadro RTX 8000, 32392 MiB
+1, Quadro RTX 8000, 30152 MiB
+=== Finished at 2026-07-16T06:37:39Z with exit code 0 ===
+--- Stopping ollama (pid 2721654) ---

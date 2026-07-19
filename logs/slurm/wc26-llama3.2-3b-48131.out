@@ -1,0 +1,91 @@
+=== Job 48131 on ai04 at 2026-07-16T06:33:17Z ===
+ollama ollama version is 0.30.7
+Warning: client version is 0.31.1 present
+--- GPU allocation ---
+index, name, memory.total [MiB], memory.used [MiB]
+0, Quadro RTX 8000, 49152 MiB, 1 MiB
+--- Starting ollama serve on 127.0.0.1:28131 (models: /home/ehassan/wc26_ollama_models) ---
+Server ready: {"version":"0.31.1"}
+--- Ensuring model is present: llama3.2:3b ---
+[?2026h[?25l[1Gpulling manifest ⠋ [K[?25h[?2026l[?2026h[?25l[1Gpulling manifest ⠙ [K[?25h[?2026l[?2026h[?25l[1Gpulling manifest [K
+pulling dde5aa3fc5ff: 100% ▕██████████████████▏ 2.0 GB                         [K
+pulling 966de95ca8a6: 100% ▕██████████████████▏ 1.4 KB                         [K
+pulling fcc5a6bec9da: 100% ▕██████████████████▏ 7.7 KB                         [K
+pulling a70ff7e570d9: 100% ▕██████████████████▏ 6.0 KB                         [K
+pulling 56bb8bd477a5: 100% ▕██████████████████▏   96 B                         [K
+pulling 34bb5ab01051: 100% ▕██████████████████▏  561 B                         [K
+verifying sha256 digest [K
+writing manifest [K
+success [K[?25h[?2026l
+  Model
+    architecture        llama     
+    parameters          3.2B      
+    context length      131072    
+    embedding length    3072      
+    quantization        Q4_K_M    
+
+  Capabilities
+    completion    
+    tools         
+
+  Parameters
+    stop    "<|start_header_id|>"    
+    stop    "<|end_header_id|>"      
+    stop    "<|eot_id|>"             
+
+  License
+    LLAMA 3.2 COMMUNITY LICENSE AGREEMENT                 
+    Llama 3.2 Version Release Date: September 25, 2024    
+    ...                                                   
+
+--- Running predictions: stage=F samples=10 ---
+{
+  "run_meta": {
+    "run_ts": "2026-07-16T06:33:22.556721+00:00",
+    "model": "llama3.2:3b",
+    "ollama_version": "0.31.1",
+    "model_info": {
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "llama",
+        "families": [
+          "llama"
+        ],
+        "parameter_size": "3.2B",
+        "quantization_level": "Q4_K_M"
+      },
+      "parameters": "stop                           \"<|start_header_id|>\"\nstop                           \"<|end_header_id|>\"\nstop                           \"<|eot_id|>\"",
+      "digest": null
+    },
+    "git_commit": "b0e0c1dceec4ea4ed3e09a51dcef862ecdc480e7",
+    "prompt_version": "v1",
+    "samples": 10,
+    "temperature": 0.7,
+    "greedy_seed": 42,
+    "sample_seed_base": 1000,
+    "num_ctx": 8192,
+    "hostname": "ai04",
+    "slurm_job_id": "48131"
+  }
+}
+
+=== F: Spain vs Argentina ===
+    seed 1001: 0-0 (advances: Spain)
+    seed 1002: 1-2 (advances: Spain)
+    seed 1003: 0-1 (advances: Spain)
+    seed 1004: 0-0 (advances: Spain)
+    seed 1005: 4-1 (advances: Spain)
+    seed 1006: 2-1 (advances: Spain)
+    seed 1007: 0-1 (advances: Spain)
+    seed 1008: 0-0 (advances: Spain)
+    seed 1009: 0-0 (advances: Spain)
+    seed 1010: 0-0 (advances: Spain)
+  => aggregated: 0-0 (6/11 votes), advances: Spain
+
+Done. Aggregated predictions appended to results/predictions/llama3.2_3b.jsonl
+--- GPU state after run ---
+index, name, memory.used [MiB]
+0, Quadro RTX 8000, 3156 MiB
+=== Finished at 2026-07-16T06:33:48Z with exit code 0 ===
+--- Stopping ollama (pid 2720389) ---

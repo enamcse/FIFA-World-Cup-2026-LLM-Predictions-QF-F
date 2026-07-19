@@ -1,0 +1,94 @@
+=== Job 48115 on ai04 at 2026-07-16T05:22:39Z ===
+ollama ollama version is 0.30.7
+Warning: client version is 0.31.1 present
+--- GPU allocation ---
+index, name, memory.total [MiB], memory.used [MiB]
+0, Quadro RTX 8000, 49152 MiB, 1 MiB
+--- Starting ollama serve on 127.0.0.1:28115 (models: /home/ehassan/wc26_ollama_models) ---
+Server ready: {"version":"0.31.1"}
+--- Ensuring model is present: qwen3.6:35b ---
+[?2026h[?25l[1Gpulling manifest ⠋ [K[?25h[?2026l[?2026h[?25l[1Gpulling manifest ⠙ [K[?25h[?2026l[?2026h[?25l[1Gpulling manifest ⠹ [K[?25h[?2026l[?2026h[?25l[1Gpulling manifest ⠸ [K[?25h[?2026l[?2026h[?25l[1Gpulling manifest [K
+pulling f5ee307a2982: 100% ▕██████████████████▏  23 GB                         [K
+pulling 5f3a3c817e78: 100% ▕██████████████████▏  11 KB                         [K
+pulling 86eff881e8d2: 100% ▕██████████████████▏   94 B                         [K
+pulling 5d1c86a949f7: 100% ▕██████████████████▏  462 B                         [K
+verifying sha256 digest [K
+writing manifest [K
+success [K[?25h[?2026l
+  Model
+    architecture        qwen35moe    
+    parameters          36.0B        
+    context length      262144       
+    embedding length    2048         
+    quantization        Q4_K_M       
+
+  Capabilities
+    completion    
+    vision        
+    tools         
+    thinking      
+
+  Parameters
+    top_p               0.95    
+    min_p               0       
+    presence_penalty    1.5     
+    repeat_penalty      1       
+    temperature         1       
+    top_k               20      
+
+  License
+    Apache License               
+    Version 2.0, January 2004    
+    ...                          
+
+--- Running predictions: stage=TPP samples=10 ---
+{
+  "run_meta": {
+    "run_ts": "2026-07-16T05:22:44.849006+00:00",
+    "model": "qwen3.6:35b",
+    "ollama_version": "0.31.1",
+    "model_info": {
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "qwen35moe",
+        "families": [
+          "qwen35moe"
+        ],
+        "parameter_size": "36.0B",
+        "quantization_level": "Q4_K_M"
+      },
+      "parameters": "top_p                          0.95\nmin_p                          0\npresence_penalty               1.5\nrepeat_penalty                 1\ntemperature                    1\ntop_k                          20",
+      "digest": null
+    },
+    "git_commit": "b0e0c1dceec4ea4ed3e09a51dcef862ecdc480e7",
+    "prompt_version": "v1",
+    "samples": 10,
+    "temperature": 0.7,
+    "greedy_seed": 42,
+    "sample_seed_base": 1000,
+    "num_ctx": 8192,
+    "hostname": "ai04",
+    "slurm_job_id": "48115"
+  }
+}
+
+=== TPP: France vs England ===
+    seed 1001: 1-2 (advances: England)
+    seed 1002: 2-1 (advances: France)
+    seed 1003: 1-2 (advances: England)
+    seed 1004: 1-2 (advances: England)
+    seed 1005: 1-2 (advances: England)
+    seed 1006: 2-1 (advances: France)
+    seed 1007: 1-2 (advances: England)
+    seed 1008: 1-1 (advances: England)
+    seed 1009: 2-1 (advances: France)
+    seed 1010: 1-1 (advances: England)
+  => aggregated: 1-2 (5/11 votes), advances: England
+
+Done. Aggregated predictions appended to results/predictions/qwen3.6_35b.jsonl
+--- GPU state after run ---
+index, name, memory.used [MiB]
+0, Quadro RTX 8000, 23534 MiB
+=== Finished at 2026-07-16T05:28:40Z with exit code 0 ===
+--- Stopping ollama (pid 2706641) ---
