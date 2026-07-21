@@ -1,0 +1,11 @@
+{
+  "_instructions": "Fill in after each match. home_goals_90/away_goals_90 are the score after 90 minutes of regulation ONLY (before extra time). 'advanced' is the team that progressed (or won, for TPP/F), needed for the +1 advance bonus. Leave null until known; score.py skips null matches. Add a source URL in 'source' for the record.",
+  "QF1": {"home_goals_90": 2, "away_goals_90": 0, "advanced": "France", "source": "https://sports.yahoo.com/soccer/live/world-cup-bracket-schedule-scores-results-live-updates-quarterfinals-203257966.html"},
+  "QF2": {"home_goals_90": 2, "away_goals_90": 1, "advanced": "Spain", "source": "https://sports.yahoo.com/soccer/live/world-cup-bracket-schedule-scores-results-live-updates-quarterfinals-203257966.html"},
+  "QF3": {"home_goals_90": 1, "away_goals_90": 1, "advanced": "England", "source": "England won 2-1 in extra time (Bellingham 2); 1-1 after 90'. https://sports.yahoo.com/soccer/live/world-cup-bracket-schedule-scores-results-live-updates-quarterfinals-203257966.html"},
+  "QF4": {"home_goals_90": 1, "away_goals_90": 1, "advanced": "Argentina", "source": "Argentina won 3-1 in extra time (Alvarez 112', Martinez); 1-1 after 90'. https://sports.yahoo.com/soccer/live/world-cup-bracket-schedule-scores-results-live-updates-quarterfinals-203257966.html"},
+  "SF1": {"home_goals_90": 0, "away_goals_90": 2, "advanced": "Spain", "source": "Spain won 2-0 in regulation (Oyarzabal, Porro). https://www.aljazeera.com/sports/liveblog/2026/7/14/france-vs-spain-live-fifa-world-cup-2026-semifinal"},
+  "SF2": {"home_goals_90": 1, "away_goals_90": 2, "advanced": "Argentina", "source": "Argentina won 2-1 in regulation, two late goals. https://sports.yahoo.com/soccer/article/world-cup-semifinals-bracket-full-schedule-matchups-and-path-to-the-final-164942403.html"},
+  "TPP": {"home_goals_90": 4, "away_goals_90": 6, "advanced": "England", "source": "England won 6-4 in regulation (Saka 3, Bellingham 90+8; Mbappe 2 for France); stoppage-time goals count in the 90' score, no extra time. https://www.espn.com/soccer/match/_/gameId/760516/england-france"},
+  "F":   {"home_goals_90": 0, "away_goals_90": 0, "advanced": "Spain", "source": "0-0 after 90 minutes; Spain won 1-0 on Ferran Torres' 106th-minute extra-time goal. https://www.espn.com/soccer/report/_/gameId/760517"}
+}

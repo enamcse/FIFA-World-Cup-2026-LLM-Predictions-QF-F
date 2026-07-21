@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WC2026 · Run Log</title>
+<meta name="description" content="Complete chronicle of the WC2026 LLM prediction benchmark: every SLURM job, prompt, timing, incident, and result — step by step.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚽</text></svg>">
+<style>
+:root{
+  --page:#f9f9f7; --surface:#fcfcfb; --ink:#0b0b0b; --ink2:#52514e; --muted:#898781;
+  --grid:#e1e0d9; --border:rgba(11,11,11,.10); --baseline:#c3c2b7;
+  --s1:#2a78d6; --s2:#1baf7a; --s3:#eda100;
+  --cat-exact:#0ca30c; --cat-gd:#2a78d6; --cat-tend:#eda100; --cat-miss:#d03b3b;
+  --chip-exact-bg:rgba(12,163,12,.12); --chip-gd-bg:rgba(42,120,214,.12);
+  --chip-tend-bg:rgba(237,161,0,.15); --chip-miss-bg:rgba(208,59,59,.12);
+  --shadow:0 1px 2px rgba(11,11,11,.04);
+}
+:root[data-theme="dark"]{
+  --page:#0d0d0d; --surface:#1a1a19; --ink:#ffffff; --ink2:#c3c2b7; --muted:#898781;
+  --grid:#2c2c2a; --border:rgba(255,255,255,.10); --baseline:#383835;
+  --s1:#3987e5; --s2:#199e70; --s3:#c98500;
+  --cat-exact:#0ca30c; --cat-gd:#3987e5; --cat-tend:#c98500; --cat-miss:#d03b3b;
+  --chip-exact-bg:rgba(12,163,12,.18); --chip-gd-bg:rgba(57,135,229,.18);
+  --chip-tend-bg:rgba(201,133,0,.20); --chip-miss-bg:rgba(208,59,59,.18);
+  --shadow:none;
+}
+*{box-sizing:border-box}
+body{margin:0; background:var(--page); color:var(--ink);
+  font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif; -webkit-font-smoothing:antialiased}
+a{color:var(--s1); text-decoration:none} a:hover{text-decoration:underline}
+.wrap{max-width:1120px; margin:0 auto; padding:0 20px}
+header{border-bottom:1px solid var(--border); background:var(--surface)}
+.topbar{display:flex; align-items:center; gap:14px; padding:18px 0; flex-wrap:wrap}
+.mark{font-size:26px; line-height:1}
+.titleblock h1{font-size:19px; margin:0; font-weight:650; letter-spacing:-.01em}
+.titleblock p{margin:2px 0 0; font-size:13px; color:var(--ink2)}
+.topbar .spacer{flex:1}
+.iconbtn{border:1px solid var(--border); background:var(--surface); color:var(--ink2);
+  border-radius:8px; padding:7px 12px; font:inherit; font-size:13px; cursor:pointer}
+.iconbtn:hover{color:var(--ink); border-color:var(--baseline)}
+section{margin:34px 0}
+.sechead{display:flex; align-items:baseline; gap:10px; margin-bottom:14px}
+.sechead h2{font-size:16px; font-weight:650; margin:0; letter-spacing:-.01em}
+.sechead .sub{font-size:13px; color:var(--muted)}
+.card{background:var(--surface); border:1px solid var(--border); border-radius:12px; box-shadow:var(--shadow)}
+.kpis{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin-top:22px}
+.kpi{background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:14px 16px; box-shadow:var(--shadow)}
+.kpi .num{font-size:22px; font-weight:650; letter-spacing:-.01em}
+.kpi .label{font-size:12.5px; color:var(--ink2)}
+.scroll{overflow-x:auto; border-radius:12px}
+table{border-collapse:collapse; width:100%; font-size:13px}
+th{position:sticky; top:0; background:var(--surface); text-align:left; font-weight:600; color:var(--ink2);
+  padding:9px 10px; border-bottom:1px solid var(--grid); white-space:nowrap}
+td{padding:8px 10px; border-bottom:1px solid var(--grid); vertical-align:top; white-space:nowrap}
+td.note{white-space:normal; min-width:260px; color:var(--ink2); font-size:12.5px}
+td.mdl{font-weight:600} td.tot{font-weight:650; font-variant-numeric:tabular-nums}
+tr:last-child td{border-bottom:none}
+.st{font-size:11.5px; font-weight:600; padding:2px 8px; border-radius:9px; background:var(--chip-gd-bg); color:var(--cat-gd)}
+.st.ok{background:var(--chip-exact-bg); color:var(--cat-exact)}
+.st.bad{background:var(--chip-miss-bg); color:var(--cat-miss)}
+.st.run{background:var(--chip-tend-bg); color:var(--cat-tend)}
+.cat{font-size:11.5px; font-weight:600; padding:1px 7px; border-radius:9px}
+.cat.exact{background:var(--chip-exact-bg); color:var(--cat-exact)}
+.cat.goaldiff{background:var(--chip-gd-bg); color:var(--cat-gd)}
+.cat.tendency{background:var(--chip-tend-bg); color:var(--cat-tend)}
+.cat.miss{background:var(--chip-miss-bg); color:var(--cat-miss)}
+.adv{color:var(--ink2); font-size:12px}
+.late{color:var(--cat-miss); font-size:11.5px; font-weight:600}
+.tl{list-style:none; margin:0; padding:0}
+.tl li{position:relative; padding:0 0 18px 26px; border-left:2px solid var(--grid); margin-left:8px}
+.tl li:last-child{padding-bottom:4px}
+.tl li::before{content:""; position:absolute; left:-7px; top:4px; width:12px; height:12px; border-radius:50%;
+  background:var(--surface); border:2px solid var(--baseline)}
+.tl li.milestone::before{border-color:var(--s2); background:var(--s2)}
+.tl li.incident::before{border-color:var(--cat-miss); background:var(--cat-miss)}
+.tl .when{font-size:12px; color:var(--muted); font-variant-numeric:tabular-nums}
+.tl .what{margin:1px 0 0}
+.tl b{font-weight:650}
+pre{background:var(--page); border:1px solid var(--grid); border-radius:10px; padding:14px 16px;
+  font-size:12.5px; line-height:1.55; overflow-x:auto; margin:10px 0}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+.pad{padding:16px 20px}
+.cols{display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:14px}
+.rulebox td:first-child{color:var(--ink2)}
+.lesson{padding:10px 0; border-bottom:1px solid var(--grid)} .lesson:last-child{border-bottom:none}
+.lesson b{font-weight:650}
+.lesson p{margin:2px 0 0; color:var(--ink2); font-size:13.5px}
+footer{margin:44px 0 30px; padding-top:16px; border-top:1px solid var(--border);
+  font-size:12.5px; color:var(--muted)}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap topbar">
+    <div class="mark">⚽</div>
+    <div class="titleblock">
+      <h1>Run Log — the complete chronicle</h1>
+      <p>Every step, prompt, SLURM job, timing, and incident of the WC2026 LLM benchmark · Stony Brook AI cluster</p>
+    </div>
+    <div class="spacer"></div>
+    <a class="iconbtn" href="./">← Dashboard</a>
+    <a class="iconbtn" href="https://github.com/enamcse/FIFA-World-Cup-2026-LLM-Predictions-QF-F">Repo</a>
+    <button class="iconbtn" id="themebtn" aria-label="toggle theme">◐ Theme</button>
+  </div>
+</header>
+
+<main class="wrap">
+
+<div class="kpis">
+  <div class="kpi"><div class="num" id="kpi-matches">8 / 8</div><div class="label">matches predicted &amp; scored</div></div>
+  <div class="kpi"><div class="num">11</div><div class="label">models benchmarked (all local via Ollama)</div></div>
+  <div class="kpi"><div class="num" id="kpi-jobs">66</div><div class="label">SLURM jobs since Jul 8</div></div>
+  <div class="kpi"><div class="num">≈9</div><div class="label">GPU·hours of inference, QF → Final</div></div>
+  <div class="kpi"><div class="num" id="kpi-gens">968</div><div class="label">logged generations (88 × 11 seeds)</div></div>
+  <div class="kpi"><div class="num" id="kpi-leader">qwen3.6:35b</div><div class="label" id="kpi-leader-label">tournament winner · 18 pts</div></div>
+</div>
+
+<section>
+  <div class="sechead"><h2>Method — what every run actually does</h2>
+    <span class="sub">fixed since prompt_version v1, never changed mid-tournament</span></div>
+  <div class="card pad">
+    <p>Per model, per match: <b>1 greedy generation</b> (temperature 0, seed 42) + <b>10 sampled generations</b>
+    (temperature 0.7, seeds 1001–1010), against a local <code>ollama serve</code> (pinned v0.31.1) started inside the
+    SLURM job on a job-unique port. The final call is the <b>modal scoreline</b> over all 11 generations
+    (tie-breaks: count → matches-greedy → fewer total goals → fewer away goals); the 11-sample spread doubles as an
+    empirical win/draw/loss distribution scored with RPS and Brier. Every raw API response is appended verbatim to
+    <code>logs/raw/&lt;model&gt;/&lt;match&gt;.jsonl</code> with model digest, prompt SHA-256, seed, token counts, and timings.</p>
+    <div class="cols">
+      <div>
+        <p><b>System prompt (verbatim):</b></p>
+        <pre>You are an expert football (soccer) forecaster. You know the
+teams' squads, playing styles, form, and historical head-to-head
+records. Respond with a single JSON object matching the requested
+schema and nothing else.</pre>
+        <p><b>User prompt template (verbatim):</b></p>
+        <pre>FIFA World Cup 2026 - {stage} ({match_id}).
+Match: {home} vs {away}
+Venue: {venue}
+Kickoff (UTC): {kickoff_utc}
+
+Predict the full-time score after 90 minutes of regulation only
+(exclude extra time and penalties). Regardless of your scoreline,
+also state which team advances from this tie (if you predict a
+draw, that means the team you expect to win in extra time or on
+penalties; for a third-place match or final, the team that lifts
+the result). Keep one_line_reasoning under 40 words.</pre>
+      </div>
+      <div>
+        <p><b>Structured output schema</b> (Ollama <code>format</code>; <code>advances</code> is an enum of the two teams):</p>
+        <pre>{"type": "object",
+ "properties": {
+   "home_goals": {"type":"integer","minimum":0,"maximum":15},
+   "away_goals": {"type":"integer","minimum":0,"maximum":15},
+   "advances":  {"type":"string","enum":[home, away]},
+   "one_line_reasoning": {"type":"string"}},
+ "required": ["home_goals","away_goals","advances"]}
+
+options: num_ctx 8192 · num_predict 4096
+         temperature 0 / 0.7 · fixed seeds</pre>
+        <p><b>Scoring per match</b> (on the aggregated 90-minute prediction):</p>
+        <div class="scroll"><table class="rulebox">
+          <tr><td>Exact score</td><td><b>4</b></td></tr>
+          <tr><td>Correct goal difference, wrong score (incl. wrong-score draws)</td><td><b>3</b></td></tr>
+          <tr><td>Correct winner only</td><td><b>2</b></td></tr>
+          <tr><td>Wrong</td><td><b>0</b></td></tr>
+          <tr><td>Bonus: predicted advancing team actually advances</td><td><b>+1</b></td></tr>
+        </table></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sechead"><h2>Timeline</h2><span class="sub">all times UTC — the whole cluster runs on UTC (login <code>date</code> = <code>date -u</code>)</span></div>
+  <div class="card pad">
+  <ul class="tl">
+    <li class="milestone"><div class="when">Jul 8 · 03:31</div><div class="what"><b>Pipeline built</b> (commit <code>765587b</code>): predict.py, score.py, scoring rules, SLURM queue, fixtures. End-to-end smoke test passes against a mock Ollama server — no GPU used.</div></li>
+    <li><div class="when">Jul 8 · 16:45</div><div class="what"><b>Connectivity probe</b> (job 45404): compute nodes can reach github.com and ollama.com → everything (Ollama install, weight downloads) can run on compute nodes; the login node only edits files and submits jobs.</div></li>
+    <li><div class="when">Jul 8 · 16:51</div><div class="what"><b>Compute-node-only rework</b> (commit <code>79c30e3</code>): pinned Ollama v0.31.1 installed inside jobs; discovered glm-5.2 is a cloud-only tag (756B, no downloadable weights); repo moved to ~/Explore.</div></li>
+    <li><div class="when">Jul 8 · 17:01–18:11</div><div class="what"><b>Prefetch</b> (job 45408, quadro1, CPU-only, 1h10m): ~110 GB of weights for 9 models pulled to shared /home. GPU jobs start inferring instantly instead of downloading.</div></li>
+    <li><div class="when">Jul 9 · 01:19–01:36</div><div class="what"><b>QF predictions, fast tier</b>: llama3.1:8b, llama3.2:3b, gpt-oss:20b, phi4:14b each finish all 4 QF matches in 1–6 minutes (parallel submission grabbed free GPUs immediately).</div></li>
+    <li><div class="when">Jul 9 · 18:40–20:53</div><div class="what"><b>QF predictions, main tier</b> — after a ~17 h queue stall (cluster saturated by multi-day jobs): gemma4:26b (18:40→20:03, slowed by 93 structured-output parse failures + retries), deepseek-r1:32b, glm-4.7-flash, mistral-small3.2, qwen3.6:35b all land <i>before</i> the 20:00 QF1 kickoff — qwen's QF1 call at 19:56, four minutes to spare. llama3.3:70b (2× RTX 8000) starts 20:26 and its QF1 record lands <b>in-play</b> at 20:51 (flagged).</div></li>
+    <li><div class="when">Jul 10 · 03:07–03:49</div><div class="what">gpt-oss:120b (2× RTX 8000) finishes QF; its QF1 record is <b>post-match</b> (flagged). QF2–QF4 records from every model predate their kickoffs.</div></li>
+    <li class="incident"><div class="when">Jul 11 · 22:21</div><div class="what"><b>minimax-m2.7 fails in 1m42s</b> (job 45428): <code>pull model manifest: file does not exist</code> — the tag is cloud-only (229B on Ollama's servers). Moved to <code>not_feasible</code>; roster fixed at 11 local models.</div></li>
+    <li class="milestone"><div class="when">Jul 12 · 04:47</div><div class="what"><b>QF scored &amp; committed</b> (<code>47a940f</code>): France 2-0, Spain 2-1, and two 1-1-after-90' matches decided in extra time. Five models tie at 10 pts; qwen3.6:35b ranks first on RPS calibration.</div></li>
+    <li class="milestone"><div class="when">Jul 12 · 04:47–06:17</div><div class="what"><b>SF queue runs chained</b> (jobs 47727→47737, one model at a time) with weights already cached; committed 06:25 (<code>3269aba</code>) — <b>2.5 days before SF1 kickoff: fully pre-registered</b>.</div></li>
+    <li><div class="when">Jul 12 · 07:24</div><div class="what"><b>Dashboard shipped</b> (commits <code>04f13b1</code>, <code>67e6bcb</code>, separate session): self-contained index.html + GitHub Pages deploy via gh-pages branch. Auxiliary jobs 47738–47740 belong to that session.</div></li>
+    <li><div class="when">Jul 14–15</div><div class="what"><b>Semifinals played</b>: France 0-2 Spain and England 1-2 Argentina, both in regulation. glm-4.7-flash called SF2 exactly (1-2, Argentina) and was the only model backing Spain to advance in SF1.</div></li>
+    <li class="incident"><div class="when">Jul 15 · 21:32–23:15</div><div class="what"><b>Empty TPP/F attempt</b> (jobs 48065–48075, 5–16 s each): every job exited cleanly with <code>Skipping TBD matches … Nothing to run</code> because the third-place/final teams hadn't been written into matches.json yet. By design, not a bug — predict.py refuses to predict a match without real teams.</div></li>
+    <li class="milestone"><div class="when">Jul 16 · 04:48</div><div class="what"><b>SF scored, bracket advanced</b> (commit <code>72ee019</code>): cumulative leader glm-4.7-flash (16 pts). TPP set to France–England (Jul 18, 21:00), Final to Spain–Argentina (Jul 19, 19:00). <b>TPP/F queue submitted</b> (jobs 48110–48120, chained); this run log added.</div></li>
+    <li class="incident"><div class="when">Jul 16 · 04:51</div><div class="what"><b>The comma bug</b>: job 48110's log showed it predicted TPP but never the Final. Cause: <code>sbatch --export=…,STAGE=TPP,F,…</code> — sbatch parses <code>--export</code> as a comma-separated list, so <code>STAGE</code> silently became <code>TPP</code> (this also explains why the Jul 15 logs only mentioned skipping TPP). Fix: run_queue.sh converts commas to <code>+</code>, predict.py accepts both. The 48110–48120 chain completes TPP; a Final-only chain (jobs <b>48123–48133</b>) was submitted behind it via the new <code>--after</code> flag.</div></li>
+    <li><div class="when">Jul 16 · 04:51–06:37</div><div class="what"><b>TPP + Final predictions generated</b>: the TPP chain (48110–48120) and Final chain (48123–48133) drained in under two hours — every record's <code>ts</code> is in this window, 2.5 days before the third-place match. TPP consensus: 2-1 France (7 models); gemma4, phi4 and qwen3.6 back England 1-2. Final: eight models back Spain (mostly 2-1); glm-4.7-flash alone calls 1-2 Argentina; qwen3.6 says 1-1, Argentina on penalties.</div></li>
+    <li class="incident"><div class="when">Jul 18 · 21:00</div><div class="what"><b>Third place: France 4-6 England</b> — a ten-goal all-regulation classic (Saka hat-trick, Bellingham 90'+8). No model came close to the scoreline; the three England-backers take tendency+advance (3 pts each). Bookkeeping slip: the TPP/F prediction records had sat <b>uncommitted</b> since Jul 16 — the TPP round therefore isn't commit-stamped before its kickoff, and rests on generation timestamps + SLURM accounting instead (offline inference, as always).</div></li>
+    <li class="milestone"><div class="when">Jul 19 · 01:00</div><div class="what"><b>Final pre-registered</b>: all TPP/F predictions, TPP actuals, and the 7-match leaderboard committed and pushed — 18 hours before the Final (Spain vs Argentina, 19:00 UTC, MetLife). Title race: glm-4.7-flash 16 · qwen3.6:35b 15 · gpt-oss:20b 15, and their divergent Final picks (1-2 Argentina / 1-1 Arg / 2-1 Spain) mean the benchmark title is decided on the pitch.</div></li>
+    <li class="milestone"><div class="when">Jul 19 · 19:00–~22:00</div><div class="what"><b>Final: Spain 1-0 Argentina</b>, 0-0 after 90 minutes — Ferran Torres won it in the 106th minute of extra time. <b>llama3.2:3b called the exact 90' score (0-0) and the correct advancer</b>, its only exact hit of the tournament and the single best individual call in the Final round. Only two other models (gemma4:26b, qwen3.6:35b) had the right goal difference (both said 1-1); every "2-1 Spain" pick — the majority — missed the tendency entirely once the match stayed goalless through regulation.</div></li>
+    <li class="milestone"><div class="when">Jul 21 · 22:xx</div><div class="what"><b>Tournament scored, final leaderboard: qwen3.6:35b wins</b> (18 pts) — its 1-1 Final pick's correct goal-difference was worth more than the "Spain to win" consensus almost everyone else backed. glm-4.7-flash, gpt-oss:20b, and gemma4:26b tie for 2nd at 16. All 8 matches now scored; this page and the dashboard are final.</div></li>
+  </ul>
+  </div>
+</section>
+
+<section>
+  <div class="sechead"><h2>Every SLURM job</h2><span class="sub">from <code>sacct -u ehassan -S 2026-07-08</code> · start times UTC · snapshot at page generation</span></div>
+  <div class="card scroll">
+    <table>
+      <thead><tr><th>job id</th><th>name</th><th>phase</th><th>node</th><th>GPUs</th><th>start (UTC)</th><th>elapsed</th><th>state</th><th>note</th></tr></thead>
+      <tbody id="jobs-body">
+<tr><td>45404</td><td>nettest</td><td>Setup</td><td>tesla1</td><td>0</td><td>2026-07-08 16:45:12</td><td>00:00:00</td><td><span class="st ok">COMPLETED</span></td><td class="note">Connectivity probe: compute nodes reach github.com & ollama.com — enabled the compute-node-only design</td></tr>
+<tr><td>45408</td><td>wc26-prefetch</td><td>Setup</td><td>quadro1</td><td>0</td><td>2026-07-08 17:01:41</td><td>01:10:00</td><td><span class="st ok">COMPLETED</span></td><td class="note">CPU-only prefetch of 9 models' weights (~110 GB) to shared /home; no GPU held</td></tr>
+<tr><td>45417</td><td>wc26-gpt-oss-20b</td><td>QF</td><td>quadro1</td><td>1</td><td>2026-07-09 01:29:04</td><td>00:05:48</td><td><span class="st ok">COMPLETED</span></td><td class="note">QF predictions (parallel submission — deadline mode)</td></tr>
+<tr><td>45418</td><td>wc26-gemma4-26b</td><td>QF</td><td>tesla1</td><td>1</td><td>2026-07-09 18:40:31</td><td>01:23:05</td><td><span class="st ok">COMPLETED</span></td><td class="note">QF predictions (parallel submission — deadline mode)</td></tr>
+<tr><td>45419</td><td>wc26-deepseek-r1-32b</td><td>QF</td><td>orion</td><td>1</td><td>2026-07-09 19:21:44</td><td>00:15:36</td><td><span class="st ok">COMPLETED</span></td><td class="note">QF predictions (parallel submission — deadline mode)</td></tr>
+<tr><td>45420</td><td>wc26-glm-4.7-flash</td><td>QF</td><td>orion</td><td>1</td><td>2026-07-09 19:37:20</td><td>00:11:25</td><td><span class="st ok">COMPLETED</span></td><td class="note">QF predictions (parallel submission — deadline mode)</td></tr>
+<tr><td>45421</td><td>wc26-mistral-small3.2</td><td>QF</td><td>quadro2</td><td>1</td><td>2026-07-09 19:47:29</td><td>00:03:07</td><td><span class="st ok">COMPLETED</span></td><td class="note">QF predictions (parallel submission — deadline mode)</td></tr>
+<tr><td>45422</td><td>wc26-qwen3.6-35b</td><td>QF</td><td>quadro2</td><td>1</td><td>2026-07-09 19:50:59</td><td>00:18:36</td><td><span class="st ok">COMPLETED</span></td><td class="note">QF predictions (parallel submission — deadline mode)</td></tr>
+<tr><td>45423</td><td>wc26-phi4-14b</td><td>QF</td><td>quadro1</td><td>1</td><td>2026-07-09 01:35:05</td><td>00:01:23</td><td><span class="st ok">COMPLETED</span></td><td class="note">QF predictions (parallel submission — deadline mode)</td></tr>
+<tr><td>45424</td><td>wc26-llama3.1-8b</td><td>QF</td><td>quadro2</td><td>1</td><td>2026-07-09 01:19:03</td><td>00:01:50</td><td><span class="st ok">COMPLETED</span></td><td class="note">QF predictions (parallel submission — deadline mode)</td></tr>
+<tr><td>45425</td><td>wc26-llama3.2-3b</td><td>QF</td><td>quadro1</td><td>1</td><td>2026-07-09 01:20:34</td><td>00:01:13</td><td><span class="st ok">COMPLETED</span></td><td class="note">QF predictions (parallel submission — deadline mode)</td></tr>
+<tr><td>45426</td><td>wc26-llama3.3-70b</td><td>QF</td><td>quadro1</td><td>2</td><td>2026-07-09 20:26:45</td><td>00:26:51</td><td><span class="st ok">COMPLETED</span></td><td class="note">QF predictions (parallel submission — deadline mode)</td></tr>
+<tr><td>45427</td><td>wc26-gpt-oss-120b</td><td>QF</td><td>quadro2</td><td>2</td><td>2026-07-10 03:07:02</td><td>00:42:36</td><td><span class="st ok">COMPLETED</span></td><td class="note">QF predictions (parallel submission — deadline mode)</td></tr>
+<tr><td>45428</td><td>wc26-minimax-m2.7</td><td>QF</td><td>quadro2</td><td>4</td><td>2026-07-11 22:21:53</td><td>00:01:42</td><td><span class="st bad">FAILED</span></td><td class="note">FAILED as expected-risk: minimax-m2.7 is a cloud-only tag — 'pull model manifest: file does not exist'; moved to not_feasible</td></tr>
+<tr><td>47727</td><td>wc26-gpt-oss-20b</td><td>SF</td><td>orion</td><td>1</td><td>2026-07-12 04:47:26</td><td>00:03:33</td><td><span class="st ok">COMPLETED</span></td><td class="note">SF predictions (chained queue)</td></tr>
+<tr><td>47728</td><td>wc26-gemma4-26b</td><td>SF</td><td>orion</td><td>1</td><td>2026-07-12 04:51:01</td><td>00:43:48</td><td><span class="st ok">COMPLETED</span></td><td class="note">SF predictions (chained queue)</td></tr>
+<tr><td>47729</td><td>wc26-deepseek-r1-32b</td><td>SF</td><td>orion</td><td>1</td><td>2026-07-12 05:34:49</td><td>00:08:38</td><td><span class="st ok">COMPLETED</span></td><td class="note">SF predictions (chained queue)</td></tr>
+<tr><td>47730</td><td>wc26-glm-4.7-flash</td><td>SF</td><td>orion</td><td>1</td><td>2026-07-12 05:43:27</td><td>00:05:54</td><td><span class="st ok">COMPLETED</span></td><td class="note">SF predictions (chained queue)</td></tr>
+<tr><td>47731</td><td>wc26-mistral-small3.2</td><td>SF</td><td>orion</td><td>1</td><td>2026-07-12 05:49:21</td><td>00:02:13</td><td><span class="st ok">COMPLETED</span></td><td class="note">SF predictions (chained queue)</td></tr>
+<tr><td>47732</td><td>wc26-qwen3.6-35b</td><td>SF</td><td>quadro1</td><td>1</td><td>2026-07-12 05:51:35</td><td>00:10:26</td><td><span class="st ok">COMPLETED</span></td><td class="note">SF predictions (chained queue)</td></tr>
+<tr><td>47733</td><td>wc26-phi4-14b</td><td>SF</td><td>orion</td><td>1</td><td>2026-07-12 06:02:03</td><td>00:01:17</td><td><span class="st ok">COMPLETED</span></td><td class="note">SF predictions (chained queue)</td></tr>
+<tr><td>47734</td><td>wc26-llama3.1-8b</td><td>SF</td><td>orion</td><td>1</td><td>2026-07-12 06:03:21</td><td>00:01:03</td><td><span class="st ok">COMPLETED</span></td><td class="note">SF predictions (chained queue)</td></tr>
+<tr><td>47735</td><td>wc26-llama3.2-3b</td><td>SF</td><td>orion</td><td>1</td><td>2026-07-12 06:04:24</td><td>00:00:45</td><td><span class="st ok">COMPLETED</span></td><td class="note">SF predictions (chained queue)</td></tr>
+<tr><td>47736</td><td>wc26-llama3.3-70b</td><td>SF</td><td>quadro1</td><td>2</td><td>2026-07-12 06:05:10</td><td>00:04:24</td><td><span class="st ok">COMPLETED</span></td><td class="note">SF predictions (chained queue)</td></tr>
+<tr><td>47737</td><td>wc26-gpt-oss-120b</td><td>SF</td><td>quadro1</td><td>2</td><td>2026-07-12 06:09:55</td><td>00:07:31</td><td><span class="st ok">COMPLETED</span></td><td class="note">SF predictions (chained queue)</td></tr>
+<tr><td>47738</td><td>wc26-llm</td><td>Aux</td><td>quadro1</td><td>1</td><td>2026-07-12 04:51:32</td><td>00:03:42</td><td><span class="st ok">COMPLETED</span></td><td class="note">Auxiliary job from the dashboard-dev session; output not in this repo's logs/</td></tr>
+<tr><td>47739</td><td>wc26-predict</td><td>Aux</td><td>tesla1</td><td>0</td><td>2026-07-12 04:55:35</td><td>00:00:24</td><td><span class="st ok">COMPLETED</span></td><td class="note">Auxiliary job from the dashboard-dev session; output not in this repo's logs/</td></tr>
+<tr><td>47740</td><td>wc26-predict</td><td>Aux</td><td>tesla1</td><td>0</td><td>2026-07-12 04:57:14</td><td>00:00:18</td><td><span class="st ok">COMPLETED</span></td><td class="note">Auxiliary job from the dashboard-dev session; output not in this repo's logs/</td></tr>
+<tr><td>48065</td><td>wc26-gpt-oss-20b</td><td>TPP/F try</td><td>orion</td><td>1</td><td>2026-07-15 21:32:34</td><td>00:00:13</td><td><span class="st ok">COMPLETED</span></td><td class="note">Nothing to run: TPP/Final teams were still TBD in matches.json — predict.py skipped by design</td></tr>
+<tr><td>48066</td><td>wc26-gemma4-26b</td><td>TPP/F try</td><td>orion</td><td>1</td><td>2026-07-15 21:32:47</td><td>00:00:07</td><td><span class="st ok">COMPLETED</span></td><td class="note">Nothing to run: TPP/Final teams were still TBD in matches.json — predict.py skipped by design</td></tr>
+<tr><td>48067</td><td>wc26-deepseek-r1-32b</td><td>TPP/F try</td><td>orion</td><td>1</td><td>2026-07-15 21:32:55</td><td>00:00:05</td><td><span class="st ok">COMPLETED</span></td><td class="note">Nothing to run: TPP/Final teams were still TBD in matches.json — predict.py skipped by design</td></tr>
+<tr><td>48068</td><td>wc26-glm-4.7-flash</td><td>TPP/F try</td><td>orion</td><td>1</td><td>2026-07-15 21:33:01</td><td>00:00:05</td><td><span class="st ok">COMPLETED</span></td><td class="note">Nothing to run: TPP/Final teams were still TBD in matches.json — predict.py skipped by design</td></tr>
+<tr><td>48069</td><td>wc26-mistral-small3.2</td><td>TPP/F try</td><td>orion</td><td>1</td><td>2026-07-15 21:33:07</td><td>00:00:07</td><td><span class="st ok">COMPLETED</span></td><td class="note">Nothing to run: TPP/Final teams were still TBD in matches.json — predict.py skipped by design</td></tr>
+<tr><td>48070</td><td>wc26-qwen3.6-35b</td><td>TPP/F try</td><td>quadro1</td><td>1</td><td>2026-07-15 21:33:14</td><td>00:00:14</td><td><span class="st ok">COMPLETED</span></td><td class="note">Nothing to run: TPP/Final teams were still TBD in matches.json — predict.py skipped by design</td></tr>
+<tr><td>48071</td><td>wc26-phi4-14b</td><td>TPP/F try</td><td>orion</td><td>1</td><td>2026-07-15 21:33:28</td><td>00:00:06</td><td><span class="st ok">COMPLETED</span></td><td class="note">Nothing to run: TPP/Final teams were still TBD in matches.json — predict.py skipped by design</td></tr>
+<tr><td>48072</td><td>wc26-llama3.1-8b</td><td>TPP/F try</td><td>orion</td><td>1</td><td>2026-07-15 21:33:34</td><td>00:00:08</td><td><span class="st ok">COMPLETED</span></td><td class="note">Nothing to run: TPP/Final teams were still TBD in matches.json — predict.py skipped by design</td></tr>
+<tr><td>48073</td><td>wc26-llama3.2-3b</td><td>TPP/F try</td><td>orion</td><td>1</td><td>2026-07-15 21:33:42</td><td>00:00:07</td><td><span class="st ok">COMPLETED</span></td><td class="note">Nothing to run: TPP/Final teams were still TBD in matches.json — predict.py skipped by design</td></tr>
+<tr><td>48074</td><td>wc26-llama3.3-70b</td><td>TPP/F try</td><td>quadro1</td><td>2</td><td>2026-07-15 21:33:49</td><td>00:00:08</td><td><span class="st ok">COMPLETED</span></td><td class="note">Nothing to run: TPP/Final teams were still TBD in matches.json — predict.py skipped by design</td></tr>
+<tr><td>48075</td><td>wc26-gpt-oss-120b</td><td>TPP/F try</td><td>quadro2</td><td>2</td><td>2026-07-15 23:15:36</td><td>00:00:16</td><td><span class="st ok">COMPLETED</span></td><td class="note">Nothing to run: TPP/Final teams were still TBD in matches.json — predict.py skipped by design</td></tr>
+<tr><td>48076</td><td>wc26-llm</td><td>Aux</td><td>quadro1</td><td>1</td><td>2026-07-15 21:51:30</td><td>00:03:34</td><td><span class="st ok">COMPLETED</span></td><td class="note">Auxiliary job from the dashboard-dev session; output not in this repo's logs/</td></tr>
+<tr><td>48077</td><td>wc26-predict</td><td>Aux</td><td>orion</td><td>0</td><td>2026-07-15 21:56:42</td><td>00:00:23</td><td><span class="st ok">COMPLETED</span></td><td class="note">Auxiliary job from the dashboard-dev session; output not in this repo's logs/</td></tr>
+<tr><td>48110</td><td>wc26-gpt-oss-20b</td><td>TPP</td><td>quadro1</td><td>1</td><td>2026-07-16 04:48:57</td><td>00:02:27</td><td><span class="st ok">COMPLETED</span></td><td class="note">TPP predictions (chained queue; STAGE lost ',F' to the sbatch comma bug)</td></tr>
+<tr><td>48111</td><td>wc26-gemma4-26b</td><td>TPP</td><td>quadro1</td><td>1</td><td>2026-07-16 04:51:24</td><td>00:17:31</td><td><span class="st ok">COMPLETED</span></td><td class="note">TPP predictions (chained queue; STAGE lost ',F' to the sbatch comma bug)</td></tr>
+<tr><td>48112</td><td>wc26-deepseek-r1-32b</td><td>TPP</td><td>quadro1</td><td>1</td><td>2026-07-16 05:08:55</td><td>00:07:26</td><td><span class="st ok">COMPLETED</span></td><td class="note">TPP predictions (chained queue; STAGE lost ',F' to the sbatch comma bug)</td></tr>
+<tr><td>48113</td><td>wc26-glm-4.7-flash</td><td>TPP</td><td>quadro1</td><td>1</td><td>2026-07-16 05:16:22</td><td>00:04:16</td><td><span class="st ok">COMPLETED</span></td><td class="note">TPP predictions (chained queue; STAGE lost ',F' to the sbatch comma bug)</td></tr>
+<tr><td>48114</td><td>wc26-mistral-small3.2</td><td>TPP</td><td>quadro1</td><td>1</td><td>2026-07-16 05:20:38</td><td>00:02:00</td><td><span class="st ok">COMPLETED</span></td><td class="note">TPP predictions (chained queue; STAGE lost ',F' to the sbatch comma bug)</td></tr>
+<tr><td>48115</td><td>wc26-qwen3.6-35b</td><td>TPP</td><td>quadro1</td><td>1</td><td>2026-07-16 05:22:38</td><td>00:06:03</td><td><span class="st ok">COMPLETED</span></td><td class="note">TPP predictions (chained queue; STAGE lost ',F' to the sbatch comma bug)</td></tr>
+<tr><td>48116</td><td>wc26-phi4-14b</td><td>TPP</td><td>quadro1</td><td>1</td><td>2026-07-16 05:28:41</td><td>00:01:13</td><td><span class="st ok">COMPLETED</span></td><td class="note">TPP predictions (chained queue; STAGE lost ',F' to the sbatch comma bug)</td></tr>
+<tr><td>48117</td><td>wc26-llama3.1-8b</td><td>TPP</td><td>quadro1</td><td>1</td><td>2026-07-16 05:29:54</td><td>00:00:52</td><td><span class="st ok">COMPLETED</span></td><td class="note">TPP predictions (chained queue; STAGE lost ',F' to the sbatch comma bug)</td></tr>
+<tr><td>48118</td><td>wc26-llama3.2-3b</td><td>TPP</td><td>quadro1</td><td>1</td><td>2026-07-16 05:30:47</td><td>00:00:32</td><td><span class="st ok">COMPLETED</span></td><td class="note">TPP predictions (chained queue; STAGE lost ',F' to the sbatch comma bug)</td></tr>
+<tr><td>48119</td><td>wc26-llama3.3-70b</td><td>TPP</td><td>quadro1</td><td>2</td><td>2026-07-16 05:31:19</td><td>00:03:15</td><td><span class="st ok">COMPLETED</span></td><td class="note">TPP predictions (chained queue; STAGE lost ',F' to the sbatch comma bug)</td></tr>
+<tr><td>48120</td><td>wc26-gpt-oss-120b</td><td>TPP</td><td>quadro1</td><td>2</td><td>2026-07-16 05:34:34</td><td>00:05:10</td><td><span class="st ok">COMPLETED</span></td><td class="note">TPP predictions (chained queue; STAGE lost ',F' to the sbatch comma bug)</td></tr>
+<tr><td>48122</td><td>wc26-predict</td><td></td><td>orion</td><td>0</td><td>2026-07-16 04:57:51</td><td>00:00:17</td><td><span class="st ok">COMPLETED</span></td><td class="note"></td></tr>
+<tr><td>48123</td><td>wc26-gpt-oss-20b</td><td>F</td><td>quadro1</td><td>1</td><td>2026-07-16 05:39:44</td><td>00:01:26</td><td><span class="st ok">COMPLETED</span></td><td class="note">Final predictions (chained behind the TPP queue via --after)</td></tr>
+<tr><td>48124</td><td>wc26-gemma4-26b</td><td>F</td><td>quadro1</td><td>1</td><td>2026-07-16 05:41:10</td><td>00:32:04</td><td><span class="st ok">COMPLETED</span></td><td class="note">Final predictions (chained behind the TPP queue via --after)</td></tr>
+<tr><td>48125</td><td>wc26-deepseek-r1-32b</td><td>F</td><td>quadro1</td><td>1</td><td>2026-07-16 06:13:14</td><td>00:07:20</td><td><span class="st ok">COMPLETED</span></td><td class="note">Final predictions (chained behind the TPP queue via --after)</td></tr>
+<tr><td>48126</td><td>wc26-glm-4.7-flash</td><td>F</td><td>quadro1</td><td>1</td><td>2026-07-16 06:20:34</td><td>00:03:56</td><td><span class="st ok">COMPLETED</span></td><td class="note">Final predictions (chained behind the TPP queue via --after)</td></tr>
+<tr><td>48127</td><td>wc26-mistral-small3.2</td><td>F</td><td>quadro1</td><td>1</td><td>2026-07-16 06:24:30</td><td>00:00:57</td><td><span class="st ok">COMPLETED</span></td><td class="note">Final predictions (chained behind the TPP queue via --after)</td></tr>
+<tr><td>48128</td><td>wc26-qwen3.6-35b</td><td>F</td><td>quadro1</td><td>1</td><td>2026-07-16 06:25:27</td><td>00:06:07</td><td><span class="st ok">COMPLETED</span></td><td class="note">Final predictions (chained behind the TPP queue via --after)</td></tr>
+<tr><td>48129</td><td>wc26-phi4-14b</td><td>F</td><td>quadro1</td><td>1</td><td>2026-07-16 06:31:34</td><td>00:00:52</td><td><span class="st ok">COMPLETED</span></td><td class="note">Final predictions (chained behind the TPP queue via --after)</td></tr>
+<tr><td>48130</td><td>wc26-llama3.1-8b</td><td>F</td><td>quadro1</td><td>1</td><td>2026-07-16 06:32:26</td><td>00:00:50</td><td><span class="st ok">COMPLETED</span></td><td class="note">Final predictions (chained behind the TPP queue via --after)</td></tr>
+<tr><td>48131</td><td>wc26-llama3.2-3b</td><td>F</td><td>quadro1</td><td>1</td><td>2026-07-16 06:33:16</td><td>00:00:33</td><td><span class="st ok">COMPLETED</span></td><td class="note">Final predictions (chained behind the TPP queue via --after)</td></tr>
+<tr><td>48132</td><td>wc26-llama3.3-70b</td><td>F</td><td>quadro1</td><td>2</td><td>2026-07-16 06:33:49</td><td>00:01:52</td><td><span class="st ok">COMPLETED</span></td><td class="note">Final predictions (chained behind the TPP queue via --after)</td></tr>
+<tr><td>48133</td><td>wc26-gpt-oss-120b</td><td>F</td><td>quadro1</td><td>2</td><td>2026-07-16 06:35:41</td><td>00:01:59</td><td><span class="st ok">COMPLETED</span></td><td class="note">Final predictions (chained behind the TPP queue via --after)</td></tr>
+<tr><td>48135</td><td>wc26-llm</td><td></td><td>quadro1</td><td>1</td><td>2026-07-16 05:13:02</td><td>00:03:06</td><td><span class="st ok">COMPLETED</span></td><td class="note"></td></tr>
+<tr><td>48136</td><td>wc26-predict</td><td></td><td>orion</td><td>0</td><td>2026-07-16 05:16:28</td><td>00:00:18</td><td><span class="st ok">COMPLETED</span></td><td class="note"></td></tr>
+</tbody>
+    </table>
+  </div>
+  <p style="font-size:12.5px; color:var(--muted); margin:8px 2px">SLURM node names vs hostnames: orion=ai01, tesla1=ai02, quadro1=ai04, quadro2=ai05 (hostnames appear inside job logs). Jobs marked <i>Aux</i> were submitted by the dashboard-dev session from outside this repo, so their stdout files are not under <code>logs/slurm/</code>.</p>
+</section>
+
+<section>
+  <div class="sechead"><h2>Quarter-finals — predictions vs reality</h2><span class="sub">aggregated call per model · points = category + advance bonus · QF3/QF4 were 1-1 after 90' (ET winners in header)</span></div>
+  <div class="card scroll">
+    <table><tr><th>model</th><th>QF1 · Fra–Mor (act 2–0, Fra adv)</th><th>QF2 · Spa–Bel (act 2–1, Spa adv)</th><th>QF3 · Nor–Eng (act 1–1, Eng adv)</th><th>QF4 · Arg–Swi (act 1–1, Arg adv)</th><th>round pts</th></tr>
+<tr><td class="mdl">deepseek-r1:32b</td><td><b>2–1</b> <span class="adv">adv Fra</span><br><span class="cat tendency">tendency 2+1</span></td><td><b>2–1</b> <span class="adv">adv Spa</span><br><span class="cat exact">exact 4+1</span></td><td><b>1–0</b> <span class="adv">adv Nor</span><br><span class="cat miss">miss 0</span></td><td><b>2–1</b> <span class="adv">adv Arg</span><br><span class="cat miss">miss 0+1</span></td><td class="tot">9</td></tr>
+<tr><td class="mdl">gemma4:26b</td><td><b>1–0</b> <span class="adv">adv Fra</span><br><span class="cat tendency">tendency 2+1</span></td><td><b>1–1</b> <span class="adv">adv Spa</span><br><span class="cat miss">miss 0+1</span></td><td><b>0–0</b> <span class="adv">adv Eng</span><br><span class="cat goaldiff">goal diff 3+1</span></td><td><b>1–0</b> <span class="adv">adv Arg</span><br><span class="cat miss">miss 0+1</span></td><td class="tot">9</td></tr>
+<tr><td class="mdl">glm-4.7-flash</td><td><b>2–1</b> <span class="adv">adv Fra</span><br><span class="cat tendency">tendency 2+1</span></td><td><b>2–1</b> <span class="adv">adv Spa</span><br><span class="cat exact">exact 4+1</span></td><td><b>1–2</b> <span class="adv">adv Eng</span><br><span class="cat miss">miss 0+1</span></td><td><b>2–1</b> <span class="adv">adv Arg</span><br><span class="cat miss">miss 0+1</span></td><td class="tot">10</td></tr>
+<tr><td class="mdl">gpt-oss:120b</td><td><b>2–1</b> <span class="adv">adv Fra</span><br><span class="cat tendency">tendency 2+1</span> <span class="late" title="generated after kickoff (offline inference — cannot know results); see timing audit">⏱ late</span></td><td><b>2–1</b> <span class="adv">adv Spa</span><br><span class="cat exact">exact 4+1</span></td><td><b>1–2</b> <span class="adv">adv Eng</span><br><span class="cat miss">miss 0+1</span></td><td><b>2–1</b> <span class="adv">adv Arg</span><br><span class="cat miss">miss 0+1</span></td><td class="tot">10</td></tr>
+<tr><td class="mdl">gpt-oss:20b</td><td><b>2–1</b> <span class="adv">adv Fra</span><br><span class="cat tendency">tendency 2+1</span></td><td><b>2–1</b> <span class="adv">adv Spa</span><br><span class="cat exact">exact 4+1</span></td><td><b>1–2</b> <span class="adv">adv Eng</span><br><span class="cat miss">miss 0+1</span></td><td><b>2–1</b> <span class="adv">adv Arg</span><br><span class="cat miss">miss 0+1</span></td><td class="tot">10</td></tr>
+<tr><td class="mdl">llama3.1:8b</td><td><b>2–1</b> <span class="adv">adv Fra</span><br><span class="cat tendency">tendency 2+1</span></td><td><b>2–1</b> <span class="adv">adv Spa</span><br><span class="cat exact">exact 4+1</span></td><td><b>2–1</b> <span class="adv">adv Nor</span><br><span class="cat miss">miss 0</span></td><td><b>2–0</b> <span class="adv">adv Arg</span><br><span class="cat miss">miss 0+1</span></td><td class="tot">9</td></tr>
+<tr><td class="mdl">llama3.2:3b</td><td><b>0–0</b> <span class="adv">adv Fra</span><br><span class="cat miss">miss 0+1</span></td><td><b>0–0</b> <span class="adv">adv Spa</span><br><span class="cat miss">miss 0+1</span></td><td><b>0–1</b> <span class="adv">adv Eng</span><br><span class="cat miss">miss 0+1</span></td><td><b>0–0</b> <span class="adv">adv Arg</span><br><span class="cat goaldiff">goal diff 3+1</span></td><td class="tot">7</td></tr>
+<tr><td class="mdl">llama3.3:70b</td><td><b>1–2</b> <span class="adv">adv Mor</span><br><span class="cat miss">miss 0</span> <span class="late" title="generated after kickoff (offline inference — cannot know results); see timing audit">⏱ late</span></td><td><b>1–2</b> <span class="adv">adv Bel</span><br><span class="cat miss">miss 0</span></td><td><b>1–2</b> <span class="adv">adv Eng</span><br><span class="cat miss">miss 0+1</span></td><td><b>2–1</b> <span class="adv">adv Arg</span><br><span class="cat miss">miss 0+1</span></td><td class="tot">2</td></tr>
+<tr><td class="mdl">mistral-small3.2</td><td><b>2–1</b> <span class="adv">adv Fra</span><br><span class="cat tendency">tendency 2+1</span></td><td><b>2–1</b> <span class="adv">adv Spa</span><br><span class="cat exact">exact 4+1</span></td><td><b>1–2</b> <span class="adv">adv Eng</span><br><span class="cat miss">miss 0+1</span></td><td><b>2–1</b> <span class="adv">adv Arg</span><br><span class="cat miss">miss 0+1</span></td><td class="tot">10</td></tr>
+<tr><td class="mdl">phi4:14b</td><td><b>2–1</b> <span class="adv">adv Fra</span><br><span class="cat tendency">tendency 2+1</span></td><td><b>1–2</b> <span class="adv">adv Bel</span><br><span class="cat miss">miss 0</span></td><td><b>1–2</b> <span class="adv">adv Eng</span><br><span class="cat miss">miss 0+1</span></td><td><b>2–1</b> <span class="adv">adv Arg</span><br><span class="cat miss">miss 0+1</span></td><td class="tot">5</td></tr>
+<tr><td class="mdl">qwen3.6:35b</td><td><b>2–1</b> <span class="adv">adv Fra</span><br><span class="cat tendency">tendency 2+1</span></td><td><b>2–1</b> <span class="adv">adv Spa</span><br><span class="cat exact">exact 4+1</span></td><td><b>1–2</b> <span class="adv">adv Eng</span><br><span class="cat miss">miss 0+1</span></td><td><b>2–1</b> <span class="adv">adv Arg</span><br><span class="cat miss">miss 0+1</span></td><td class="tot">10</td></tr></table>
+  </div>
+  <p style="font-size:12.5px; color:var(--muted); margin:8px 2px"><b>Timing audit:</b> every QF record predates its kickoff except llama3.3:70b's QF1 (20:51 UTC, in-play) and gpt-oss:120b's QF1 (Jul 10 03:45 UTC, post-match) — both flagged ⏱ above. Inference is offline (local weights, no retrieval, training cutoffs long before the tournament), so late generations cannot contain results; gpt-oss:120b predicting 2-1 <i>after</i> France had won 2-0 demonstrates exactly that. The full per-seed timestamps are in <code>logs/raw/</code>.</p>
+</section>
+
+<section>
+  <div class="sechead"><h2>Semi-finals — predictions vs reality</h2><span class="sub">all 22 records generated Jul 12, 04:49–06:17 UTC and committed 06:25 — 2.5 days before SF1 kickoff</span></div>
+  <div class="card scroll">
+    <table><tr><th>model</th><th>SF1 · Fra–Spa (act 0–2, Spa adv)</th><th>SF2 · Eng–Arg (act 1–2, Arg adv)</th><th>round pts</th></tr>
+<tr><td class="mdl">deepseek-r1:32b</td><td><b>2–1</b> <span class="adv">adv Fra</span><br><span class="cat miss">miss 0</span></td><td><b>2–1</b> <span class="adv">adv Eng</span><br><span class="cat miss">miss 0</span></td><td class="tot">0</td></tr>
+<tr><td class="mdl">gemma4:26b</td><td><b>3–1</b> <span class="adv">adv Fra</span><br><span class="cat miss">miss 0</span></td><td><b>1–0</b> <span class="adv">adv Eng</span><br><span class="cat miss">miss 0</span></td><td class="tot">0</td></tr>
+<tr><td class="mdl">glm-4.7-flash</td><td><b>1–1</b> <span class="adv">adv Spa</span><br><span class="cat miss">miss 0+1</span></td><td><b>1–2</b> <span class="adv">adv Arg</span><br><span class="cat exact">exact 4+1</span></td><td class="tot">6</td></tr>
+<tr><td class="mdl">gpt-oss:120b</td><td><b>2–1</b> <span class="adv">adv Fra</span><br><span class="cat miss">miss 0</span></td><td><b>2–1</b> <span class="adv">adv Eng</span><br><span class="cat miss">miss 0</span></td><td class="tot">0</td></tr>
+<tr><td class="mdl">gpt-oss:20b</td><td><b>2–1</b> <span class="adv">adv Fra</span><br><span class="cat miss">miss 0</span></td><td><b>1–2</b> <span class="adv">adv Arg</span><br><span class="cat exact">exact 4+1</span></td><td class="tot">5</td></tr>
+<tr><td class="mdl">llama3.1:8b</td><td><b>2–1</b> <span class="adv">adv Fra</span><br><span class="cat miss">miss 0</span></td><td><b>2–1</b> <span class="adv">adv Eng</span><br><span class="cat miss">miss 0</span></td><td class="tot">0</td></tr>
+<tr><td class="mdl">llama3.2:3b</td><td><b>0–0</b> <span class="adv">adv Fra</span><br><span class="cat miss">miss 0</span></td><td><b>0–0</b> <span class="adv">adv Eng</span><br><span class="cat miss">miss 0</span></td><td class="tot">0</td></tr>
+<tr><td class="mdl">llama3.3:70b</td><td><b>1–2</b> <span class="adv">adv Spa</span><br><span class="cat tendency">tendency 2+1</span></td><td><b>1–2</b> <span class="adv">adv Arg</span><br><span class="cat exact">exact 4+1</span></td><td class="tot">8</td></tr>
+<tr><td class="mdl">mistral-small3.2</td><td><b>2–1</b> <span class="adv">adv Fra</span><br><span class="cat miss">miss 0</span></td><td><b>2–1</b> <span class="adv">adv Eng</span><br><span class="cat miss">miss 0</span></td><td class="tot">0</td></tr>
+<tr><td class="mdl">phi4:14b</td><td><b>2–1</b> <span class="adv">adv Fra</span><br><span class="cat miss">miss 0</span></td><td><b>1–2</b> <span class="adv">adv Arg</span><br><span class="cat exact">exact 4+1</span></td><td class="tot">5</td></tr>
+<tr><td class="mdl">qwen3.6:35b</td><td><b>1–1</b> <span class="adv">adv Spa</span><br><span class="cat miss">miss 0+1</span></td><td><b>1–1</b> <span class="adv">adv Arg</span><br><span class="cat miss">miss 0+1</span></td><td class="tot">2</td></tr></table>
+  </div>
+</section>
+
+<section>
+  <div class="sechead"><h2 id="lb-title">Final leaderboard — all 8 matches</h2><span class="sub">rank = points, then mean RPS (lower = better-calibrated sample distribution)</span></div>
+  <div class="card scroll">
+    <table>
+      <thead><tr><th>#</th><th>model</th><th>pts</th><th>exact</th><th>goal diff</th><th>tendency</th><th>miss</th><th>adv bonus</th><th>mean RPS</th><th>mean Brier</th><th>MAE goals</th></tr></thead>
+      <tbody id="lb-body">
+<tr><td>1</td><td class="mdl">qwen3.6:35b</td><td class="tot">18</td><td>1</td><td>1</td><td>2</td><td>4</td><td>7</td><td>0.1963</td><td>0.7438</td><td>1.625</td></tr>
+<tr><td>2</td><td class="mdl">glm-4.7-flash</td><td class="tot">16</td><td>2</td><td>0</td><td>1</td><td>5</td><td>6</td><td>0.2531</td><td>0.8285</td><td>1.625</td></tr>
+<tr><td>3</td><td class="mdl">gpt-oss:20b</td><td class="tot">16</td><td>2</td><td>0</td><td>1</td><td>5</td><td>6</td><td>0.3223</td><td>0.9545</td><td>1.75</td></tr>
+<tr><td>4</td><td class="mdl">gemma4:26b</td><td class="tot">16</td><td>0</td><td>2</td><td>2</td><td>4</td><td>6</td><td>0.376</td><td>1.0352</td><td>2.25</td></tr>
+<tr><td>5</td><td class="mdl">phi4:14b</td><td class="tot">14</td><td>1</td><td>0</td><td>2</td><td>5</td><td>6</td><td>0.2908</td><td>0.9566</td><td>1.75</td></tr>
+<tr><td>6</td><td class="mdl">llama3.2:3b</td><td class="tot">12</td><td>1</td><td>1</td><td>0</td><td>6</td><td>5</td><td>0.2154</td><td>0.7831</td><td>2.875</td></tr>
+<tr><td>7</td><td class="mdl">llama3.3:70b</td><td class="tot">11</td><td>1</td><td>0</td><td>1</td><td>6</td><td>5</td><td>0.4778</td><td>1.3306</td><td>1.75</td></tr>
+<tr><td>8</td><td class="mdl">gpt-oss:120b</td><td class="tot">11</td><td>1</td><td>0</td><td>1</td><td>6</td><td>5</td><td>0.5052</td><td>1.3864</td><td>1.75</td></tr>
+<tr><td>9</td><td class="mdl">mistral-small3.2</td><td class="tot">11</td><td>1</td><td>0</td><td>1</td><td>6</td><td>5</td><td>0.5098</td><td>1.3946</td><td>1.75</td></tr>
+<tr><td>10</td><td class="mdl">deepseek-r1:32b</td><td class="tot">10</td><td>1</td><td>0</td><td>1</td><td>6</td><td>4</td><td>0.4881</td><td>1.3079</td><td>1.5</td></tr>
+<tr><td>11</td><td class="mdl">llama3.1:8b</td><td class="tot">10</td><td>1</td><td>0</td><td>1</td><td>6</td><td>4</td><td>0.5315</td><td>1.438</td><td>1.625</td></tr>
+</tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <div class="sechead"><h2>Incidents &amp; lessons</h2><span class="sub">what actually went wrong, and what it taught us</span></div>
+  <div class="card pad">
+    <div class="lesson"><b>1 · Ollama renamed its release asset</b><p>The old <code>ollama-linux-amd64.tgz</code> URL 404s; releases now ship <code>.tar.zst</code>. Fix: pin <code>OLLAMA_VERSION=v0.31.1</code> in scripts/env.sh and record it in every run's metadata — reproducibility and resilience in one move.</p></div>
+    <div class="lesson"><b>2 · A library listing is not a downloadable model</b><p>glm-5.2 (756B) and minimax-m2.7 (229B) exist on ollama.com but only as <code>:cloud</code> tags — inference happens on Ollama's servers, no weights to pull. minimax cost one 102-second job (45428) to confirm empirically. Local-only benchmark ⇒ both are out of scope.</p></div>
+    <div class="lesson"><b>3 · Backfill beats priority on a saturated cluster</b><p>The QF queue stalled ~17 h behind multi-day jobs. What got us through before kickoff: parallel submission, 1-GPU jobs, honest short time limits — the SLURM backfill scheduler slots those into gaps that big pending jobs can't use.</p></div>
+    <div class="lesson"><b>4 · Structured outputs fail differently per model</b><p>gemma4:26b produced 93 unparseable generations across QF+SF (some matches aggregated from as few as 4 of 11 seeds); every failure is preserved in <code>logs/raw/gemma4_26b/</code> with <code>parse_ok:false</code>. Retries + a balanced-brace fallback parser kept the pipeline whole.</p></div>
+    <div class="lesson"><b>5 · Progress bars are log poison</b><p><code>ollama pull</code> writes thousands of carriage-return animation frames; one prefetch log hit 12 MB and stalled <code>git add</code> past a 2-minute timeout on NFS. Fix: strip <code>\r</code>-frames from job logs before committing.</p></div>
+    <div class="lesson"><b>6 · "Nothing to run" is a feature, but it needs eyes</b><p>predict.py silently skips TBD matches so you can never predict a fixture that doesn't exist yet — but that means a forgotten matches.json edit yields 11 green jobs and zero output (Jul 15, jobs 48065–48075). The bracket must be advanced by hand after each round; that's step 5 of the RUNBOOK.</p></div>
+    <div class="lesson"><b>7 · Check the clock before auditing timestamps</b><p>The entire cluster runs on UTC (<code>date</code> = <code>date -u</code> on the login node; job-script <code>date -u</code> agrees with sacct). So JSONL <code>ts</code>, sacct times, and file mtimes are directly comparable to kickoff times — no timezone gymnastics in the timing audit.</p></div>
+    <div class="lesson"><b>8 · sbatch --export eats commas</b><p><code>--export=ALL,STAGE=TPP,F</code> is parsed as three comma-separated tokens, so <code>STAGE</code> silently truncates to <code>TPP</code> and the Final was never predicted (caught Jul 16 by reading job 48110's log — clean exit codes hide this class of bug; logs don't). Fix: use a comma-free separator (<code>TPP+F</code>) in exported values. General rule: any value passed through <code>--export</code> must not contain commas.</p></div>
+  </div>
+</section>
+
+<footer class="wrap" style="padding-left:0;padding-right:0">
+  Static snapshot generated 2026-07-16 ~05:00 UTC by the Claude Code session that operates this pipeline ·
+  live numbers on the <a href="./">dashboard</a> ·
+  reproduce anything via the <a href="https://github.com/enamcse/FIFA-World-Cup-2026-LLM-Predictions-QF-F/blob/main/docs/RUNBOOK.md">RUNBOOK</a> ·
+  raw evidence in <a href="https://github.com/enamcse/FIFA-World-Cup-2026-LLM-Predictions-QF-F/tree/main/logs">logs/</a> and
+  <a href="https://github.com/enamcse/FIFA-World-Cup-2026-LLM-Predictions-QF-F/tree/main/results">results/</a>
+</footer>
+
+</main>
+<script>
+const root=document.documentElement;
+function applyTheme(t){ root.dataset.theme=t; localStorage.setItem("wc26theme",t); }
+applyTheme(localStorage.getItem("wc26theme") ||
+  (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"));
+document.getElementById("themebtn").onclick=()=>applyTheme(root.dataset.theme==="dark"?"light":"dark");
+</script>
+</body>
+</html>
