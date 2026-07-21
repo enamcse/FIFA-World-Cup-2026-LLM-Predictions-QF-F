@@ -69,7 +69,9 @@ def replace_between(page, start_marker, end_marker, new, count_from=None):
 
 page = replace_between(page, '<tbody id="jobs-body">', "</tbody>", "\n".join(job_rows))
 page = replace_between(page, '<tbody id="lb-body">', "</tbody>", "\n".join(lb_rows))
-page = re.sub(r'(<h2 id="lb-title">)[^<]*', rf'\g<1>Leaderboard after {n_scored} of 8 matches', page)
+lb_title = "Final leaderboard — all 8 matches" if n_scored == 8 else f"Leaderboard after {n_scored} of 8 matches"
+leader_label = f"tournament winner · {lb[0]['points']} pts" if n_scored == 8 else f"leader after {n_scored} matches · {lb[0]['points']} pts"
+page = re.sub(r'(<h2 id="lb-title">)[^<]*', rf'\g<1>{lb_title}', page)
 page = re.sub(r'(<div class="num" id="kpi-matches">)[^<]*', rf'\g<1>{n_scored} / 8', page)
 page = re.sub(r'(<div class="num" id="kpi-jobs">)[^<]*', rf'\g<1>{len(job_rows)}', page)
 n_gens = sum(1 for p in os.listdir("results/predictions") if p.endswith(".jsonl"))
@@ -79,8 +81,7 @@ page = re.sub(r'(<div class="num" id="kpi-gens">)[^<]*', rf'\g<1>{n_preds * 11}'
 page = re.sub(r'(<div class="label">logged generations )[^<]*',
               rf'\g<1>({n_preds} × 11 seeds)', page)
 page = re.sub(r'(<div class="num" id="kpi-leader">)[^<]*', rf'\g<1>{lb[0]["model"]}', page)
-page = re.sub(r'(<div class="label" id="kpi-leader-label">)[^<]*',
-              rf'\g<1>leader after {n_scored} matches · {lb[0]["points"]} pts', page)
+page = re.sub(r'(<div class="label" id="kpi-leader-label">)[^<]*', rf'\g<1>{leader_label}', page)
 
 open("runlog.html", "w").write(page)
 print(f"runlog.html refreshed: {len(job_rows)} jobs, {len(lb_rows)} leaderboard rows, "

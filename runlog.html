@@ -108,12 +108,12 @@ footer{margin:44px 0 30px; padding-top:16px; border-top:1px solid var(--border);
 <main class="wrap">
 
 <div class="kpis">
-  <div class="kpi"><div class="num" id="kpi-matches">7 / 8</div><div class="label">matches predicted &amp; scored</div></div>
+  <div class="kpi"><div class="num" id="kpi-matches">8 / 8</div><div class="label">matches predicted &amp; scored</div></div>
   <div class="kpi"><div class="num">11</div><div class="label">models benchmarked (all local via Ollama)</div></div>
   <div class="kpi"><div class="num" id="kpi-jobs">66</div><div class="label">SLURM jobs since Jul 8</div></div>
   <div class="kpi"><div class="num">≈9</div><div class="label">GPU·hours of inference, QF → Final</div></div>
   <div class="kpi"><div class="num" id="kpi-gens">968</div><div class="label">logged generations (88 × 11 seeds)</div></div>
-  <div class="kpi"><div class="num" id="kpi-leader">glm-4.7-flash</div><div class="label" id="kpi-leader-label">leader after 7 matches · 16 pts</div></div>
+  <div class="kpi"><div class="num" id="kpi-leader">qwen3.6:35b</div><div class="label" id="kpi-leader-label">tournament winner · 18 pts</div></div>
 </div>
 
 <section>
@@ -193,7 +193,8 @@ options: num_ctx 8192 · num_predict 4096
     <li><div class="when">Jul 16 · 04:51–06:37</div><div class="what"><b>TPP + Final predictions generated</b>: the TPP chain (48110–48120) and Final chain (48123–48133) drained in under two hours — every record's <code>ts</code> is in this window, 2.5 days before the third-place match. TPP consensus: 2-1 France (7 models); gemma4, phi4 and qwen3.6 back England 1-2. Final: eight models back Spain (mostly 2-1); glm-4.7-flash alone calls 1-2 Argentina; qwen3.6 says 1-1, Argentina on penalties.</div></li>
     <li class="incident"><div class="when">Jul 18 · 21:00</div><div class="what"><b>Third place: France 4-6 England</b> — a ten-goal all-regulation classic (Saka hat-trick, Bellingham 90'+8). No model came close to the scoreline; the three England-backers take tendency+advance (3 pts each). Bookkeeping slip: the TPP/F prediction records had sat <b>uncommitted</b> since Jul 16 — the TPP round therefore isn't commit-stamped before its kickoff, and rests on generation timestamps + SLURM accounting instead (offline inference, as always).</div></li>
     <li class="milestone"><div class="when">Jul 19 · 01:00</div><div class="what"><b>Final pre-registered</b>: all TPP/F predictions, TPP actuals, and the 7-match leaderboard committed and pushed — 18 hours before the Final (Spain vs Argentina, 19:00 UTC, MetLife). Title race: glm-4.7-flash 16 · qwen3.6:35b 15 · gpt-oss:20b 15, and their divergent Final picks (1-2 Argentina / 1-1 Arg / 2-1 Spain) mean the benchmark title is decided on the pitch.</div></li>
-    <li><div class="when">next</div><div class="what"><b>After the Final</b>: fill the F row of actuals.json (90-minute score — stoppage time counts, extra time doesn't), run <code>python3 src/score.py</code>, refresh this page with <code>python3 scripts/update_runlog.py</code>, commit, push. The dashboard and this chronicle update on push.</div></li>
+    <li class="milestone"><div class="when">Jul 19 · 19:00–~22:00</div><div class="what"><b>Final: Spain 1-0 Argentina</b>, 0-0 after 90 minutes — Ferran Torres won it in the 106th minute of extra time. <b>llama3.2:3b called the exact 90' score (0-0) and the correct advancer</b>, its only exact hit of the tournament and the single best individual call in the Final round. Only two other models (gemma4:26b, qwen3.6:35b) had the right goal difference (both said 1-1); every "2-1 Spain" pick — the majority — missed the tendency entirely once the match stayed goalless through regulation.</div></li>
+    <li class="milestone"><div class="when">Jul 21 · 22:xx</div><div class="what"><b>Tournament scored, final leaderboard: qwen3.6:35b wins</b> (18 pts) — its 1-1 Final pick's correct goal-difference was worth more than the "Spain to win" consensus almost everyone else backed. glm-4.7-flash, gpt-oss:20b, and gemma4:26b tie for 2nd at 16. All 8 matches now scored; this page and the dashboard are final.</div></li>
   </ul>
   </div>
 </section>
@@ -314,22 +315,22 @@ options: num_ctx 8192 · num_predict 4096
 </section>
 
 <section>
-  <div class="sechead"><h2 id="lb-title">Leaderboard after 7 of 8 matches</h2><span class="sub">rank = points, then mean RPS (lower = better-calibrated sample distribution)</span></div>
+  <div class="sechead"><h2 id="lb-title">Final leaderboard — all 8 matches</h2><span class="sub">rank = points, then mean RPS (lower = better-calibrated sample distribution)</span></div>
   <div class="card scroll">
     <table>
       <thead><tr><th>#</th><th>model</th><th>pts</th><th>exact</th><th>goal diff</th><th>tendency</th><th>miss</th><th>adv bonus</th><th>mean RPS</th><th>mean Brier</th><th>MAE goals</th></tr></thead>
       <tbody id="lb-body">
-<tr><td>1</td><td class="mdl">glm-4.7-flash</td><td class="tot">16</td><td>2</td><td>0</td><td>1</td><td>4</td><td>6</td><td>0.2739</td><td>0.8737</td><td>1.429</td></tr>
-<tr><td>2</td><td class="mdl">qwen3.6:35b</td><td class="tot">15</td><td>1</td><td>0</td><td>2</td><td>4</td><td>7</td><td>0.2237</td><td>0.8477</td><td>1.571</td></tr>
-<tr><td>3</td><td class="mdl">gpt-oss:20b</td><td class="tot">15</td><td>2</td><td>0</td><td>1</td><td>4</td><td>5</td><td>0.3377</td><td>0.9115</td><td>1.571</td></tr>
-<tr><td>4</td><td class="mdl">phi4:14b</td><td class="tot">13</td><td>1</td><td>0</td><td>2</td><td>4</td><td>5</td><td>0.2963</td><td>0.8784</td><td>1.571</td></tr>
-<tr><td>5</td><td class="mdl">gemma4:26b</td><td class="tot">12</td><td>0</td><td>1</td><td>2</td><td>4</td><td>5</td><td>0.4074</td><td>1.058</td><td>2.286</td></tr>
-<tr><td>6</td><td class="mdl">llama3.3:70b</td><td class="tot">10</td><td>1</td><td>0</td><td>1</td><td>5</td><td>4</td><td>0.4864</td><td>1.2586</td><td>1.571</td></tr>
-<tr><td>7</td><td class="mdl">gpt-oss:120b</td><td class="tot">10</td><td>1</td><td>0</td><td>1</td><td>5</td><td>4</td><td>0.5342</td><td>1.3554</td><td>1.571</td></tr>
-<tr><td>8</td><td class="mdl">mistral-small3.2</td><td class="tot">10</td><td>1</td><td>0</td><td>1</td><td>5</td><td>4</td><td>0.5466</td><td>1.379</td><td>1.571</td></tr>
-<tr><td>9</td><td class="mdl">deepseek-r1:32b</td><td class="tot">9</td><td>1</td><td>0</td><td>1</td><td>5</td><td>3</td><td>0.5094</td><td>1.2798</td><td>1.571</td></tr>
-<tr><td>10</td><td class="mdl">llama3.1:8b</td><td class="tot">9</td><td>1</td><td>0</td><td>1</td><td>5</td><td>3</td><td>0.536</td><td>1.3577</td><td>1.429</td></tr>
-<tr><td>11</td><td class="mdl">llama3.2:3b</td><td class="tot">7</td><td>0</td><td>1</td><td>0</td><td>6</td><td>4</td><td>0.2385</td><td>0.8501</td><td>3.286</td></tr>
+<tr><td>1</td><td class="mdl">qwen3.6:35b</td><td class="tot">18</td><td>1</td><td>1</td><td>2</td><td>4</td><td>7</td><td>0.1963</td><td>0.7438</td><td>1.625</td></tr>
+<tr><td>2</td><td class="mdl">glm-4.7-flash</td><td class="tot">16</td><td>2</td><td>0</td><td>1</td><td>5</td><td>6</td><td>0.2531</td><td>0.8285</td><td>1.625</td></tr>
+<tr><td>3</td><td class="mdl">gpt-oss:20b</td><td class="tot">16</td><td>2</td><td>0</td><td>1</td><td>5</td><td>6</td><td>0.3223</td><td>0.9545</td><td>1.75</td></tr>
+<tr><td>4</td><td class="mdl">gemma4:26b</td><td class="tot">16</td><td>0</td><td>2</td><td>2</td><td>4</td><td>6</td><td>0.376</td><td>1.0352</td><td>2.25</td></tr>
+<tr><td>5</td><td class="mdl">phi4:14b</td><td class="tot">14</td><td>1</td><td>0</td><td>2</td><td>5</td><td>6</td><td>0.2908</td><td>0.9566</td><td>1.75</td></tr>
+<tr><td>6</td><td class="mdl">llama3.2:3b</td><td class="tot">12</td><td>1</td><td>1</td><td>0</td><td>6</td><td>5</td><td>0.2154</td><td>0.7831</td><td>2.875</td></tr>
+<tr><td>7</td><td class="mdl">llama3.3:70b</td><td class="tot">11</td><td>1</td><td>0</td><td>1</td><td>6</td><td>5</td><td>0.4778</td><td>1.3306</td><td>1.75</td></tr>
+<tr><td>8</td><td class="mdl">gpt-oss:120b</td><td class="tot">11</td><td>1</td><td>0</td><td>1</td><td>6</td><td>5</td><td>0.5052</td><td>1.3864</td><td>1.75</td></tr>
+<tr><td>9</td><td class="mdl">mistral-small3.2</td><td class="tot">11</td><td>1</td><td>0</td><td>1</td><td>6</td><td>5</td><td>0.5098</td><td>1.3946</td><td>1.75</td></tr>
+<tr><td>10</td><td class="mdl">deepseek-r1:32b</td><td class="tot">10</td><td>1</td><td>0</td><td>1</td><td>6</td><td>4</td><td>0.4881</td><td>1.3079</td><td>1.5</td></tr>
+<tr><td>11</td><td class="mdl">llama3.1:8b</td><td class="tot">10</td><td>1</td><td>0</td><td>1</td><td>6</td><td>4</td><td>0.5315</td><td>1.438</td><td>1.625</td></tr>
 </tbody>
     </table>
   </div>
