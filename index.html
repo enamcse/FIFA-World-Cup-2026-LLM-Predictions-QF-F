@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WC2026 · LLM Prediction Benchmark</title>
+<meta name="description" content="Benchmarking open-weight LLMs on predicting the FIFA World Cup 2026 knockout rounds — live leaderboard, per-match breakdowns, and semi-final predictions.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚽</text></svg>">
+<style>
+:root{
+  --page:#f9f9f7; --surface:#fcfcfb; --ink:#0b0b0b; --ink2:#52514e; --muted:#898781;
+  --grid:#e1e0d9; --border:rgba(11,11,11,.10); --baseline:#c3c2b7;
+  --s1:#2a78d6; --s2:#1baf7a; --s3:#eda100;
+  --home:#2a78d6; --draw:#9a9891; --away:#eb6834;
+  --cat-exact:#0ca30c; --cat-gd:#2a78d6; --cat-tend:#eda100; --cat-miss:#d03b3b;
+  --good-text:#006300;
+  --chip-exact-bg:rgba(12,163,12,.12); --chip-gd-bg:rgba(42,120,214,.12);
+  --chip-tend-bg:rgba(237,161,0,.15); --chip-miss-bg:rgba(208,59,59,.12);
+  --shadow:0 1px 2px rgba(11,11,11,.04);
+}
+:root[data-theme="dark"]{
+  --page:#0d0d0d; --surface:#1a1a19; --ink:#ffffff; --ink2:#c3c2b7; --muted:#898781;
+  --grid:#2c2c2a; --border:rgba(255,255,255,.10); --baseline:#383835;
+  --s1:#3987e5; --s2:#199e70; --s3:#c98500;
+  --home:#3987e5; --draw:#77756e; --away:#d95926;
+  --cat-exact:#0ca30c; --cat-gd:#3987e5; --cat-tend:#c98500; --cat-miss:#d03b3b;
+  --good-text:#0ca30c;
+  --chip-exact-bg:rgba(12,163,12,.18); --chip-gd-bg:rgba(57,135,229,.18);
+  --chip-tend-bg:rgba(201,133,0,.20); --chip-miss-bg:rgba(208,59,59,.18);
+  --shadow:none;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--page); color:var(--ink);
+  font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--s1); text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:1120px; margin:0 auto; padding:0 20px}
+
+/* ---------- header ---------- */
+header{border-bottom:1px solid var(--border); background:var(--surface)}
+.topbar{display:flex; align-items:center; gap:14px; padding:18px 0; flex-wrap:wrap}
+.mark{font-size:26px; line-height:1}
+.titleblock h1{font-size:19px; margin:0; font-weight:650; letter-spacing:-.01em}
+.titleblock p{margin:2px 0 0; font-size:13px; color:var(--ink2)}
+.topbar .spacer{flex:1}
+.iconbtn{
+  border:1px solid var(--border); background:var(--surface); color:var(--ink2);
+  border-radius:8px; padding:7px 12px; font:inherit; font-size:13px; cursor:pointer;
+}
+.iconbtn:hover{color:var(--ink); border-color:var(--baseline)}
+
+/* ---------- sections ---------- */
+section{margin:34px 0}
+.sechead{display:flex; align-items:baseline; gap:10px; margin-bottom:14px}
+.sechead h2{font-size:16px; font-weight:650; margin:0; letter-spacing:-.01em}
+.sechead .sub{font-size:13px; color:var(--muted)}
+.card{
+  background:var(--surface); border:1px solid var(--border); border-radius:12px;
+  box-shadow:var(--shadow);
+}
+
+/* ---------- KPI row ---------- */
+.kpis{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px; margin-top:26px}
+.kpi{padding:16px 18px}
+.kpi .label{font-size:12.5px; color:var(--ink2)}
+.kpi .value{font-size:30px; font-weight:650; letter-spacing:-.02em; margin-top:2px; line-height:1.15}
+.kpi .value .unit{font-size:15px; font-weight:500; color:var(--muted)}
+.kpi .sub{font-size:12.5px; color:var(--muted); margin-top:4px}
+
+/* ---------- bracket ---------- */
+.bracket{display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px}
+.bracket .col{display:flex; flex-direction:column; gap:12px; justify-content:center}
+.bracket .colhead{font-size:12px; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); text-align:center; margin-bottom:-2px}
+.match{padding:10px 12px; cursor:pointer; transition:border-color .15s}
+.match:hover{border-color:var(--baseline)}
+.match .mhead{display:flex; justify-content:space-between; font-size:11.5px; color:var(--muted); margin-bottom:6px}
+.match .trow{display:flex; align-items:center; gap:8px; padding:3px 0; font-size:14px}
+.match .trow .flag{width:20px; text-align:center}
+.match .trow .tname{flex:1; color:var(--ink2)}
+.match .trow.winner .tname{color:var(--ink); font-weight:650}
+.match .trow .score{font-weight:650; font-variant-numeric:tabular-nums; min-width:14px; text-align:right; color:var(--ink)}
+.match .mfoot{font-size:11.5px; color:var(--muted); margin-top:6px; border-top:1px solid var(--grid); padding-top:6px}
+.match .mfoot .adv{color:var(--good-text); font-weight:550}
+@media (max-width:760px){ .bracket{grid-template-columns:1fr} }
+
+/* ---------- leaderboard table ---------- */
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse; width:100%; font-size:13.5px}
+th{
+  text-align:left; font-size:11.5px; text-transform:uppercase; letter-spacing:.05em;
+  color:var(--muted); font-weight:550; padding:10px 12px; border-bottom:1px solid var(--grid);
+  white-space:nowrap;
+}
+th.num, td.num{text-align:right; font-variant-numeric:tabular-nums}
+td{padding:9px 12px; border-bottom:1px solid var(--grid); white-space:nowrap; vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tbody tr:hover{background:color-mix(in srgb, var(--s1) 4%, transparent)}
+.rank{color:var(--muted); font-variant-numeric:tabular-nums}
+.modelname{font-weight:600}
+.modelname .medal{margin-right:5px}
+.ptsbarwrap{display:flex; align-items:center; gap:8px}
+.ptsbar{height:8px; border-radius:0 4px 4px 0; background:var(--s1); min-width:2px}
+.ptsval{font-weight:650; font-variant-numeric:tabular-nums; min-width:20px}
+.mixbar{display:flex; height:10px; width:120px; gap:2px}
+.mixbar span{border-radius:2px}
+.mix-exact{background:var(--cat-exact)} .mix-gd{background:var(--cat-gd)}
+.mix-tend{background:var(--cat-tend)} .mix-miss{background:var(--cat-miss)}
+.legendrow{display:flex; gap:16px; flex-wrap:wrap; padding:12px 16px 4px; font-size:12.5px; color:var(--ink2)}
+.legendrow .key{display:flex; align-items:center; gap:6px}
+.dot{width:9px; height:9px; border-radius:50%; display:inline-block}
+
+/* ---------- heatmap ---------- */
+.heatwrap{padding:16px; overflow-x:auto}
+.heat{border-collapse:separate; border-spacing:3px; font-size:13px}
+.heat th{border:none; padding:4px 8px; text-transform:none; letter-spacing:0; font-size:12px}
+.heat th.rowh{text-align:right; color:var(--ink2); font-weight:550; padding-right:10px}
+.heat th.colh{text-align:center; color:var(--muted)}
+.heat td{
+  border:none; width:64px; min-width:56px; height:38px; text-align:center; border-radius:6px;
+  font-weight:650; font-variant-numeric:tabular-nums; cursor:default;
+}
+.heat td.pendingcell{
+  background:transparent; border:1px dashed var(--grid); color:var(--muted); font-weight:500; font-size:12px;
+}
+.heatfoot{padding:2px 16px 14px; font-size:12.5px; color:var(--muted); display:flex; gap:14px; flex-wrap:wrap; align-items:center}
+.rampkey{display:flex; align-items:center; gap:4px}
+.rampkey i{width:16px; height:10px; border-radius:2px; display:inline-block}
+
+/* ---------- match explorer ---------- */
+.tabs{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:14px}
+.tab{
+  border:1px solid var(--border); background:var(--surface); color:var(--ink2);
+  padding:7px 14px; border-radius:20px; font:inherit; font-size:13px; cursor:pointer;
+}
+.tab:hover{border-color:var(--baseline); color:var(--ink)}
+.tab.active{background:var(--ink); color:var(--page); border-color:var(--ink); font-weight:600}
+.tab:disabled{opacity:.45; cursor:not-allowed}
+.tab .tabsub{font-size:10.5px; opacity:.75; display:block; line-height:1.1}
+.matchhead{display:flex; flex-wrap:wrap; align-items:center; gap:10px 22px; padding:18px 20px; border-bottom:1px solid var(--grid)}
+.matchhead .teams{font-size:20px; font-weight:650; letter-spacing:-.01em}
+.matchhead .bigscore{font-size:20px; font-weight:650; font-variant-numeric:tabular-nums}
+.matchhead .meta{font-size:13px; color:var(--muted)}
+.statuschip{font-size:12px; padding:3px 10px; border-radius:12px; font-weight:550}
+.status-final{background:var(--chip-exact-bg); color:var(--good-text)}
+.status-up{background:var(--chip-gd-bg); color:var(--s1)}
+.consensus{padding:12px 20px; border-bottom:1px solid var(--grid); font-size:13.5px; color:var(--ink2)}
+.consensus b{color:var(--ink)}
+
+.catchip{display:inline-flex; align-items:center; gap:6px; font-size:12px; font-weight:550; padding:3px 9px; border-radius:11px; color:var(--ink)}
+.cat-exact{background:var(--chip-exact-bg)} .cat-goal_diff{background:var(--chip-gd-bg)}
+.cat-tendency{background:var(--chip-tend-bg)} .cat-miss{background:var(--chip-miss-bg)}
+.bonuschip{font-size:11.5px; color:var(--good-text); font-weight:600; margin-left:6px}
+.advpick{font-size:13px}
+.advpick .ok{color:var(--good-text); font-weight:600}
+.advpick .no{color:var(--cat-miss); font-weight:600}
+
+.probbar{display:flex; width:170px; height:14px; gap:2px; border-radius:3px}
+.probbar span{display:flex; align-items:center; justify-content:center; font-size:9.5px; font-weight:650; border-radius:2px; overflow:hidden; min-width:0}
+.probbar .ph{background:var(--home)} .probbar .pd{background:var(--draw)} .probbar .pa{background:var(--away)}
+.probmark{font-size:10px; line-height:1; text-align:center; width:170px; height:11px; position:relative; color:var(--ink2)}
+.probmark i{position:absolute; top:0; transform:translateX(-50%); font-style:normal}
+.agree{display:inline-flex; align-items:center; gap:7px}
+.agreetrack{width:64px; height:7px; border-radius:4px; background:color-mix(in srgb, var(--s1) 18%, transparent)}
+.agreetrack i{display:block; height:100%; border-radius:4px; background:var(--s1)}
+
+/* ---------- rules / methodology ---------- */
+.duo{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+@media (max-width:760px){ .duo{grid-template-columns:1fr} }
+.rules{padding:18px 20px; font-size:13.5px; color:var(--ink2)}
+.rules h3{margin:0 0 8px; font-size:14px; color:var(--ink)}
+.rules table{font-size:13px; margin-top:6px}
+.rules td,.rules th{padding:6px 10px}
+.rules p{margin:8px 0}
+
+/* ---------- tooltip ---------- */
+#tt{
+  position:fixed; z-index:50; pointer-events:none; display:none; max-width:320px;
+  background:var(--ink); color:var(--page); font-size:12.5px; line-height:1.45;
+  padding:9px 12px; border-radius:8px; box-shadow:0 4px 16px rgba(0,0,0,.25);
+}
+#tt b{font-weight:650}
+#tt .ttmuted{opacity:.7}
+
+footer{border-top:1px solid var(--border); margin-top:44px; padding:22px 0 34px; font-size:13px; color:var(--muted)}
+#loaderr{display:none; margin:40px auto; max-width:640px; padding:18px 20px; font-size:14px}
+.skel{color:var(--muted); padding:30px; text-align:center; font-size:13.5px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap topbar">
+    <div class="mark">⚽</div>
+    <div class="titleblock">
+      <h1>FIFA World Cup 2026 · LLM Prediction Benchmark</h1>
+      <p>11 open-weight models, run locally on the Stony Brook AI cluster, predict the knockout rounds — QF to Final.</p>
+    </div>
+    <div class="spacer"></div>
+    <a class="iconbtn" href="runlog.html">Run log</a>
+    <button class="iconbtn" id="themebtn" aria-label="Toggle color theme">◐ Theme</button>
+    <a class="iconbtn" href="https://github.com/enamcse/FIFA-World-Cup-2026-LLM-Predictions-QF-F" target="_blank" rel="noopener">GitHub ↗</a>
+  </div>
+</header>
+
+<div class="wrap" id="app">
+  <div class="kpis" id="kpis"><div class="card skel" style="grid-column:1/-1">Loading results…</div></div>
+
+  <section id="sec-bracket">
+    <div class="sechead"><h2>Tournament bracket</h2><span class="sub">90-minute scores · click a match for the model-by-model breakdown</span></div>
+    <div class="bracket" id="bracket"></div>
+  </section>
+
+  <section id="sec-leaderboard">
+    <div class="sechead"><h2>Leaderboard</h2><span class="sub" id="lbsub"></span></div>
+    <div class="card">
+      <div class="legendrow" id="mixlegend"></div>
+      <div class="tablewrap"><table id="lbtable"></table></div>
+    </div>
+  </section>
+
+  <section id="sec-heatmap">
+    <div class="sechead"><h2>Points by match</h2><span class="sub">score out of 5 per match (4 for the scoreline + 1 advance bonus) · hover a cell for the prediction</span></div>
+    <div class="card">
+      <div class="heatwrap"><table class="heat" id="heat"></table></div>
+      <div class="heatfoot" id="heatfoot"></div>
+    </div>
+  </section>
+
+  <section id="sec-matches">
+    <div class="sechead"><h2>Match explorer</h2><span class="sub">every model's call, match by match</span></div>
+    <div class="tabs" id="tabs"></div>
+    <div class="card" id="matchpanel"></div>
+  </section>
+
+  <section id="sec-method">
+    <div class="duo">
+      <div class="card rules">
+        <h3>Scoring (Kicktipp-style, on the 90′ score)</h3>
+        <table>
+          <tr><th>Result</th><th class="num">Points</th></tr>
+          <tr><td>Exact score</td><td class="num">4</td></tr>
+          <tr><td>Correct goal difference, wrong score</td><td class="num">3</td></tr>
+          <tr><td>Correct winner only</td><td class="num">2</td></tr>
+          <tr><td>Wrong</td><td class="num">0</td></tr>
+          <tr><td>Bonus: predicted advancing team advances</td><td class="num">+1</td></tr>
+        </table>
+        <p>Max 5 points per match, 40 for the tournament. Ties break on mean RPS (ranked probability score), then Brier — both computed from each model's sampled outcome distribution; lower is better.</p>
+      </div>
+      <div class="card rules">
+        <h3>Prediction protocol</h3>
+        <p>Per model, per match: <b style="color:var(--ink)">1 greedy</b> generation (temperature 0) + <b style="color:var(--ink)">10 sampled</b> (temperature 0.7, fixed seeds). The published prediction is the <b style="color:var(--ink)">modal scoreline</b> across all 11 generations; the sample spread doubles as the model's win/draw/loss probability distribution.</p>
+        <p>Predictions are committed to git <b style="color:var(--ink)">before kickoff</b> — the commit timestamp is the tamper-proof receipt. Every raw response, seed, model digest, and job ID is logged in the repo.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="card" id="loaderr">
+  <b>Couldn't load the data files.</b><br>
+  This page reads <code>results/scores/leaderboard.json</code>, <code>data/matches.json</code>,
+  <code>data/actuals.json</code> and <code>results/predictions/*.jsonl</code> from the repo.
+  If you opened the file directly, serve the repo root instead, e.g. <code>python3 -m http.server</code>.
+</div>
+
+<footer>
+  <div class="wrap">
+    Built from the committed artifacts in
+    <a href="https://github.com/enamcse/FIFA-World-Cup-2026-LLM-Predictions-QF-F" target="_blank" rel="noopener">enamcse/FIFA-World-Cup-2026-LLM-Predictions-QF-F</a>
+    — <span id="genstamp"></span>. Kickoff times shown in your local time zone.
+  </div>
+</footer>
+
+<div id="tt" role="tooltip"></div>
+
+<script>
+"use strict";
+
+/* ---------------- theme ---------------- */
+const root = document.documentElement;
+function applyTheme(t){ root.dataset.theme = t; localStorage.setItem("wc26theme", t); }
+applyTheme(localStorage.getItem("wc26theme") ||
+  (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"));
+document.getElementById("themebtn").onclick = () => {
+  applyTheme(root.dataset.theme === "dark" ? "light" : "dark");
+  if (state.ready) { renderHeat(); }   // heat ramp is theme-specific
+};
+
+/* ---------------- helpers ---------------- */
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const FLAGS = {France:"🇫🇷",Morocco:"🇲🇦",Spain:"🇪🇸",Belgium:"🇧🇪",Norway:"🇳🇴",
+  England:"🏴󠁧󠁢󠁥󠁮󠁧󠁿",Argentina:"🇦🇷",Switzerland:"🇨🇭"};
+const flag = t => FLAGS[t] || "▫️";
+const fmtKick = iso => new Date(iso).toLocaleString(undefined,
+  {weekday:"short", month:"short", day:"numeric", hour:"2-digit", minute:"2-digit"});
+const pct = p => Math.round(p*100) + "%";
+const CATLABEL = {exact:"Exact score", goal_diff:"Goal diff", tendency:"Winner only", miss:"Miss"};
+const CATVAR = {exact:"--cat-exact", goal_diff:"--cat-gd", tendency:"--cat-tend", miss:"--cat-miss"};
+
+/* tooltip */
+const tt = $("#tt");
+function ttShow(html, ev){
+  tt.innerHTML = html; tt.style.display = "block";
+  ttMove(ev);
+}
+function ttMove(ev){
+  const pad = 14, w = tt.offsetWidth, h = tt.offsetHeight;
+  let x = ev.clientX + pad, y = ev.clientY + pad;
+  if (x + w > innerWidth - 8)  x = ev.clientX - w - pad;
+  if (y + h > innerHeight - 8) y = ev.clientY - h - pad;
+  tt.style.left = x + "px"; tt.style.top = y + "px";
+}
+function ttHide(){ tt.style.display = "none"; }
+function bindTT(el, htmlFn){
+  el.addEventListener("mouseenter", ev => ttShow(htmlFn(), ev));
+  el.addEventListener("mousemove", ttMove);
+  el.addEventListener("mouseleave", ttHide);
+}
+
+/* luminance → pick label ink inside a colored fill */
+function lum(hex){
+  const n = parseInt(hex.slice(1), 16);
+  const f = v => { v/=255; return v <= .03928 ? v/12.92 : ((v+.055)/1.055)**2.4; };
+  return .2126*f(n>>16) + .7152*f((n>>8)&255) + .0722*f(n&255);
+}
+const inkOn = hex => lum(hex) > .35 ? "#0b0b0b" : "#ffffff";
+
+/* ---------------- data ---------------- */
+const state = { ready:false, curMatch:null };
+
+async function loadAll(){
+  const j = async p => { const r = await fetch(p); if (!r.ok) throw new Error(p); return r.json(); };
+  const [lb, matchesDoc, actuals] = await Promise.all([
+    j("results/scores/leaderboard.json"), j("data/matches.json"), j("data/actuals.json")]);
+  const models = lb.leaderboard.map(r => r.model);
+  const preds = {};
+  await Promise.all(models.map(async m => {
+    const r = await fetch("results/predictions/" + m.replace(":","_") + ".jsonl");
+    if (!r.ok) { preds[m] = {}; return; }
+    const recs = {};
+    (await r.text()).split("\n").filter(Boolean).forEach(line => {
+      const rec = JSON.parse(line); recs[rec.match_id] = rec;
+    });
+    preds[m] = recs;
+  }));
+  Object.assign(state, { lb, matches: matchesDoc.matches, actuals, models, preds });
+}
+
+const scored   = id => state.lb.meta.matches_scored.includes(id);
+const actualOf = id => state.actuals[id];
+const hasResult = id => { const a = actualOf(id); return a && a.home_goals_90 != null; };
+const hasPreds  = id => state.models.some(m => state.preds[m][id]);
+const matchById = id => state.matches.find(m => m.match_id === id);
+function matchPts(model, id){
+  const b = (state.lb.breakdown[model] || {})[id];
+  return b ? b.points + b.advance_bonus : null;
+}
+
+/* ---------------- KPIs ---------------- */
+function renderKPIs(){
+  const { lb, matches, models } = state;
+  const nScored = lb.meta.matches_scored.length;
+  const leader = lb.leaderboard[0];
+  const coLeaders = lb.leaderboard.filter(r => r.points === leader.points).length;
+  const exactTot = lb.leaderboard.reduce((s,r) => s + r.exact, 0);
+  const nPreds = lb.leaderboard.reduce((s,r) => s + r.matches, 0);
+  const next = matches.find(m => !hasResult(m.match_id) && m.home !== "TBD");
+  const kpi = (label, value, sub) =>
+    `<div class="card kpi"><div class="label">${label}</div><div class="value">${value}</div><div class="sub">${sub}</div></div>`;
+  $("#kpis").innerHTML =
+    kpi("Matches scored", `${nScored}<span class="unit"> / ${matches.length}</span>`,
+        lb.meta.matches_scored.join(" · ")) +
+    kpi("Current leader", esc(leader.model),
+        `${leader.points} pts` + (coLeaders > 1 ? ` · leads ${coLeaders}-way tie on RPS` : "")) +
+    kpi("Exact scorelines", `${exactTot}<span class="unit"> / ${nPreds}</span>`,
+        "scored predictions that nailed the 90′ score") +
+    (next
+      ? kpi("Next up", `${flag(next.home)} vs ${flag(next.away)}`,
+          `${esc(next.home)} vs ${esc(next.away)} · ${next.match_id} · ${fmtKick(next.kickoff_utc)}`)
+      : kpi("Status", "Done", "tournament complete"));
+}
+
+/* ---------------- bracket ---------------- */
+function matchCard(m){
+  const a = actualOf(m.match_id), done = hasResult(m.match_id);
+  const tbd = m.home === "TBD";
+  const scoreH = done ? a.home_goals_90 : "";
+  const scoreA = done ? a.away_goals_90 : "";
+  const winH = done && a.advanced === m.home, winA = done && a.advanced === m.away;
+  const et = done && a.home_goals_90 === a.away_goals_90;
+  let foot;
+  if (done) foot = `<span class="adv">${esc(a.advanced)} advanced${et ? " after extra time" : ""}</span>`;
+  else if (tbd) foot = `decided after the semi-finals`;
+  else foot = `kickoff ${fmtKick(m.kickoff_utc)}` + (hasPreds(m.match_id) ? ` · <span class="adv">predictions locked in</span>` : "");
+  const row = (team, from, sc, win) =>
+    `<div class="trow${win ? " winner" : ""}"><span class="flag">${tbd ? "▫️" : flag(team)}</span>
+     <span class="tname">${esc(tbd ? from : team)}</span>
+     <span class="score">${sc}</span></div>`;
+  return `<div class="card match" data-mid="${m.match_id}" role="button" tabindex="0"
+            aria-label="${m.match_id}: ${esc(m.home)} vs ${esc(m.away)}">
+    <div class="mhead"><span>${m.match_id} · ${esc(m.stage)}</span><span>${esc(m.venue.split(",")[0])}</span></div>
+    ${row(m.home, m.home_from, scoreH, winH)}${row(m.away, m.away_from, scoreA, winA)}
+    <div class="mfoot">${foot}</div></div>`;
+}
+function renderBracket(){
+  const col = (head, ids) =>
+    `<div class="col"><div class="colhead">${head}</div>${ids.map(id => matchCard(matchById(id))).join("")}</div>`;
+  $("#bracket").innerHTML =
+    col("Quarter-finals", ["QF1","QF2","QF3","QF4"]) +
+    col("Semi-finals", ["SF1","SF2"]) +
+    col("Final & third place", ["F","TPP"]);
+  document.querySelectorAll(".match").forEach(el => {
+    const go = () => { selectMatch(el.dataset.mid); $("#sec-matches").scrollIntoView(); };
+    el.addEventListener("click", go);
+    el.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } });
+  });
+}
+
+/* ---------------- leaderboard ---------------- */
+function renderLeaderboard(){
+  const { lb } = state;
+  const maxPts = Math.max(...lb.leaderboard.map(r => r.points), 1);
+  $("#lbsub").textContent = `after ${lb.meta.matches_scored.length} scored matches · max ${lb.meta.matches_scored.length * 5} pts so far`;
+  $("#mixlegend").innerHTML = ["exact","goal_diff","tendency","miss"].map(c =>
+    `<span class="key"><span class="dot" style="background:var(${CATVAR[c]})"></span>${CATLABEL[c]}</span>`).join("") +
+    `<span class="key" style="margin-left:auto">RPS / Brier: probabilistic error, lower is better</span>`;
+  const medals = ["🥇","🥈","🥉"];
+  const rows = lb.leaderboard.map((r, i) => {
+    const mix = ["exact","goal_diff","tendency","miss"]
+      .map(c => ({c, n: r[{exact:"exact",goal_diff:"goal_diff",tendency:"tendency",miss:"miss"}[c]]}))
+      .filter(x => x.n > 0)
+      .map(x => `<span class="mix-${x.c.replace("goal_diff","gd").replace("tendency","tend")}" style="flex:${x.n}"></span>`)
+      .join("");
+    return `<tr data-model="${esc(r.model)}">
+      <td class="rank num">${r.rank}</td>
+      <td class="modelname">${i < 3 ? `<span class="medal">${medals[i]}</span>` : ""}${esc(r.model)}</td>
+      <td><div class="ptsbarwrap"><span class="ptsval">${r.points}</span>
+          <span class="ptsbar" style="width:${(r.points/maxPts)*110}px"></span></div></td>
+      <td class="num">${r.avg_points.toFixed(2)}</td>
+      <td><div class="mixbar" data-mix="${r.exact}|${r.goal_diff}|${r.tendency}|${r.miss}">${mix}</div></td>
+      <td class="num">+${r.advance_bonus}</td>
+      <td class="num">${r.mean_rps.toFixed(3)}</td>
+      <td class="num">${r.mean_brier.toFixed(3)}</td></tr>`;
+  }).join("");
+  $("#lbtable").innerHTML = `<thead><tr>
+      <th>#</th><th>Model</th><th>Points</th><th class="num">Avg / match</th>
+      <th>Result mix</th><th class="num">Advance bonus</th><th class="num">RPS</th><th class="num">Brier</th>
+    </tr></thead><tbody>${rows}</tbody>`;
+  document.querySelectorAll(".mixbar").forEach(el => {
+    const [e,g,t,m] = el.dataset.mix.split("|");
+    bindTT(el, () => `<b>Result mix</b><br>Exact: ${e} · Goal diff: ${g} · Winner only: ${t} · Miss: ${m}`);
+  });
+}
+
+/* ---------------- heatmap ---------------- */
+const RAMP = {
+  light: ["#eff4fb","#cde2fb","#9ec5f4","#6da7ec","#3987e5","#1c5cab"],
+  dark:  ["#232527","#0d366b","#104281","#1c5cab","#3987e5","#86b6ef"],
+};
+function renderHeat(){
+  const { lb, matches } = state;
+  const ramp = RAMP[root.dataset.theme] || RAMP.light;
+  const cols = matches.filter(m => scored(m.match_id) ||
+    (hasPreds(m.match_id) && m.home !== "TBD"));
+  let html = `<tr><th class="rowh"></th>` + cols.map(m =>
+    `<th class="colh">${m.match_id}<br><span style="font-size:10.5px">${flag(m.home)} ${flag(m.away)}</span></th>`).join("") + `</tr>`;
+  html += lb.leaderboard.map(r => {
+    const cells = cols.map(m => {
+      const id = m.match_id;
+      if (scored(id)) {
+        const b = state.lb.breakdown[r.model][id];
+        const p = b.points + b.advance_bonus;
+        const bg = ramp[p], ink = inkOn(bg);
+        return `<td style="background:${bg}; color:${ink}" data-model="${esc(r.model)}" data-mid="${id}"
+                 aria-label="${esc(r.model)} ${id}: ${p} points">${p}</td>`;
+      }
+      const rec = state.preds[r.model][id];
+      const ptxt = rec ? `${rec.prediction.home_goals}–${rec.prediction.away_goals}` : "–";
+      return `<td class="pendingcell" data-model="${esc(r.model)}" data-mid="${id}">${ptxt}</td>`;
+    }).join("");
+    return `<tr><th class="rowh">${esc(r.model)}</th>${cells}</tr>`;
+  }).join("");
+  $("#heat").innerHTML = html;
+  $("#heatfoot").innerHTML =
+    `<span class="rampkey">0 ${ramp.map(c => `<i style="background:${c}"></i>`).join("")} 5 pts</span>
+     <span>dashed cells = prediction locked in, result pending</span>`;
+  document.querySelectorAll(".heat td").forEach(el => {
+    const model = el.dataset.model, id = el.dataset.mid, m = matchById(id);
+    bindTT(el, () => {
+      const rec = state.preds[model][id];
+      if (scored(id)) {
+        const b = state.lb.breakdown[model][id];
+        return `<b>${esc(model)} · ${id}</b><br>
+          Predicted ${esc(m.home)} ${b.predicted.replace("-","–")} ${esc(m.away)} — actual ${b.actual.replace("-","–")}<br>
+          ${CATLABEL[b.category]}: ${b.points} pts${b.advance_bonus ? " · +1 advance bonus (" + esc(b.predicted_advances) + ")" : ""}`;
+      }
+      if (!rec) return `<b>${esc(model)} · ${id}</b><br>no prediction`;
+      const p = rec.prediction;
+      return `<b>${esc(model)} · ${id}</b><br>
+        Predicts ${esc(m.home)} ${p.home_goals}–${p.away_goals} ${esc(m.away)},
+        ${esc(p.advances)} to advance<br><span class="ttmuted">result pending</span>`;
+    });
+    el.addEventListener("click", () => { selectMatch(id); $("#sec-matches").scrollIntoView(); });
+    el.style.cursor = "pointer";
+  });
+}
+
+/* ---------------- match explorer ---------------- */
+function probBar(probs, actualOutcome){
+  const segs = [["ph", probs.home_win, "home win"], ["pd", probs.draw, "draw"], ["pa", probs.away_win, "away win"]];
+  const label = `P(home/draw/away) = ${pct(probs.home_win)} / ${pct(probs.draw)} / ${pct(probs.away_win)}`;
+  let bar = `<div class="probbar" role="img" aria-label="${label}">`;
+  for (const [cls, p] of segs) {
+    if (p <= 0.001) continue;
+    const show = p >= .18 ? pct(p) : "";
+    bar += `<span class="${cls}" style="flex:${p}">${show}</span>`;
+  }
+  bar += `</div>`;
+  if (actualOutcome) {
+    const centers = {home_win: probs.home_win/2,
+                     draw: probs.home_win + probs.draw/2,
+                     away_win: probs.home_win + probs.draw + probs.away_win/2};
+    bar += `<div class="probmark"><i style="left:${centers[actualOutcome]*100}%">▲</i></div>`;
+  }
+  return bar;
+}
+const outcomeOf = a => a.home_goals_90 > a.away_goals_90 ? "home_win"
+                    : a.home_goals_90 < a.away_goals_90 ? "away_win" : "draw";
+
+function renderTabs(){
+  $("#tabs").innerHTML = state.matches.map(m => {
+    const id = m.match_id, tbd = m.home === "TBD";
+    const sub = scored(id) ? "scored" : hasPreds(id) ? "predicted" : "TBD";
+    return `<button class="tab" data-mid="${id}" ${tbd && !hasPreds(id) ? "disabled" : ""}>
+      ${id}<span class="tabsub">${tbd ? "TBD" : flag(m.home) + " " + flag(m.away) + " · " + sub}</span></button>`;
+  }).join("");
+  document.querySelectorAll(".tab").forEach(b =>
+    b.addEventListener("click", () => selectMatch(b.dataset.mid)));
+}
+
+function selectMatch(id){
+  const m = matchById(id);
+  if (!m || (m.home === "TBD" && !hasPreds(id))) return;
+  state.curMatch = id;
+  document.querySelectorAll(".tab").forEach(b => b.classList.toggle("active", b.dataset.mid === id));
+  renderMatchPanel(id);
+}
+
+function renderMatchPanel(id){
+  const m = matchById(id), a = actualOf(id), done = hasResult(id);
+  const et = done && a.home_goals_90 === a.away_goals_90;
+
+  let head = `<div class="matchhead">
+    <span class="teams">${flag(m.home)} ${esc(m.home)} <span style="color:var(--muted)">vs</span> ${esc(m.away)} ${flag(m.away)}</span>`;
+  if (done) head += `<span class="bigscore">${a.home_goals_90}–${a.away_goals_90} <span style="font-size:13px; color:var(--muted); font-weight:500">at 90′</span></span>
+    <span class="statuschip status-final">${esc(a.advanced)} advanced${et ? " · ET" : ""}</span>`;
+  else head += `<span class="statuschip status-up">kickoff ${fmtKick(m.kickoff_utc)}</span>`;
+  head += `<span class="meta">${esc(m.stage)} · ${esc(m.venue)}</span></div>`;
+
+  let consensus = "";
+  let rows;
+
+  if (done && scored(id)) {
+    const list = state.models
+      .map(model => ({model, b: state.lb.breakdown[model][id], rec: state.preds[model][id]}))
+      .filter(x => x.b)
+      .sort((x,y) => (y.b.points + y.b.advance_bonus) - (x.b.points + x.b.advance_bonus) || x.b.rps - y.b.rps);
+    rows = `<thead><tr><th>Model</th><th>Predicted</th><th>Outcome</th><th class="num">Points</th>
+      <th>Advance pick</th><th>P(${flag(m.home)} / draw / ${flag(m.away)})</th></tr></thead><tbody>` +
+      list.map(({model, b}) => {
+        const advOk = b.predicted_advances === b.actually_advanced;
+        return `<tr>
+          <td class="modelname">${esc(model)}</td>
+          <td class="num" style="text-align:left; font-weight:650">${b.predicted.replace("-","–")}</td>
+          <td><span class="catchip cat-${b.category}"><span class="dot" style="background:var(${CATVAR[b.category]})"></span>${CATLABEL[b.category]}</span></td>
+          <td class="num"><b>${b.points}</b>${b.advance_bonus ? `<span class="bonuschip">+1</span>` : ""}</td>
+          <td class="advpick"><span class="${advOk ? "ok" : "no"}">${advOk ? "✓" : "✗"}</span> ${esc(b.predicted_advances)}</td>
+          <td>${probBar(b.outcome_probs, outcomeOf(a))}</td></tr>`;
+      }).join("") + `</tbody>`;
+  } else {
+    // upcoming match — predictions only
+    const list = state.models
+      .map(model => ({model, rec: state.preds[model][id]}))
+      .filter(x => x.rec);
+    // consensus
+    const scoreCount = {}, advCount = {};
+    list.forEach(({rec}) => {
+      const s = `${rec.prediction.home_goals}–${rec.prediction.away_goals}`;
+      scoreCount[s] = (scoreCount[s] || 0) + 1;
+      advCount[rec.prediction.advances] = (advCount[rec.prediction.advances] || 0) + 1;
+    });
+    const topScore = Object.entries(scoreCount).sort((a,b) => b[1]-a[1])[0];
+    const topAdv = Object.entries(advCount).sort((a,b) => b[1]-a[1])[0];
+    consensus = `<div class="consensus">Consensus: <b>${topAdv[1]} of ${list.length}</b> models pick
+      <b>${flag(topAdv[0])} ${esc(topAdv[0])}</b> to advance · most common scoreline
+      <b>${topScore[0]}</b> (${topScore[1]}×)</div>`;
+
+    rows = `<thead><tr><th>Model</th><th>Predicted</th><th>Agreement</th>
+      <th>Advances</th><th>P(${flag(m.home)} / draw / ${flag(m.away)})</th></tr></thead><tbody>` +
+      list.map(({model, rec}) => {
+        const p = rec.prediction;
+        const agree = p.modal_count / p.n_generations;
+        return `<tr>
+          <td class="modelname">${esc(model)}</td>
+          <td style="font-weight:650" class="scorecell" data-model="${esc(model)}">${p.home_goals}–${p.away_goals}</td>
+          <td><span class="agree"><span class="agreetrack"><i style="width:${agree*100}%"></i></span>
+              <span style="font-size:12px; color:var(--ink2)">${p.modal_count}/${p.n_generations}</span></span></td>
+          <td>${flag(p.advances)} ${esc(p.advances)}</td>
+          <td>${probBar(p.outcome_probs, null)}</td></tr>`;
+      }).join("") + `</tbody>`;
+  }
+
+  $("#matchpanel").innerHTML = head + consensus + `<div class="tablewrap"><table>${rows}</table></div>
+    <div class="legendrow" style="padding:10px 16px 14px">
+      <span class="key"><span class="dot" style="background:var(--home)"></span>${esc(m.home)} win</span>
+      <span class="key"><span class="dot" style="background:var(--draw)"></span>draw</span>
+      <span class="key"><span class="dot" style="background:var(--away)"></span>${esc(m.away)} win</span>
+      ${done ? `<span class="key">▲ actual outcome</span>` : `<span class="key">agreement = share of a model's 11 generations that voted for its modal scoreline</span>`}
+    </div>`;
+
+  // score-distribution tooltips on upcoming predictions
+  document.querySelectorAll("#matchpanel .scorecell").forEach(el => {
+    const rec = state.preds[el.dataset.model][id];
+    bindTT(el, () => {
+      const dist = Object.entries(rec.prediction.score_distribution)
+        .sort((a,b) => b[1]-a[1])
+        .map(([s,n]) => `${s.replace("-","–")} ×${n}`).join(" · ");
+      return `<b>${esc(el.dataset.model)}</b> — 11-generation spread<br>${dist}
+        <br><span class="ttmuted">greedy run: ${rec.greedy_prediction.home_goals}–${rec.greedy_prediction.away_goals}</span>`;
+    });
+  });
+}
+
+/* ---------------- boot ---------------- */
+(async function(){
+  try { await loadAll(); }
+  catch (e) {
+    $("#app").style.display = "none";
+    $("#loaderr").style.display = "block";
+    console.error(e);
+    return;
+  }
+  state.ready = true;
+  renderKPIs(); renderBracket(); renderLeaderboard(); renderHeat(); renderTabs();
+  const next = state.matches.find(m => !hasResult(m.match_id) && hasPreds(m.match_id));
+  selectMatch(next ? next.match_id : "QF1");
+  $("#genstamp").textContent = "leaderboard generated " +
+    new Date(state.lb.meta.generated_at).toLocaleString(undefined,
+      {month:"short", day:"numeric", hour:"2-digit", minute:"2-digit"});
+})();
+</script>
+</body>
+</html>
