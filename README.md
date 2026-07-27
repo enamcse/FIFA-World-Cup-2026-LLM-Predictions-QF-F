@@ -6,6 +6,17 @@ predicting the scorelines of the last 8 matches of the 2026 World Cup, run on th
 
 **Start here → [docs/RUNBOOK.md](docs/RUNBOOK.md)** for the step-by-step cluster instructions.
 
+**📄 Scientific report** — this benchmark is written up jointly with a companion project
+([`worldcup26-predictor`](https://github.com/enamcse/worldcup26-predictor): 8 purpose-built
+statistical/neural forecasters trained on 11,081 matches) in
+**[REPORT.md](https://github.com/enamcse/worldcup26-predictor/blob/main/REPORT.md)**.
+The two overlap on all 8 matches here, so the report scores both systems under one rule.
+Headline findings: LLM scale is uncorrelated with skill (ρ = +0.02; the 3B beats the 70B
+and the 120B); 75% of all 88 predictions here are 2–1 or 1–2 (prototype collapse); the
+purpose-built models are significantly better calibrated (p = 0.0013) at equal points; and
+with n = 8, the leaderboard spread is smaller than one model's standard error — so the
+ranking above is entertainment and the mechanisms are the science.
+
 **Ground rule:** the login node is only used to edit files and run `sbatch`/`squeue`.
 Everything else — installing Ollama, downloading weights, inference — happens inside
 SLURM jobs on compute nodes (artifacts land on shared `/home`, so downloads happen once).
